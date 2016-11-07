@@ -1,7 +1,7 @@
 # finish
 Finish App
 
-A cross-platform app developed using React-Native that encourages users to set and finish personal goals
+A cross-platform app developed using React-Native and Meteor.js that encourages users to set and finish personal goals
 
 To run the current version of the app:
 
