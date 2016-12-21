@@ -1,4 +1,4 @@
-<head>
+  <head>
   <title>MeteorApp</title>
 </head>
 
@@ -7,11 +7,22 @@
 
   {{> hello}}
   {{> info}}
+  {{> login}}
 </body>
 
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="login">
+    {{#if currentUser}}
+        {{currentUser.services.facebook.name}} -
+        {{currentUser.services.facebook.gender}}
+        <button id="logout">Logout</button>
+    {{else}}
+        <button id="facebook-login" class="btn btn-default"> Login with Facebook</button>
+    {{/if}}
 </template>
 
 <template name="info">
