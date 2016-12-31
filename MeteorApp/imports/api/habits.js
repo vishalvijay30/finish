@@ -7,9 +7,10 @@ Meteor.methods({
 	'addHabit': function(habit){
 		//expect habit to have {habitId: integer, title: String, streak: 0}
 		var currentUserId = Meteor.userId();
-		Habits = new Mongo.Collection(currentUserId+"");
+		console.log("we made it");
 		Habits.insert({userId: currentUserId, habitId: habit.habitId, title: habit.title, streak: habit.streak});
         console.log(Habits.find().fetch());
+		return "success";
 	},
 	'removeHabit': function(habit) {
 		Habits.remove({habitId: habit.habitId});
@@ -20,7 +21,8 @@ Meteor.methods({
 	}
 });
 
-Meteor.publish('habits', function habitsPublication() {
-			var currentUserId = Meteor.userId();
-			return Habits.find({userId: this.userId()}).fetch();
-});
+if (Meteor.isServer){
+	Meteor.publish('habits', function habitsPublication() {
+		return Habits.find({userId: this.userId});
+	});
+}

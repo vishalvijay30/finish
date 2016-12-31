@@ -8,17 +8,31 @@ import {
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+import FBSDK from 'react-native-fbsdk';
+const { LoginButton, AccessToken } = FBSDK;
+
 const SERVER_URL = 'ws://localhost:3000/websocket';
+
+const onLoginFinished = (error, result) => {
+  if (error) {
+    alert("login has error: " + result.error);
+  } else if (result.isCancelled) {
+    alert("login is cancelled.");
+  } else {
+    alert("login has finished with permissions: " + result.grantedPermissions)
+  }
+};
+
 class App extends Component {
   componentWillMount() {
     Meteor.connect(SERVER_URL);
   }
-
+  
 
   handleAddItem() {
-    const name = Math.floor(Math.random() * 10);
-    Meteor.call('Items.addOne', { name }, (err, res) => {
-      console.log('Items.addOne', err, res);
+    Meteor.call('addHabit', { userId: null, habitId: 123456, title: "Do something", streak: 0 }, (err, res) => {
+      /* user id is null for now, eventually adding will be done in separate component with userid as prop */
+      console.log('addHabit', err, res);
     });
   }
 
@@ -35,7 +49,28 @@ class App extends Component {
         <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
           <Text>Add Item</Text>
         </TouchableOpacity>
+         <LoginButton
+          readPermissions={["public_profile"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("login is cancelled.");
+              } else {
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.userId);
+                    /*     USER ID IS STORED HERE, MUST BE PASSED AS PROP TO ALL OTHER COMPONENTS     */
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => Meteor.logout()} />
+          <Text>{this.props.userId}</Text>
       </View>
+      
     );
   }
 };
@@ -59,8 +94,9 @@ const styles = StyleSheet.create({
   },
 });
 export default createContainer(() => {
-  Meteor.subscribe('items');
+  Meteor.subscribe('habits');
   return {
-    count: Meteor.collection('items').find().length,
+    count: Meteor.collection('habits').find().length,
+    userId: Meteor.userId(),
   };
 }, App);
