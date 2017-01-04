@@ -67,7 +67,7 @@ class App extends Component {
               }
             }
           }
-          onLogoutFinished={() => Meteor.logout()}>Sign in with Facebook</LoginButton>
+          onLogoutFinished={() => Meteor.logout()}/>
           <Text>{this.props.userId}</Text>
       </View>
       
