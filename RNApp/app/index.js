@@ -30,7 +30,7 @@ class App extends Component {
   
 
   handleAddItem() {
-    Meteor.call('addHabit', { userId: null, habitId: 123456, title: "Do something", streak: 0 }, (err, res) => {
+    Meteor.call('addHabit', { userId: null,  title: "Do something", streak: 0 }, (err, res) => {
       /* user id is null for now, eventually adding will be done in separate component with userid as prop */
       console.log('addHabit', err, res);
     });
@@ -50,7 +50,7 @@ class App extends Component {
           <Text>Add Item</Text>
         </TouchableOpacity>
          <LoginButton
-          readPermissions={["public_profile"]}
+          readPermissions={["public_profile", "email"]}
           onLoginFinished={
             (error, result) => {
               if (error) {
@@ -67,7 +67,7 @@ class App extends Component {
               }
             }
           }
-          onLogoutFinished={() => Meteor.logout()} />
+          onLogoutFinished={() => Meteor.logout()}>Sign in with Facebook</LoginButton>
           <Text>{this.props.userId}</Text>
       </View>
       
@@ -97,6 +97,5 @@ export default createContainer(() => {
   Meteor.subscribe('habits');
   return {
     count: Meteor.collection('habits').find().length,
-    userId: Meteor.userId(),
   };
 }, App);

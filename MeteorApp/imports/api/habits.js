@@ -6,18 +6,19 @@ Habits = new Mongo.Collection('habits');
 Meteor.methods({
 	'addHabit': function(habit){
 		//expect habit to have {habitId: integer, title: String, streak: 0}
-		var currentUserId = Meteor.userId();
-		console.log("we made it");
-		Habits.insert({userId: currentUserId, habitId: habit.habitId, title: habit.title, streak: habit.streak});
+		Habits.insert({userId: habit.userId, title: habit.title, streak: habit.streak});
         console.log(Habits.find().fetch());
 		return "success";
 	},
 	'removeHabit': function(habit) {
-		Habits.remove({habitId: habit.habitId});
+		Habits.remove({_id: habit._id});
 	},
 	'updateStreak': function(habit) {
 		//expect habit to have {habitId, integer, title: String, streak: int}
-		Habits.update({habitId: habit.habitId}, {$inc: {streak: 1}});	
+		Habits.update({_id: habit._id}, {$inc: {streak: 1}});	
+	},
+	'resetStreak': function(habit) {
+		Habits.update({_id: habit._id}, {$set: {streak: 0}});
 	}
 });
 
