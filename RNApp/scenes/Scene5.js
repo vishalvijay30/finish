@@ -16,10 +16,16 @@ export default class Scene5 extends Component {
                     <Text> Smiley face will appear here </Text>
                 </View>
                 <View style = {styles.bottomContainer}>
-
+                    <TouchableHighlight onPress = {this.goHome.bind(this)}>
+                        <Text> HOME </Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         );
+    }
+
+    goHome() {
+        this.props.navigator.push({screen:"HomeScene"});
     }
 
 }
@@ -35,13 +41,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: 'white',
+        backgroundColor: '#e6ffff',
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#3399ff',
     },
     fillerContainer: {
         backgroundColor:'#3399ff',

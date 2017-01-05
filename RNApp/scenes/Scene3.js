@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
 export default class Scene3 extends Component {
+    constructor (props) {
+        super(props);
+        this.state = {text: "Enter Name of Habit"};
+    }
     render() {
         return (
             <View>
@@ -11,7 +15,12 @@ export default class Scene3 extends Component {
                 <View style = {styles.fillerContainer}>
                 </View>
                 <View style = {styles.middleContainer}>
-                    <Text> ENTER HABIT HERE! </Text>
+                    <TextInput
+                        style = {{borderColor:'gray', borderWidth:1, height:40, backgroundColor:"white"}}
+                        placeholder = {this.state.text}
+                        onChangeText = {(text) => this.setState({text})}
+
+                    />
                 </View>
                 <View style = {styles.bottomContainer}>
                     <TouchableHighlight onPress={this.goToNextScene.bind(this)}>
@@ -37,13 +46,15 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: 'white',
+        backgroundColor: '#e6ffff',
+        paddingLeft:10,
+        paddingRight:10,
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#3399ff',
     },
     fillerContainer: {
         backgroundColor:'#3399ff',
