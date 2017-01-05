@@ -4,11 +4,20 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Navigator
 } from 'react-native';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
 import FBSDK from 'react-native-fbsdk';
+
+import TestScene from '../scenes/TestScene';
+import HomeScene from '../scenes/HomeScene';
+import Scene2 from '../scenes/Scene2';
+import Scene3 from '../scenes/Scene3';
+import Scene4 from '../scenes/Scene4';
+import Scene5 from '../scenes/Scene5';
+
 const { LoginButton, AccessToken } = FBSDK;
 
 const SERVER_URL = 'ws://localhost:3000/websocket';
@@ -27,72 +36,37 @@ class App extends Component {
   componentWillMount() {
     Meteor.connect(SERVER_URL);
   }
-  
 
-  handleAddItem() {
-    Meteor.call('addHabit', { userId: null,  title: "Do something", streak: 0 }, (err, res) => {
-      /* user id is null for now, eventually adding will be done in separate component with userid as prop */
-      console.log('addHabit', err, res);
-    });
-  }
+
+
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native + Meteor!
-        </Text>
-        <Text style={styles.instructions}>
-          Item Count: {this.props.count}
-        </Text>
+          <Navigator
+            initialRoute = {{screen: 'HomeScene'}}
+            renderScene = {(route,nav) => {return this.renderScene(route,nav)}}
+          />
 
-        <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
-          <Text>Add Item</Text>
-        </TouchableOpacity>
-         <LoginButton
-          readPermissions={["public_profile", "email"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("login has error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("login is cancelled.");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.userId);
-                    /*     USER ID IS STORED HERE, MUST BE PASSED AS PROP TO ALL OTHER COMPONENTS     */
-                  }
-                )
-              }
-            }
-          }
-          onLogoutFinished={() => Meteor.logout()}/>
-          <Text>{this.props.userId}</Text>
-      </View>
-      
     );
+  }
+  renderScene (route, nav) {
+    switch (route.screen) {
+      case "HomeScene":
+        return <HomeScene navigator = { nav } count = { this.props.count } />
+      case "TestScene":
+        return <TestScene navigator = { nav } />
+      case "Scene2":
+        return <Scene2 navigator = { nav } />
+      case "Scene3":
+        return <Scene3 navigator = { nav } />
+      case "Scene4":
+        return <Scene4 navigator = { nav } />
+      case "Scene5":
+        return <Scene5 navigator = { nav } />
+    }
   }
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 export default createContainer(() => {
   Meteor.subscribe('habits');
   return {
