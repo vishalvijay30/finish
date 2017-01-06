@@ -8,67 +8,61 @@ import {
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+import {loginWithTokens, onLoginFinished} from './fb-login';
+
 import FBSDK from 'react-native-fbsdk';
 const { LoginButton, AccessToken } = FBSDK;
 
 const SERVER_URL = 'ws://localhost:3000/websocket';
 
-const onLoginFinished = (error, result) => {
-  if (error) {
-    alert("login has error: " + result.error);
-  } else if (result.isCancelled) {
-    alert("login is cancelled.");
-  } else {
-    alert("login has finished with permissions: " + result.grantedPermissions)
-  }
-};
-
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {count: 0};
+    this.handleAddItem = this.handleAddItem.bind(this);
+
+  }
+
   componentWillMount() {
     Meteor.connect(SERVER_URL);
+    loginWithTokens();
   }
-  
 
   handleAddItem() {
-    Meteor.call('addHabit', { userId: null,  title: "Do something", streak: 0 }, (err, res) => {
-      /* user id is null for now, eventually adding will be done in separate component with userid as prop */
+    Meteor.call('addHabit', { userId: this.props.user._id,  title: "Do something two", streak: 0 }, (err, res) => {
       console.log('addHabit', err, res);
     });
+    this.setState({count: this.db.length});
   }
 
   render() {
+    const {user, db} = this.props;
+    if (user){
+    console.log(user._id);
+    } else {console.log('user not logged in');}
+    if (db){
+      console.log(db);
+    } else {
+      console.log('cannot fetch data');
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native + Meteor!
         </Text>
         <Text style={styles.instructions}>
-          Item Count: {this.props.count}
+          Item Count: {this.state.count}
         </Text>
 
         <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
           <Text>Add Item</Text>
+          <Text>{this.state.userId}</Text>
         </TouchableOpacity>
          <LoginButton
           readPermissions={["public_profile", "email"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("login has error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("login is cancelled.");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.userId);
-                    /*     USER ID IS STORED HERE, MUST BE PASSED AS PROP TO ALL OTHER COMPONENTS     */
-                  }
-                )
-              }
-            }
-          }
+          onLoginFinished={onLoginFinished}
           onLogoutFinished={() => Meteor.logout()}/>
-          <Text>{this.props.userId}</Text>
       </View>
       
     );
@@ -93,9 +87,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
 export default createContainer(() => {
   Meteor.subscribe('habits');
   return {
-    count: Meteor.collection('habits').find().length,
+    user: Meteor.user(),
+    db: Meteor.collection('habits').find(),
   };
 }, App);

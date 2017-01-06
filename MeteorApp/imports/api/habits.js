@@ -6,8 +6,9 @@ Habits = new Mongo.Collection('habits');
 Meteor.methods({
 	'addHabit': function(habit){
 		//expect habit to have {habitId: integer, title: String, streak: 0}
-		Habits.insert({userId: habit.userId, title: habit.title, streak: habit.streak});
+		Habits.insert({userId: Meteor.userId(), title: habit.title, streak: habit.streak});
         console.log(Habits.find().fetch());
+		console.log(Meteor.userId());
 		return "success";
 	},
 	'removeHabit': function(habit) {
