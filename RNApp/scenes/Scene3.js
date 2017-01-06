@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default class Scene3 extends Component {
     constructor (props) {
         super(props);
@@ -10,28 +11,41 @@ export default class Scene3 extends Component {
             <View>
                 <View style = {styles.topContainer}>
                     <Text> </Text>
-                    <Text style = {{ fontSize:30 }}> FINISH </Text>
+                    <Text>
+                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+                     </Text>
+
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
                 <View style = {styles.middleContainer}>
+
                     <TextInput
-                        style = {{borderColor:'gray', borderWidth:1, height:40, backgroundColor:"white"}}
+                        style = {{height:40}}
                         placeholder = {this.state.text}
+                        multiLine = {true}
+                        numberOfLines = {2}
+                        borderColor = 'green'
+                        borderWidth = {2}
                         onChangeText = {(text) => this.setState({text})}
 
                     />
+
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <TouchableHighlight onPress={this.goToNextScene.bind(this)}>
-                        <Text> SET HABIT </Text>
-                    </TouchableHighlight>
+
+                    <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {40} onPress = {this.goToNextScene.bind(this)}>
+                        <Text style = {{fontSize:30, color:'white'}}> SET HABIT </Text>
+                    </Icon.Button>
                 </View>
             </View>
         );
     }
     goToNextScene() {
         this.props.navigator.push({screen:"Scene4"});
+    }
+    goBack() {
+        this.props.navigator.push({screen:"Scene2"});
     }
 }
 
@@ -40,13 +54,14 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        backgroundColor: '#e6ffff',
+        //backgroundColor: '#e6ffff',
+        backgroundColor:'white',
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: '#e6ffff',
+        backgroundColor: 'white',
         paddingLeft:10,
         paddingRight:10,
     },
