@@ -16,6 +16,7 @@ import Scene2 from '../scenes/Scene2';
 import Scene3 from '../scenes/Scene3';
 import Scene4 from '../scenes/Scene4';
 import Scene5 from '../scenes/Scene5';
+//import CombinedScene from '../scenes/CombinedScene';
 
 
 export default class App extends Component {
@@ -31,9 +32,10 @@ export default class App extends Component {
 
 
   render() {
-    
-   
+
+
     return (
+
           <Navigator
             initialRoute = {{screen: 'HomeScene'}}
             renderScene = {(route,nav) => {return this.renderScene(route,nav)}}

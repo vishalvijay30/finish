@@ -6,6 +6,7 @@ import Meteor from 'react-native-meteor';
 export default class Scene5 extends Component {
     constructor(props){
         super(props);
+        //this.state = {emojiState: this.props.habit.completed};
         this.state = {emojiState: false};
         console.log(this.state.emojiState);
         this.toggleEmojiState = this.toggleEmojiState.bind(this);

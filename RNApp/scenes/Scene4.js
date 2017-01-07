@@ -6,7 +6,7 @@ import Meteor from 'react-native-meteor';
 export default class Scene4 extends Component {
         //constructor(props) {
           //   super(props);
-            
+
     // }
     render() {
         console.log("vishal");
@@ -21,11 +21,10 @@ export default class Scene4 extends Component {
                 <View style = {styles.fillerContainer}>
                 </View>
                 <View style = {styles.middleContainer}>
-                    <Text style ={{fontSize:30}}> Habits List </Text>
 
                          <ScrollView>
                             {this.props.db.map((habit) => {
-                                return <TouchableOpacity onPress={() => this.goToNextScene(habit)}><Text>{habit.title}</Text></TouchableOpacity>
+                                return <View style={{alignItems:"center", justifyContent:"center", height:120, width:120, borderRadius:100, borderWidth:2, borderColor:"black"}}><TouchableOpacity onPress={() => this.goToNextScene(habit)}><Text>{habit.title}</Text></TouchableOpacity></View>
                             })}
                         </ScrollView>
 
@@ -49,7 +48,7 @@ export default class Scene4 extends Component {
     }
 
     goBack() {
-        this.props.navigator.pop();
+        this.props.navigator.push({screen:"Scene3", user:this.props.user, db:this.props.db});
     }
 }
 

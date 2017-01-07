@@ -63,7 +63,13 @@ class HomeScene extends Component {
     }
 
     goToNextScene() {
-        this.props.navigator.push( {screen : 'Scene2', user: this.props.user, db: this.props.db} );
+        if (this.props.db.length==0) {
+            this.props.navigator.push( {screen : 'Scene2', user: this.props.user, db: this.props.db} );
+        } else {
+            console.log("About to go to screen4");
+            this.props.navigator.push( {screen: 'Scene4', user: this.props.user, db: this.props.db} );
+        }
+
     }
 }
     const styles = StyleSheet.create({
