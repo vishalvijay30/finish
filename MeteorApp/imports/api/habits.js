@@ -5,7 +5,6 @@ Habits = new Mongo.Collection('habits');
 
 Meteor.methods({
 	'addHabit': function(habit){
-		console.log("reached meteor method");
 		//expect habit to have {habitId: integer, title: String, streak: 0}
 		Habits.insert({userId: habit.userId, title: habit.title, streak: habit.streak, completed: false});
 		//return "success";
@@ -16,11 +15,10 @@ Meteor.methods({
 	},
 	'updateStreak': function(habit) {
 		//expect habit to have {habitId, integer, title: String, streak: int}
-		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true}});
-		console.log(Habits.find().fetch());
+		Habits.update({_id: habit.habit._id}, {$inc: {streak: 1}, $set: {completed: true}});
 	},
 	'resetStreak': function(habit) {
-		Habits.update({_id: habit._id}, {$set: {streak: 0}});
+		Habits.update({_id: habit.habit._id}, {$set: {streak: 0}});
 	}
 });
 

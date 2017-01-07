@@ -15,7 +15,6 @@ export default class Scene3 extends Component {
         console.log("reached add");
         Meteor.call('addHabit', { userId: this.props.user,  title: this.state.text, streak: 0 }, (err, res) => {
             console.log('addHabit', err, res);
-            console.log("About to move to scene 4");
             this.goToNextScene(res);
         });
         

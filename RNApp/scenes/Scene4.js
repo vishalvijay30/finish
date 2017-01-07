@@ -40,7 +40,6 @@ export default class Scene4 extends Component {
 
 
     goToNextScene(habitObject) {
-        console.log("about to go to scene5");
         this.props.navigator.push({ screen:"Scene5", user: this.props.user, document: habitObject });
 
     }
