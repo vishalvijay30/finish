@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
 
-import Meteor from 'react-native-meteor';
-
 import FBSDK from 'react-native-fbsdk';
 
-import { onLoginFinished } from '../app/fb-login';
+import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+
+import Meteor, { createContainer } from 'react-native-meteor';
 
 const { LoginButton, AccessToken } = FBSDK;
+const SERVER_URL = 'ws://localhost:3000/websocket';
 
 //import HomeStyles from '../styles/HomeStyles';
-export default class HomeScene extends Component {
+class HomeScene extends Component {
 
     constructor(props) {
     super(props);
@@ -18,25 +19,21 @@ export default class HomeScene extends Component {
     this.handleAddItem = this.handleAddItem.bind(this);
 
    }
+
+   componentWillMount(){
+        Meteor.connect(SERVER_URL);
+        loginWithTokens();
+   }
     handleAddItem() {
-    Meteor.call('addHabit', { userId: this.props.user._id,  title: "Do something two", streak: 0 }, (err, res) => {
-      console.log('addHabit', err, res);
-    });
-    //check /**\
-    this.setState({count: this.props.db.length});
+        Meteor.call('addHabit', { userId: this.props.user,  title: "Do something two", streak: 0 }, (err, res) => {
+            console.log('addHabit', err, res);
+            this.setState({count: this.props.db.length});
+        });
+        //check /**\
 
     }
 
     render() {
-        const {user, db} = this.props;
-        if (user){
-            console.log(user._id);
-        } else {console.log('user not logged in');}
-        if (db){
-            console.log(db);
-        } else {
-            console.log('cannot fetch data');
-        }
 
         return (
         <View style={styles.container}>
@@ -66,7 +63,7 @@ export default class HomeScene extends Component {
     }
 
     goToNextScene() {
-        this.props.navigator.push( {screen : 'Scene2'} );
+        this.props.navigator.push( {screen : 'Scene2', user: this.props.user, db: this.props.db} );
     }
 }
     const styles = StyleSheet.create({
@@ -84,9 +81,16 @@ export default class HomeScene extends Component {
     },
     instructions: {
         textAlign: 'center',
-        color: '#333333',
         marginBottom: 5,
         color:'white',
     },
     });
 
+export default createContainer(() => {
+  Meteor.subscribe('habits');
+  return {
+    //count: Meteor.collection('habits').find().length,
+    user: Meteor.userId(),
+    db: Meteor.collection('habits').find(),
+  };
+}, HomeScene);

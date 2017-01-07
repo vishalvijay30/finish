@@ -73,7 +73,7 @@ const registerHandler = () => {
 
 const getIdentity = (accessToken, fields) => {
   try {
-    return HTTP.get("https://graph.facebook.com/v2.4/me", {
+    return HTTP.get("https://graph.facebook.com/v2.8/me", {
       params: {
         access_token: accessToken,
         fields: fields

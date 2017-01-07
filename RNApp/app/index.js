@@ -7,11 +7,8 @@ import {
   Navigator
 } from 'react-native';
 
-import Meteor, { createContainer } from 'react-native-meteor';
 
 import {loginWithTokens, onLoginFinished} from './fb-login';
-
-import FBSDK from 'react-native-fbsdk';
 
 import TestScene from '../scenes/TestScene';
 import HomeScene from '../scenes/HomeScene';
@@ -20,11 +17,8 @@ import Scene3 from '../scenes/Scene3';
 import Scene4 from '../scenes/Scene4';
 import Scene5 from '../scenes/Scene5';
 
-const { LoginButton, AccessToken } = FBSDK;
 
-const SERVER_URL = 'ws://localhost:3000/websocket';
-
-class App extends Component {
+export default class App extends Component {
 
   // constructor(props) {
   //   super(props);
@@ -33,24 +27,12 @@ class App extends Component {
 
   //  }
 
-  componentWillMount() {
-    Meteor.connect(SERVER_URL);
-    loginWithTokens();
-  }
-
 
 
 
   render() {
-    const {user, db} = this.props;
-    if (user){
-    console.log(user._id);
-    } else {console.log('user not logged in');}
-    if (db){
-      console.log(db);
-    } else {
-      console.log('cannot fetch data');
-    }
+    
+   
     return (
           <Navigator
             initialRoute = {{screen: 'HomeScene'}}
@@ -62,26 +44,18 @@ class App extends Component {
   renderScene (route, nav) {
     switch (route.screen) {
       case "HomeScene":
-        return <HomeScene navigator = { nav } count = { this.props.count } user = {this.props.user} db={this.props.db}/>
+        return <HomeScene navigator = { nav } />
       case "TestScene":
         return <TestScene navigator = { nav } />
       case "Scene2":
-        return <Scene2 navigator = { nav } user = {this.props.user} db={this.props.db} />
+        return <Scene2 navigator = { nav } user = {route.user} db={route.db} />
       case "Scene3":
-        return <Scene3 navigator = { nav } user = {this.props.user} db={this.props.db} />
+        return <Scene3 navigator = { nav } user = {route.user} db={route.db} />
       case "Scene4":
-        return <Scene4 navigator = { nav } user = {this.props.user} db={this.props.db} />
+        return <Scene4 navigator = { nav } user = {route.user} db={route.db}/>
       case "Scene5":
-        return <Scene5 navigator = { nav } user = {this.props.user} db={this.props.db} />
+        return <Scene5 navigator = { nav } user = {route.user} habit={route.document} />
     }
   }
 };
 
-export default createContainer(() => {
-  Meteor.subscribe('habits');
-  return {
-    //count: Meteor.collection('habits').find().length,
-    user: Meteor.user(),
-    db: Meteor.collection('habits').find(),
-  };
-}, App);

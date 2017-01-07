@@ -4,10 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
 
 export default class Scene5 extends Component {
-    constructor(){
-        super();
-
-        this.state = {emojiState:false};
+    constructor(props){
+        super(props);
+        this.state = {emojiState: this.props.habit.completed};
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
     }
     render() {
@@ -30,7 +29,7 @@ export default class Scene5 extends Component {
                 <View style = {styles.fillerContainer}>
                 </View>
                 <View style = {styles.middleContainer}>
-                    <Text style={{fontSize:30}}> Example </Text>
+                    <Text style={{fontSize:30}}> {this.props.habit.title} </Text>
 
                     <Text></Text>
                     <Text style = {{fontSize:20}}> Timer will appear here </Text>
@@ -50,19 +49,22 @@ export default class Scene5 extends Component {
     }
 
     goHome() {
-        this.props.navigator.push({screen:"HomeScene"});
+        this.props.navigator.push({screen:"HomeScene", user: this.props.user, db: this.props.db});
     }
 
     goBack() {
-        this.props.navigator.push({screen:"Scene4"});
+        this.props.navigator.pop();
     }
 
     goToScene3() {
-        this.props.navigator.push({screen:"Scene3"});
+        this.props.navigator.push({screen:"Scene3", user: this.props.user, db: this.props.db});
     }
 
     toggleEmojiState() {
-        this.setState({emojiState:true});
+        console.log(this.props.habit);
+        Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
+            this.setState({emojiState:true});
+        });
     }
 }
 

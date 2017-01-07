@@ -12,11 +12,13 @@ export default class Scene3 extends Component {
     }
 
     handleAddItem() {
-        Meteor.call('addHabit', { userId: this.props.user._id,  title: this.state.text, streak: 0 }, (err, res) => {
+        console.log("reached add");
+        Meteor.call('addHabit', { userId: this.props.user,  title: this.state.text, streak: 0 }, (err, res) => {
             console.log('addHabit', err, res);
+            console.log("About to move to scene 4");
+            this.goToNextScene(res);
         });
-        console.log("About to move to scene 4");
-        this.goToNextScene();
+        
 
     }
     render() {
@@ -25,7 +27,7 @@ export default class Scene3 extends Component {
                 <View style = {styles.topContainer}>
                     <Text> </Text>
                     <Text>
-                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                      </Text>
 
                 </View>
@@ -55,11 +57,11 @@ export default class Scene3 extends Component {
             </View>
         );
     }
-    goToNextScene() {
-        this.props.navigator.push({screen:"Scene4"});
+    goToNextScene(newHabit) {
+        this.props.navigator.push({screen:"Scene4", user: this.props.user, db: newHabit});
     }
     goBack() {
-        this.props.navigator.push({screen:"Scene2"});
+        this.props.navigator.pop();
     }
 }
 

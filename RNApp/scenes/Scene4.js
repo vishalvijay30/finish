@@ -4,10 +4,9 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
 export default class Scene4 extends Component {
-    // constructor(props) {
-    //         super(props);
-    //         console.log("made it to scene 4!");
-    //         //this.goToNextScene = this.goToNextScene.bind(this);
+        //constructor(props) {
+          //   super(props);
+            
     // }
     render() {
         console.log("vishal");
@@ -26,7 +25,7 @@ export default class Scene4 extends Component {
 
                          <ScrollView>
                             {this.props.db.map((habit) => {
-                                return <TouchableOpacity onPress={this.goToNextScene.bind(this)}><Text>{habit.title}</Text></TouchableOpacity>
+                                return <TouchableOpacity onPress={() => this.goToNextScene(habit)}><Text>{habit.title}</Text></TouchableOpacity>
                             })}
                         </ScrollView>
 
@@ -42,16 +41,16 @@ export default class Scene4 extends Component {
 
     goToNextScene(habitObject) {
         console.log("about to go to scene5");
-        this.props.navigator.push({ screen:"Scene5" });
+        this.props.navigator.push({ screen:"Scene5", user: this.props.user, document: habitObject });
 
     }
 
     goHome() {
-        this.props.navigator.push({screen:"HomeScene"});
+        this.props.navigator.push({screen:"HomeScene", user: this.props.user, db: this.props.db});
     }
 
     goBack() {
-        this.props.navigator.push({screen:"Scene3"});
+        this.props.navigator.pop();
     }
 }
 
