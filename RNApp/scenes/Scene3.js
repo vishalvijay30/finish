@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 import Meteor from 'react-native-meteor';
 export default class Scene3 extends Component {
 
@@ -16,6 +17,7 @@ export default class Scene3 extends Component {
         });
         console.log("About to move to scene 4");
         this.goToNextScene();
+
     }
     render() {
         return (
@@ -46,6 +48,7 @@ export default class Scene3 extends Component {
                 <View style = {styles.bottomContainer}>
 
                     <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {40} onPress = {this.handleAddItem}>
+
                         <Text style = {{fontSize:30, color:'white'}}> SET HABIT </Text>
                     </Icon.Button>
                 </View>

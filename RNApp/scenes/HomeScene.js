@@ -6,10 +6,12 @@ import Meteor from 'react-native-meteor';
 import FBSDK from 'react-native-fbsdk';
 
 import { onLoginFinished } from '../app/fb-login';
+
 const { LoginButton, AccessToken } = FBSDK;
 
 //import HomeStyles from '../styles/HomeStyles';
 export default class HomeScene extends Component {
+
     constructor(props) {
     super(props);
     this.state = {count: 0};
@@ -36,24 +38,26 @@ export default class HomeScene extends Component {
             console.log('cannot fetch data');
         }
 
-
         return (
         <View style={styles.container}>
             <Text style={styles.welcome}>
                 Welcome to React Native + Meteor!
             </Text>
             <Text style={styles.instructions}>
+
                 Item Count: {this.state.count}
+
             </Text>
 
             <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
                 <Text>Add Item</Text>
+
                 <Text>{this.state.userId}</Text>
             </TouchableOpacity>
             <LoginButton
                 readPermissions={["public_profile", "email"]}
                 onLoginFinished={onLoginFinished}
-          onLogoutFinished={() => Meteor.logout()}/>
+                onLogoutFinished={() => Meteor.logout()}/>
           <TouchableHighlight onPress = { this.goToNextScene.bind(this) }>
             <Text> Next </Text>
           </TouchableHighlight>

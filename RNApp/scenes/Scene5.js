@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
+
 export default class Scene5 extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
+
         this.state = {emojiState:false};
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
     }
@@ -22,12 +24,14 @@ export default class Scene5 extends Component {
                     <Text> </Text>
                     <Text>
                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToScene3.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+
                      </Text>
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
                 <View style = {styles.middleContainer}>
                     <Text style={{fontSize:30}}> Example </Text>
+
                     <Text></Text>
                     <Text style = {{fontSize:20}}> Timer will appear here </Text>
                     <Text></Text>

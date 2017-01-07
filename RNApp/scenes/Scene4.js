@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
@@ -38,9 +39,11 @@ export default class Scene4 extends Component {
         );
     }
 
+
     goToNextScene(habitObject) {
         console.log("about to go to scene5");
         this.props.navigator.push({ screen:"Scene5" });
+
     }
 
     goHome() {
