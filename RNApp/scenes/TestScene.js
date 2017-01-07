@@ -2,23 +2,32 @@ import React, { Component, PropTypes } from 'react';
 import {View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 
 export default class TestScene extends Component {
-    static propTypes = {
-    title: PropTypes.string.isRequired,
-    onForward: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-  }
+  //   static propTypes = {
+  //   title: PropTypes.string.isRequired,
+  //   onForward: PropTypes.func.isRequired,
+  //   onBack: PropTypes.func.isRequired,
+  // }
   render() {
     return (
       <View style = {styles.container}>
-        <Text>Current Scene: { this.props.title }</Text>
-        <TouchableHighlight onPress={this.props.onForward}>
-          <Text>Tap me to load the next scene</Text>
+
+        <Text>Test Scene</Text>
+        <TouchableHighlight onPress = {this.goToNext.bind(this)}>
+          <Text> Next </Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={this.props.onBack}>
-          <Text>Tap me to go back</Text>
+        <TouchableHighlight onPress = {this.goBackToHome.bind(this)}>
+          <Text> Back </Text>
         </TouchableHighlight>
       </View>
     )
+  }
+
+  goToNext() {
+    this.props.navigator.push({screen:"Scene2"});
+  }
+
+  goBackToHome() {
+    this.props.navigator.push({screen:"HomeScene"});
   }
 }
 
