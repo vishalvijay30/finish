@@ -7,6 +7,8 @@ import { loginWithTokens, onLoginFinished } from '../app/fb-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const { LoginButton, AccessToken } = FBSDK;
 const SERVER_URL = 'ws://localhost:3000/websocket';
 
@@ -34,32 +36,64 @@ class HomeScene extends Component {
     }
 
     render() {
+        console.log("User " + this.props.user);
+        if(!this.props.user) {
+            return (
+            <View style={styles.container}>
+                <Text style={styles.welcome}>
+                    Welcome to React Native + Meteor!
+                </Text>
+                <Text style={styles.instructions}>
 
-        return (
-        <View style={styles.container}>
-            <Text style={styles.welcome}>
-                Welcome to React Native + Meteor!
-            </Text>
-            <Text style={styles.instructions}>
+                    Item Count: {this.state.count}
 
-                Item Count: {this.state.count}
+                </Text>
 
-            </Text>
+                <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
+                    <Text>Add Item</Text>
 
-            <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
-                <Text>Add Item</Text>
+                    <Text>{this.state.userId}</Text>
+                </TouchableOpacity>
+                <LoginButton
+                    readPermissions={["public_profile", "email"]}
+                    onLoginFinished={onLoginFinished}
+                    onLogoutFinished={() => Meteor.logout()}/>
+            <TouchableHighlight onPress = { this.goToNextScene.bind(this) }>
+                <Text> Next </Text>
+            </TouchableHighlight>
+            </View>
+            );
+        } else {
+            return(
+                <View>
+                    <View style = {styles.topContainer}>
+                        
+                        <Text>
+                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
+                                <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text> 
+                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+                        </Text>
+                    </View>
+                    <View style = {styles.middleContainer}>
+                        <Text style = {{fontSize:35, color:"white"}}> Losers Have Goals. </Text>
+                        <Text style = {{fontSize:35, color:"white"}}> Winners Have Habits. </Text>
+                        <TouchableOpacity onPress={() => Meteor.logout()}>
+                            <Text>Logout</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {styles.bottomContainer}>
+                        <Icon.Button name = "plus-square-o" size = {40} onPress = {this.goToNextScene.bind(this)}>
+                            <Text style = {{fontSize:20, color:"white"}}> CREATE A HABIT </Text>
+                        </Icon.Button>
+                    </View>
+                </View>
+                
+            );
+        }
+    }
 
-                <Text>{this.state.userId}</Text>
-            </TouchableOpacity>
-            <LoginButton
-                readPermissions={["public_profile", "email"]}
-                onLoginFinished={onLoginFinished}
-                onLogoutFinished={() => Meteor.logout()}/>
-          <TouchableHighlight onPress = { this.goToNextScene.bind(this) }>
-            <Text> Next </Text>
-          </TouchableHighlight>
-          </View>
-        );
+    goBack() {
+        this.props.navigator.pop();
     }
 
     goToNextScene() {
@@ -84,7 +118,28 @@ class HomeScene extends Component {
         marginBottom: 5,
         color:'white',
     },
-    });
+    topContainer: {
+        justifyContent:'center',
+        alignItems:'center',
+        height:50,
+        //backgroundColor: '#e6ffff',
+        backgroundColor: 'white',
+    },
+    middleContainer: {
+        justifyContent:'center',
+        alignItems:'center',
+        height:550,
+        backgroundColor: '#3399ff',
+    },
+    bottomContainer: {
+        justifyContent:'center',
+        alignItems:'center',
+        height:75,
+        backgroundColor:'#e6ffff',
+    },
+
+});
+ 
 
 export default createContainer(() => {
   Meteor.subscribe('habits');
