@@ -1,37 +1,43 @@
 import { ServiceConfiguration } from 'meteor/service-configuration';
 import registerFacebookHandler from './loginHandlers/facebook-oauth';
-import registerGoogleHandler from './loginHandlers/google-ouath';
+import registerGoogleHandler from './loginHandlers/google-oauth';
 
 const facebookSettings = Meteor.settings.oauth.facebook;
 const googleSettings = Meteor.settings.oauth.google;
 
 const init = () => {
-  if (!settings) return;
-  ServiceConfiguration.configurations.remove({
-    service: 'google'
-  });
-  ServiceConfiguration.configurations.remove({
-      service: 'facebook'
-  });
-  ServiceConfiguration.configurations.upsert(
-    { service: "facebook" },
-    {
-      $set: {
-        appId: settings.appId,
-        secret: settings.secret
+  if (!facebookSettings && !googleSettings) return;
+  if (facebookSettings){
+    ServiceConfiguration.configurations.remove({
+        service: 'facebook'
+    });
+    ServiceConfiguration.configurations.upsert(
+      { service: "facebook" },
+      {
+        $set: {
+          appId: facebookSettings.appId,
+          secret: facebookSettings.secret
+        }
       }
-    }
-  );
-  ServiceConfiguration.configurations.upsert(
-    { service: "google" },
-    {
-      $set: {
-        clientId: settings.client_id,
-        secret: settings.client_secret,
-        validClientIds: Meteor.settings.google.validClientIds
+    );
+  }
+  if (googleSettings){
+    ServiceConfiguration.configurations.remove({
+      service: 'google'
+    });
+    ServiceConfiguration.configurations.upsert(
+      { service: "google" },
+      {
+        $set: {
+          clientId: googleSettings.client_id,
+          secret: googleSettings.client_secret,
+          validClientIds: googleSettings.validClientIds
+        }
       }
-    }
-  );
+    );
+  }
   registerFacebookHandler();
   registerGoogleHandler();
 }
+
+export default init;

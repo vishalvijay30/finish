@@ -2,10 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
-
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
 
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
+
 import Meteor, { createContainer } from 'react-native-meteor';
+
+import config from '../config';
 
 const { LoginButton, AccessToken } = FBSDK;
 const SERVER_URL = 'ws://localhost:3000/websocket';
@@ -22,7 +26,15 @@ class HomeScene extends Component {
 
    componentWillMount(){
         Meteor.connect(SERVER_URL);
+        GoogleSignin.configure({
+            iosClientId: config.google.iosClientId,
+        });
         loginWithTokens();
+        GoogleSignin.currentUserAsync()
+        .then((user) => {
+            meteorGoogleLogin(user);
+        })
+         .done();
    }
     handleAddItem() {
         Meteor.call('addHabit', { userId: this.props.user,  title: "Do something two", streak: 0 }, (err, res) => {
@@ -34,7 +46,7 @@ class HomeScene extends Component {
     }
 
     render() {
-
+        console.log(this.props.user);
         return (
         <View style={styles.container}>
             <Text style={styles.welcome}>
@@ -51,15 +63,27 @@ class HomeScene extends Component {
 
                 <Text>{this.state.userId}</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => Meteor.logout()}>
+                <Text>Logout of Google</Text>
+            </TouchableOpacity>
             <LoginButton
                 readPermissions={["public_profile", "email"]}
                 onLoginFinished={onLoginFinished}
                 onLogoutFinished={() => Meteor.logout()}/>
+             <GoogleSigninButton 
+                style={{width: 312, height: 48}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Light}
+                onPress={this.googleSignIn.bind(this)}/>
           <TouchableHighlight onPress = { this.goToNextScene.bind(this) }>
             <Text> Next </Text>
           </TouchableHighlight>
           </View>
         );
+    }
+
+    googleSignIn(){
+        loginWithGoogle();
     }
 
     goToNextScene() {

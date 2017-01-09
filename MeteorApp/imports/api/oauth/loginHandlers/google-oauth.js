@@ -31,6 +31,7 @@ const registerHandler = () => {
 
     const scopes = getScopes(accessToken);
     const identity = getIdentity(accessToken);
+    console.log(identity);
 
     serviceData = {
         accessToken: accessToken,
@@ -39,7 +40,9 @@ const registerHandler = () => {
         scope: scopes,
     }
 
-    const fields = _.pick(identity, Google.whitelistedFields);
+    const whitelistedFields = ['id', 'name', 'email', 'picture'];
+
+    const fields = _.pick(identity, whitelistedFields);
     _.extend(serviceData, fields);
 
     if (loginRequest.serverAuthCode) {
@@ -82,6 +85,7 @@ const registerHandler = () => {
         }]
         });
     }
+          console.log(Meteor.users.find().fetch());
 
     return { userId: userId };
 });
@@ -94,13 +98,13 @@ const validIdToken = (idToken, config) => {
         {params: {id_token: idToken}});
 
         if (res && res.statusCode === 200) {
-        if (_.contains(config.validClientIds, res.data.aud)) {
-            return res.data;
+            if (_.contains(config.validClientIds, res.data.aud)) {
+                return res.data;
+            } else {
+                return null;
+            }
         } else {
             return null;
-        }
-        } else {
-        return null;
         }
     } catch (err) {
         console.log('err', err);
@@ -149,3 +153,5 @@ const exchangeAuthCode = (authCode, config) => {
         return response.data;
     }
 }
+
+export default registerHandler;
