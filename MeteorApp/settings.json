@@ -1,0 +1,14 @@
+{
+  "oauth": {
+    "facebook": {
+      "appId": "1796096493990112",
+      "secret": "APP_SECRET_ID"
+    },
+    "google": {
+      "client_id": "937190171025-b8u4hqtu972g8tjl0oalhpt419hhup2s.apps.googleusercontent.com", 
+      "client_secret": "CLIENT_SECRET_ID",
+      "validClientIds": ["937190171025-b8u4hqtu972g8tjl0oalhpt419hhup2s.apps.googleusercontent.com",
+                          "937190171025-80efblltclq0fqd490mggod57st5c9dq.apps.googleusercontent.com" ]
+    }
+  }
+}
