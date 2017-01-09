@@ -14,9 +14,9 @@ export default class Scene5 extends Component {
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
-            emoji = <Icon name="frown-o" size={50} color="red" />
+            emoji = <Icon name="frown-o" size={50} color="#D71F3E" />
         } else {
-            emoji = <Icon name="smile-o" size={50} color="green" />
+            emoji = <Icon name="smile-o" size={50} color="#12DD49" />
         }
 
         return (
@@ -81,16 +81,16 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: '#e6ffff',
+        backgroundColor: '#008080',
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#3399ff',
+        backgroundColor:'#008080',
     },
     fillerContainer: {
-        backgroundColor:'#3399ff',
+        backgroundColor:'#008080',
         height:50,
     }
 

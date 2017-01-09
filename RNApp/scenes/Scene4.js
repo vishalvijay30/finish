@@ -63,16 +63,16 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: 'white',
+        backgroundColor: '#008080',
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#008080',
     },
     fillerContainer: {
-        backgroundColor:'#3399ff',
+        backgroundColor:'#008080',
         height:50,
     }
 

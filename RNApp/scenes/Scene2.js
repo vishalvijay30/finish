@@ -8,7 +8,7 @@ export default class Scene2 extends Component {
                 <View style = {styles.topContainer}>
                     <Text>
                          <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                            <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text> 
+                            <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                      </Text>
                 </View>
@@ -39,20 +39,20 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        //backgroundColor: '#e6ffff',
-        backgroundColor: 'white',
+        backgroundColor: '#e6ffff',
+        //backgroundColor: 'white',
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:550,
-        backgroundColor: '#3399ff',
+        backgroundColor: '#008080',
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#008080',
     },
 
 });
