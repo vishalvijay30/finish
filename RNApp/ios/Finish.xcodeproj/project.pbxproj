@@ -920,6 +920,10 @@
 					"$(PROJECT_DIR)/GoogleSdk",
 					/Users/aditya/Documents/FacebookSDK,
 				);
+<<<<<<< HEAD
+=======
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/vishal/Documents/FacebookSDK;
+>>>>>>> uidev
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -960,6 +964,10 @@
 					"$(PROJECT_DIR)/GoogleSdk",
 					/Users/aditya/Documents/FacebookSDK,
 				);
+<<<<<<< HEAD
+=======
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /Users/vishal/Documents/FacebookSDK;
+>>>>>>> uidev
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
