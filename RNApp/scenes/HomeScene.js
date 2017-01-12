@@ -2,11 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
-
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+import config from '../config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
@@ -25,7 +28,15 @@ constructor(props){
 
    componentWillMount(){
         Meteor.connect(SERVER_URL);
+        GoogleSignin.configure({
+            iosClientId: config.google.iosClientId,
+        });
         loginWithTokens();
+        GoogleSignin.currentUserAsync()
+        .then((user) => {
+            meteorGoogleLogin(user);
+        })
+         .done();
    }
 componentDidUpdate() {
         setTimeout(() => this.checkAndGoToLoginScene(), 3000);
@@ -41,6 +52,8 @@ componentDidUpdate() {
         console.log(this.props.db);
         if (!this.state.loggedIn && !this.props.user){
             return(<View style={styles.container}><Text>Loading...</Text></View>);
+
+
         } else {
             topContainer = null;
             middleContainer = null;
@@ -48,7 +61,7 @@ componentDidUpdate() {
             if (this.props.db.length == 0){
                 topContainer = 
                     <View style = {styles.topContainer}>
-                        
+                        <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text> 
                     </View>
                 middleContainer = 
                     <View style = {styles.middleContainer}>
@@ -111,6 +124,10 @@ checkAndGoToLoginScene(){
         console.log("reached logout method");
         LoginManager.logOut();
         Meteor.logout();
+    }
+
+    googleSignIn(){
+        loginWithGoogle();
     }
 
     goToNextScene() {

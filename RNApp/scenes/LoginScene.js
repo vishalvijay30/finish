@@ -4,6 +4,8 @@ import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView
 import FBSDK from 'react-native-fbsdk';
 
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
@@ -18,10 +20,18 @@ export default class LoginScene extends Component {
                 <Text style={styles.welcome}>
                     Welcome to Finish! Register to get started.
                 </Text>
+                <TouchableOpacity onPress={() => Meteor.logout()}>
+                <Text>Logout of Google</Text>
+            </TouchableOpacity>
                 <LoginButton
                     readPermissions={["public_profile", "email"]}
                     onLoginFinished={this.handleLogin.bind(this)}
                     onLogoutFinished={() => this.handleLogout()}/>
+                    <GoogleSigninButton 
+                style={{width: 312, height: 48}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Light}
+                onPress={this.googleSignIn.bind(this)}/>
             </View>
             );
     }

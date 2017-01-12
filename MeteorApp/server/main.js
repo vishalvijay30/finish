@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import '/imports/api/habits';
+import '/imports/api/habits/habits';
 
-import FacebookOAuthInit from '../imports/api/facebook-oauth'
+import OAuthInit from '../imports/api/oauth/oauth-init'
 
 Meteor.startup(() => {
-  FacebookOAuthInit();
+  OAuthInit();
 });
 
