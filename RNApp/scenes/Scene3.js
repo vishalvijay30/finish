@@ -15,7 +15,7 @@ export default class Scene3 extends Component {
         console.log("reached add");
         Meteor.call('addHabit', { userId: this.props.user,  title: this.state.text, streak: 0 }, (err, res) => {
             console.log('addHabit', err, res);
-            this.goToNextScene(res);
+            this.goBack();
         });
         
 
@@ -24,10 +24,9 @@ export default class Scene3 extends Component {
         return (
             <View>
                 <View style = {styles.topContainer}>
-                    <Text> </Text>
-                    <Text>
-                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
-                     </Text>
+                    
+                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity> 
+                        <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         
 
                 </View>
                 <View style = {styles.fillerContainer}>
@@ -56,9 +55,7 @@ export default class Scene3 extends Component {
             </View>
         );
     }
-    goToNextScene(newHabit) {
-        this.props.navigator.push({screen:"Scene4", user: this.props.user, db: newHabit});
-    }
+
     goBack() {
         this.props.navigator.pop();
     }

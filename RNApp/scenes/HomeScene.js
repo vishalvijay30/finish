@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
+import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
 
@@ -9,95 +9,117 @@ import Meteor, { createContainer } from 'react-native-meteor';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const { LoginButton, AccessToken } = FBSDK;
+const { LoginButton, AccessToken, LoginManager } = FBSDK;
 const SERVER_URL = 'ws://localhost:3000/websocket';
 
 //import HomeStyles from '../styles/HomeStyles';
 class HomeScene extends Component {
 
-    constructor(props) {
-    super(props);
-    this.state = {count: 0};
-    this.handleAddItem = this.handleAddItem.bind(this);
-
-   }
+constructor(props){
+        super(props);
+        this.state = {
+            goneToLogin: false,
+            loggedIn: false,
+        }
+    }
 
    componentWillMount(){
         Meteor.connect(SERVER_URL);
         loginWithTokens();
    }
-    handleAddItem() {
-        Meteor.call('addHabit', { userId: this.props.user,  title: "Do something two", streak: 0 }, (err, res) => {
-            console.log('addHabit', err, res);
-            this.setState({count: this.props.db.length});
-        });
-        //check /**\
+componentDidUpdate() {
+        setTimeout(() => this.checkAndGoToLoginScene(), 3000);
+   }
+   /*componentWillUpdate() {
+       if (this.props.user === null){
+           setTimeout(this.goToLoginScene(), 2000);
+       }
+   }*/
 
-    }
-
-    render() {
+      render() {
         console.log("User " + this.props.user);
-        if(!this.props.user) {
-            return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native + Meteor!
-                </Text>
-                <Text style={styles.instructions}>
-
-                    Item Count: {this.state.count}
-
-                </Text>
-
-                <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
-                    <Text>Add Item</Text>
-
-                    <Text>{this.state.userId}</Text>
-                </TouchableOpacity>
-                <LoginButton
-                    readPermissions={["public_profile", "email"]}
-                    onLoginFinished={onLoginFinished}
-                    onLogoutFinished={() => Meteor.logout()}/>
-            <TouchableHighlight onPress = { this.goToNextScene.bind(this) }>
-                <Text> Next </Text>
-            </TouchableHighlight>
-            </View>
-            );
+        console.log(this.props.db);
+        if (!this.state.loggedIn && !this.props.user){
+            return(<View style={styles.container}><Text>Loading...</Text></View>);
         } else {
-            return(
-                <View>
+            topContainer = null;
+            middleContainer = null;
+            bottomContainer = null;
+            if (this.props.db.length == 0){
+                topContainer = 
                     <View style = {styles.topContainer}>
                         
-                        <Text>
-                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                                <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text> 
-                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
-                        </Text>
                     </View>
+                middleContainer = 
                     <View style = {styles.middleContainer}>
                         <Text style = {{fontSize:35, color:"white"}}> Losers Have Goals. </Text>
                         <Text style = {{fontSize:35, color:"white"}}> Winners Have Habits. </Text>
-                        <TouchableOpacity onPress={() => Meteor.logout()}>
+                        <TouchableOpacity onPress={() => this.handleLogout()}>
                             <Text>Logout</Text>
                         </TouchableOpacity>
                     </View>
+
+                bottomContainer = 
                     <View style = {styles.bottomContainer}>
                         <Icon.Button name = "plus-square-o" size = {40} onPress = {this.goToNextScene.bind(this)}>
-                            <Text style = {{fontSize:20, color:"white"}}> CREATE A HABIT </Text>
+                            <Text style = {{fontSize:20, color:"white"}}> Create a Habit </Text>
                         </Icon.Button>
                     </View>
+            } else {
+               
+        
+               topContainer = 
+                    <View style = {styles.topContainer}>
+                            <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text> 
+                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+                    </View>
+                middleContainer =
+                    <View style = {styles.middleContainer}> 
+                        <Text style ={{fontSize:30}}> Habits List </Text>
+                        <ScrollView>
+                            {this.props.db.map((habit) => {
+                                return <TouchableOpacity key={habit._id} onPress={() => this.goToSceneFive(habit)}><Text>{habit.title}</Text></TouchableOpacity>
+                            })}
+                        </ScrollView>
+                    </View>
+
+                bottomContainer = 
+                <View style = {styles.bottomContainer}>
+                    <TouchableOpacity onPress={() => this.handleLogout()}>
+                            <Text>Logout</Text>
+                    </TouchableOpacity>
+                </View>
+            }
+            return(
+                <View>
+                    {topContainer}
+                    {middleContainer}
+                    {bottomContainer}
                 </View>
                 
             );
         }
     }
+checkAndGoToLoginScene(){
+        if(this.props.user===null && !this.state.goneToLogin){
+            this.props.navigator.push({screen:'LoginScene'});
+            this.setState({goneToLogin: true, loggedIn: true});
+        }
+    }
 
-    goBack() {
-        this.props.navigator.pop();
+    handleLogout(){
+        console.log("reached logout method");
+        LoginManager.logOut();
+        Meteor.logout();
     }
 
     goToNextScene() {
-        this.props.navigator.push( {screen : 'Scene2', user: this.props.user, db: this.props.db} );
+        this.props.navigator.push( {screen : 'Scene3', user: this.props.user, db: this.props.db} );
+    }
+
+    goToSceneFive(habit){
+        console.log(habit);
+        this.props.navigator.push({screen: 'Scene5', user: this.props.user, document: habit});
     }
 }
     const styles = StyleSheet.create({

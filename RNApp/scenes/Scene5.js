@@ -21,11 +21,9 @@ export default class Scene5 extends Component {
         return (
             <View>
                 <View style = {styles.topContainer}>
-                    <Text> </Text>
-                    <Text>
-                        <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>                         <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goToScene3.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
-
-                     </Text>
+      
+                        <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
+                        <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
@@ -41,24 +39,14 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <TouchableHighlight onPress = {this.goHome.bind(this)}>
-                        <Text> HOME </Text>
-                    </TouchableHighlight>
+    
                 </View>
             </View>
         );
     }
 
-    goHome() {
-        this.props.navigator.push({screen:"HomeScene", user: this.props.user, db: this.props.db});
-    }
-
     goBack() {
         this.props.navigator.pop();
-    }
-
-    goToScene3() {
-        this.props.navigator.push({screen:"Scene3", user: this.props.user, db: this.props.db});
     }
 
     toggleEmojiState() {

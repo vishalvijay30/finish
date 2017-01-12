@@ -10,11 +10,9 @@ import {
 
 import {loginWithTokens, onLoginFinished} from './fb-login';
 
-import TestScene from '../scenes/TestScene';
 import HomeScene from '../scenes/HomeScene';
-import Scene2 from '../scenes/Scene2';
+import LoginScene from '../scenes/LoginScene';
 import Scene3 from '../scenes/Scene3';
-import Scene4 from '../scenes/Scene4';
 import Scene5 from '../scenes/Scene5';
 
 
@@ -37,6 +35,7 @@ export default class App extends Component {
           <Navigator
             initialRoute = {{screen: 'HomeScene'}}
             renderScene = {(route,nav) => {return this.renderScene(route,nav)}}
+            //configureScene = {(route) => {if (route.screen == "Scene3"){return Navigator.SceneConfigs.VerticalUpSwipeJump}else{return Navigator.SceneConfigs.PushFromRight}}}
           />
 
     );
@@ -45,14 +44,10 @@ export default class App extends Component {
     switch (route.screen) {
       case "HomeScene":
         return <HomeScene navigator = { nav } />
-      case "TestScene":
-        return <TestScene navigator = { nav } />
-      case "Scene2":
-        return <Scene2 navigator = { nav } user = {route.user} db={route.db} />
+      case "LoginScene":
+        return <LoginScene navigator = { nav } />
       case "Scene3":
         return <Scene3 navigator = { nav } user = {route.user} db={route.db} />
-      case "Scene4":
-        return <Scene4 navigator = { nav } user = {route.user} db={route.db}/>
       case "Scene5":
         return <Scene5 navigator = { nav } user = {route.user} habit={route.document} />
     }
