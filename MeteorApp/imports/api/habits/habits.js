@@ -32,7 +32,7 @@ Meteor.methods({
 	'refreshList': function(habit_list) {
 		d = new Date()
 		for (i=0; i < len(habit_list); i++) {
-			if ((habit_list[i].getTime() - d.getTime())/(1000*60*60*24) > 1) {
+			if ((habit_list[i].last_time.getTime() - d.getTime())/(1000*60*60*24) > 1) {
 				Habits.resetStreak(habit_list[i])
 			}
 		}
