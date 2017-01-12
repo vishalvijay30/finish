@@ -2,11 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
-
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
+import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+import config from '../config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { LoginButton, AccessToken } = FBSDK;
@@ -24,7 +27,15 @@ class HomeScene extends Component {
 
    componentWillMount(){
         Meteor.connect(SERVER_URL);
+        GoogleSignin.configure({
+            iosClientId: config.google.iosClientId,
+        });
         loginWithTokens();
+        GoogleSignin.currentUserAsync()
+        .then((user) => {
+            meteorGoogleLogin(user);
+        })
+         .done();
    }
     handleAddItem() {
         Meteor.call('addHabit', { userId: this.props.user,  title: "Do something two", streak: 0 }, (err, res) => {
@@ -36,24 +47,23 @@ class HomeScene extends Component {
     }
 
     render() {
+        console.log(this.props.user); 
         console.log("User " + this.props.user);
+
         if(!this.props.user) {
             return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native + Meteor!
-                </Text>
-                <Text style={styles.instructions}>
-
-                    Item Count: {this.state.count}
-
-                </Text>
-
-                <TouchableOpacity style={styles.button} onPress={this.handleAddItem}>
-                    <Text>Add Item</Text>
-
-                    <Text>{this.state.userId}</Text>
-                </TouchableOpacity>
+              <Text style={styles.welcome}>
+                Welcome to FINISH!
+            </Text>
+                 <TouchableOpacity onPress={() => Meteor.logout()}>
+                <Text>Logout of Google</Text>
+            </TouchableOpacity>
+                <GoogleSigninButton 
+                style={{width: 312, height: 48}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Light}
+                onPress={this.googleSignIn.bind(this)}/>
                 <LoginButton
                     readPermissions={["public_profile", "email"]}
                     onLoginFinished={onLoginFinished}
@@ -94,6 +104,10 @@ class HomeScene extends Component {
 
     goBack() {
         this.props.navigator.pop();
+    }
+
+    googleSignIn(){
+        loginWithGoogle();
     }
 
     goToNextScene() {
