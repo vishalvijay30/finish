@@ -45,17 +45,11 @@ export default class App extends Component {
   renderScene (route, nav) {
     switch (route.screen) {
       case "HomeScene":
-<<<<<<< HEAD
+
         return <HomeScene navigator = { nav } />
       case "LoginScene":
         return <LoginScene navigator = { nav } />
-=======
-        return <HomeScene navigator = { nav }/>
-      case "TestScene":
-        return <TestScene navigator = { nav } />
-      case "Scene2":
-        return <Scene2 navigator = { nav } user = {route.user} db={route.db} />
->>>>>>> uidev
+
       case "Scene3":
         return <Scene3 navigator = { nav } user = {route.user} db={route.db} />
       case "Scene5":
