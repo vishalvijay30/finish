@@ -20,9 +20,7 @@ export default class LoginScene extends Component {
                 <Text style={styles.welcome}>
                     Welcome to Finish! Register to get started.
                 </Text>
-                <TouchableOpacity onPress={() => Meteor.logout()}>
-                <Text>Logout of Google</Text>
-            </TouchableOpacity>
+                
                 <LoginButton
                     readPermissions={["public_profile", "email"]}
                     onLoginFinished={this.handleLogin.bind(this)}
@@ -39,6 +37,10 @@ export default class LoginScene extends Component {
     handleLogin(error, result){
         console.log("handle login");
         onLoginFinished(error, result);
+        this.props.navigator.pop();
+    }
+     googleSignIn(){
+        loginWithGoogle();
         this.props.navigator.pop();
     }
 }
