@@ -11,22 +11,25 @@ Meteor.methods({
 		//return "success";
 		return Habits.find().fetch();
 	},
-	'removeHabit': function(habit) {
+	'removeHabit': function(habit1) {
+		habit = habit1.habit;
 		Habits.remove({_id: habit._id});
 	},
-	'updateStreak': function(habit) {
+	'updateStreak': function(habit1) {
+		habit = habit1.habit;
 		//expect habit to have {habitId, integer, title: String, streak: int}
 		d = new Date()
-
 		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true, last_time: d.getTime()}});
 		if (habit.streak > habit.max) {
-			Habits.updateMax(habit)
+			Meteor.call('updateMax', habit1);
 		}
 	},
-	'resetStreak': function(habit) {
+	'resetStreak': function(habit1) {
+		habit = habit1.habit;
 		Habits.update({_id: habit._id}, {$set: {streak: 0}});
 	},
-	'updateMax': function(habit) {
+	'updateMax': function(habit1) {
+		habit1 = habit.habit;
 		Habits.update({_id: habit._id}, {$set: {max: habit.streak}})
 	},
 	'refreshList': function(habit_list) {

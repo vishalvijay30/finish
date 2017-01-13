@@ -7,7 +7,7 @@ export default class Scene5 extends Component {
     constructor(props){
         super(props);
         //this.state = {emojiState: this.props.habit.completed};
-        this.state = {emojiState: false};
+        this.state = {emojiState: this.props.habit.completed};
         console.log(this.state.emojiState);
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
     }
@@ -52,9 +52,12 @@ export default class Scene5 extends Component {
 
     toggleEmojiState() {
         console.log(this.props.habit);
-        Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
-            this.setState({emojiState:true});
-        });
+        if (!this.state.emojiState){
+            Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
+                this.setState({emojiState:true});
+                this.props.navigator.pop();
+            });
+        }
     }
 }
 

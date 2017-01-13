@@ -50,7 +50,7 @@ constructor(props){
    }
 
     componentDidUpdate() {
-        console.log("updated");
+        console.log(this.props.db);
         setTimeout(() => this.checkAndGoToLoginScene(), 2000);
    }
    /*componentWillUpdate() {
