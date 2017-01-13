@@ -17,7 +17,7 @@ export default class Scene3 extends Component {
             console.log('addHabit', err, res);
             this.goBack();
         });
-        
+
 
     }
     render() {
@@ -66,14 +66,14 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        //backgroundColor: '#e6ffff',
-        backgroundColor:'white',
+        backgroundColor: '#e6ffff',
+        //backgroundColor:'white',
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: 'white',
+        backgroundColor: '#008080',
         paddingLeft:10,
         paddingRight:10,
     },
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#3399ff',
+        backgroundColor:'#008080',
     },
     fillerContainer: {
-        backgroundColor:'#3399ff',
+        backgroundColor:'#008080',
         height:50,
     }
 
