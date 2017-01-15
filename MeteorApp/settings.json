@@ -2,11 +2,11 @@
   "oauth": {
     "facebook": {
       "appId": "1796096493990112",
-      "secret": "1a96b1ca1d4ba00365a15143646ccba6"
+      "secret": "APP_SECRET"
     },
     "google": {
       "client_id": "937190171025-b8u4hqtu972g8tjl0oalhpt419hhup2s.apps.googleusercontent.com", 
-      "client_secret": "_Y4Yq98mn27PP1SK5970sfPQ",
+      "client_secret": "CLIENT_SECRET",
       "validClientIds": ["937190171025-b8u4hqtu972g8tjl0oalhpt419hhup2s.apps.googleusercontent.com",
                           "937190171025-80efblltclq0fqd490mggod57st5c9dq.apps.googleusercontent.com" ]
     }
