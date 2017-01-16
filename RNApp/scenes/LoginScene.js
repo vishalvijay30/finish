@@ -34,6 +34,14 @@ export default class LoginScene extends Component {
             );
     }
 
+    handleLogout(){
+        console.log("reached logout method");
+        LoginManager.logOut();
+        Meteor.logout();
+        GoogleSignin.signOut();
+        this.setState({loggedIn: false, goneToLogin: false});
+    }
+
     handleLogin(error, result){
         console.log("handle login");
         onLoginFinished(error, result);

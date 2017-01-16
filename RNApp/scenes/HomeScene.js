@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
-const SERVER_URL = 'finishgetupanddo.herokuapp.com';
+const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
 
 //import HomeStyles from
  '../styles/HomeStyles';
