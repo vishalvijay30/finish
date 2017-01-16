@@ -103,7 +103,7 @@ constructor(props){
                         <Text style ={{fontSize:30}}> Habits List </Text>
                         <ScrollView>
                             {this.props.db.map((habit) => {
-                                return <TouchableOpacity key={habit._id} onPress={() => this.goToSceneFive(habit)}><Text>{habit.title}</Text></TouchableOpacity>
+                                return <View style={{alignItems:"center", justifyContent:"center", height:120, width:120, borderRadius:100, borderWidth:2, borderColor:"black"}}><TouchableOpacity key={habit._id} onPress={() => this.goToSceneFive(habit)}><Text>{habit.title}</Text></TouchableOpacity></View>
                             })}
                         </ScrollView>
                     </View>
