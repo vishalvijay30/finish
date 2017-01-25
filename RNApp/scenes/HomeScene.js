@@ -53,18 +53,18 @@ constructor(props){
         console.log(this.props.db);
         setTimeout(() => this.checkAndGoToLoginScene(), 2000);
    }
-   /*componentWillUpdate() {
-       if (this.props.user === null){
-           setTimeout(this.goToLoginScene(), 2000);
-       }
-   }*/
 
       render() {
         console.log("User " + this.props.user);
         console.log(this.props.db);
+        console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
-            return(<View style={styles.container}><Text>Loading...</Text></View>);
-
+            return(<View style={styles.container}><Text>Loading...</Text>
+            
+<TouchableOpacity onPress={() => this.handleLogout()}>
+                            <Text>Logout</Text>
+                    </TouchableOpacity>
+            </View>);
 
         } else {
             topContainer = null;
@@ -193,10 +193,11 @@ constructor(props){
 
 
 export default createContainer(() => {
-  Meteor.subscribe('habits');
-  return {
-    serverStatus: Meteor.status().connected,
-    user: Meteor.userId(),
-    db: Meteor.collection('habits').find(),
-  };
+    Meteor.call('refreshList', null, (err, res) => {
+            Meteor.subscribe('habits');
+    });
+    return {
+        user: Meteor.userId(),
+        db: Meteor.collection('habits').find(),
+    };
 }, HomeScene);

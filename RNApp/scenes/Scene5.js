@@ -22,9 +22,8 @@ export default class Scene5 extends Component {
         return (
             <View>
                 <View style = {styles.topContainer}>
-      
-                        <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                        <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         
+                    <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
+                    <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
@@ -34,6 +33,7 @@ export default class Scene5 extends Component {
                     <Text></Text>
                     <Text style = {{fontSize:20}}> Timer will appear here </Text>
                     <Text></Text>
+                    <Text style = {{fontSize:20}}>Max streak: {this.props.habit.max}</Text>
                     <TouchableOpacity onPress={this.toggleEmojiState}>
                         {emoji}
                     </TouchableOpacity>
