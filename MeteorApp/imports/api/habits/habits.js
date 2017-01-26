@@ -7,7 +7,7 @@ Meteor.methods({
 	'addHabit': function(habit){
 		//expect habit to have {habitId: integer, title: String, streak: 0}
 		d = new Date()
-		Habits.insert({userId: habit.userId, title: habit.title, streak: 0, max: 0, completed: false, last_time: d.getTime()});
+		Habits.insert({userId: habit.userId, title: habit.title, streak: 0, max: 0, completed: false});
 		//return "success";
 		return Habits.find().fetch();
 	},
@@ -19,8 +19,7 @@ Meteor.methods({
 		console.log("update streak");
 		habit = habit.habit;
 		//expect habit to have {habitId, integer, title: String, streak: int}
-		d = new Date()
-		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true, last_time: d.getTime()}});
+		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true}});
 		habit.streak = habit.streak+1;
 
 		if (habit.streak > habit.max) {
@@ -42,10 +41,9 @@ function refreshList() {
 		}
 	}
 
-Meteor.setInterval(refreshList, 1000*60*60*24);
+var onceEveryMidnight = new Cron(refreshList, {minute:0, hour:1});
 
 if (Meteor.isServer){
-	var d = new Date();
 	Habits.remove({userId: null});
 	Meteor.publish('habits', function habitsPublication() {
 		//console.log(Habits.find({userId: this.userId}).fetch());
