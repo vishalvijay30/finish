@@ -7,8 +7,8 @@ export default class Scene5 extends Component {
     constructor(props){
         super(props);
         //this.state = {emojiState: this.props.habit.completed};
+        console.log(this.props.habit);
         this.state = {emojiState: this.props.habit.completed};
-        console.log(this.state.emojiState);
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
     }
     render() {
@@ -22,6 +22,7 @@ export default class Scene5 extends Component {
         return (
             <View>
                 <View style = {styles.topContainer}>
+                <Text></Text>
                     <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
                     <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         
                 </View>
@@ -40,7 +41,9 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-    
+                    <Icon.Button name = "plus-square-o" size = {40} onPress = {this.removeHabit.bind()}>
+                            <Text style = {{fontSize:20, color:"white"}}> Delete Habit </Text>
+                    </Icon.Button>
                 </View>
             </View>
         );
@@ -50,8 +53,12 @@ export default class Scene5 extends Component {
         this.props.navigator.pop();
     }
 
+    removeHabit(){
+        Meteor.call('removeHabit', {habit: this.props.habit});
+        goBack();
+    }
+
     toggleEmojiState() {
-        console.log(this.props.habit);
         if (!this.state.emojiState){
             Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
                 this.setState({emojiState:true});

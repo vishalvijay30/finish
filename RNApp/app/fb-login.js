@@ -14,6 +14,7 @@ export const loginWithTokens = () => {
             AsyncStorage.setItem(USER_TOKEN_KEY, result.token);
             Data._tokenIdSaved = result.token;
             Meteor._userIdSaved = result.id;
+            return true;
           }
         });
       }

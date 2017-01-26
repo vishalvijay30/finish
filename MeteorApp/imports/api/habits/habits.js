@@ -16,39 +16,39 @@ Meteor.methods({
 		Habits.remove({_id: habit._id});
 	},
 	'updateStreak': function(habit) {
+		console.log("update streak");
 		habit = habit.habit;
 		//expect habit to have {habitId, integer, title: String, streak: int}
 		d = new Date()
 		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true, last_time: d.getTime()}});
+		habit.streak = habit.streak+1;
+
 		if (habit.streak > habit.max) {
-			Meteor.call('updateMax', {habit: habit});
+			Habits.update({_id: habit._id}, {$set: {max: habit.streak}});
+			console.log(Habits.find({_id: habit._id}).fetch());
 		}
-	},
-	'resetStreak': function(habit) {
-		habit = habit.habit;
-		Habits.update({_id: habit._id}, {$set: {streak: 0}});
-	},
-	'updateMax': function(habit) {
-		habit = habit.habit;
-		Habits.update({_id: habit._id}, {$set: {max: habit.streak}})
-	},
-	'refreshList': function() {
+	}	
+});
+
+function refreshList() {
+		console.log("refresh list called");
 		habit_list = Habits.find().fetch();
-		for (i=0; i < len(habit_list); i++) {
+		for (i=0; i < habit_list.length; i++) {
 			if (habit_list[i].completed == false) {
-				Meteor.call('resetStreak', {habit: habit_list[i]});
+				Habits.update({_id: habit_list[i]._id}, {$set: {streak: 0}});
 			} else {
 				Habits.update({_id: habit_list[i]._id}, {$set: {completed: false}});
 			}
 		}
-	},
-	
-});
+	}
+
+Meteor.setInterval(refreshList, 1000*60*60*24);
 
 if (Meteor.isServer){
+	var d = new Date();
 	Habits.remove({userId: null});
 	Meteor.publish('habits', function habitsPublication() {
+		//console.log(Habits.find({userId: this.userId}).fetch());
 		return Habits.find({userId: this.userId});
 	});
-	setInterval(() => {Meteor.call('refreshList')}, 1000*60*60*24);
 }

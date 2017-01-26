@@ -1,7 +1,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import {ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
+import {ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
@@ -11,16 +11,17 @@ import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
-
 import config from '../config';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import RowComponent from '../app/components/rowComponent';
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
 const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
 
 //import HomeStyles from
- '../styles/HomeStyles';
+ //'../styles/HomeStyles';
 class HomeScene extends Component {
 
 
@@ -41,29 +42,29 @@ constructor(props){
    }
 
    componentDidMount(){
-        loginWithTokens();
+        loginWithTokens((res) => {
+            if (res){
+                this.setState({loggedIn: true});
+            }
+        });
         GoogleSignin.currentUserAsync()
             .then((user) => {if (user){
                 this.setState({loggedIn : true, goneToLogin: true});
                 meteorGoogleLogin(user);
             }}).done();
+
    }
 
     componentDidUpdate() {
-        console.log(this.props.db);
         setTimeout(() => this.checkAndGoToLoginScene(), 2000);
    }
 
       render() {
-        console.log("User " + this.props.user);
-        console.log(this.props.db);
-        console.log(this.state.loggedIn + "" + this.state.goneToLogin);
+        //console.log("User " + this.props.user);
+       // console.log(this.props.db);
+        //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
-            return(<View style={styles.container}><Text>Loading...</Text>
-            
-<TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                    </TouchableOpacity>
+            return(<View style={styles.container}>
             </View>);
 
         } else {
@@ -91,7 +92,12 @@ constructor(props){
                         </Icon.Button>
                     </View>
             } else {
-
+                var i;
+                var arr = [];
+                for (i = 0; i < this.props.db.length; i++){
+                    if (i%2==1)continue;
+                    arr.push([this.props.db[i], this.props.db[i+1]]);
+                }
 
                topContainer =
                     <View style = {styles.topContainer}>
@@ -102,8 +108,9 @@ constructor(props){
                     <View style = {styles.middleContainer}>
                         <Text style ={{fontSize:30}}> Habits List </Text>
                         <ScrollView>
-                            {this.props.db.map((habit) => {
-                                return <View style={{alignItems:"center", justifyContent:"center", height:120, width:120, borderRadius:100, borderWidth:2, borderColor:"black"}}><TouchableOpacity key={habit._id} onPress={() => this.goToSceneFive(habit)}><Text>{habit.title}</Text></TouchableOpacity></View>
+                            {arr.map((habit_pair) => {
+                                console.log(habit_pair);
+                                return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair} />
                             })}
                         </ScrollView>
                     </View>
@@ -146,10 +153,7 @@ constructor(props){
         this.props.navigator.push( {screen : 'Scene3', user: this.props.user, db: this.props.db} );
     }
 
-    goToSceneFive(habit){
-        console.log(habit);
-        this.props.navigator.push({screen: 'Scene5', user: this.props.user, document: habit});
-    }
+    
 }
     const styles = StyleSheet.create({
          topContainer: {
