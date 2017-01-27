@@ -65,6 +65,7 @@ constructor(props){
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
             return(<View style={styles.container}>
+                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
             </View>);
 
         } else {
