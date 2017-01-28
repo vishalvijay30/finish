@@ -1,6 +1,4 @@
 rootProject.name = 'Finish'
-include ':react-native-material-kit'
-project(':react-native-material-kit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-material-kit/android')
 include ':app'
 
 include ':react-native-google-signin'

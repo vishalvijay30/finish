@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -40,7 +39,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ReactMaterialKitPackage(),
             new RNGoogleSigninPackage(),
             new FBSDKPackage(mCallbackManager)
       );
