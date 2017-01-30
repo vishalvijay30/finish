@@ -7,9 +7,9 @@ export default class CircleComponent extends Component{
             return (<View />);
         } else {
             console.log(this.props.habit);
-            return(<View style={{margin:20, alignItems:"center", justifyContent:"center", height:120, width:120, borderRadius:100, borderWidth:2, borderColor:"black"}}>
+            return(<View style={{margin:20, alignItems:"center", justifyContent:"center", height:120, width:120, borderRadius:100, borderWidth:1, borderColor:"black"}}>
                         <TouchableOpacity key={this.props.habit._id} onPress={() => this.goToSceneFive(this.props.habit)}>
-                            <Text>{this.props.habit.title}</Text>
+                            <Text style={{color:"white"}}>{this.props.habit.title}</Text>
                         </TouchableOpacity>
                     </View>
             );

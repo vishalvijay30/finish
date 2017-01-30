@@ -24,9 +24,9 @@ export default class Scene3 extends Component {
         return (
             <View>
                 <View style = {styles.topContainer}>
-                    
-                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity> 
-                        <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>                         
+
+                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
+                        <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>
 
                 </View>
                 <View style = {styles.fillerContainer}>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: '#008080',
+        backgroundColor: '#48C9B0',
         paddingLeft:10,
         paddingRight:10,
     },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#008080',
+        backgroundColor:'#e6ffff',
     },
     fillerContainer: {
         backgroundColor:'#008080',

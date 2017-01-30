@@ -20,12 +20,12 @@ export default class LoginScene extends Component {
                 <Text style={styles.welcome}>
                     Welcome to Finish! Register to get started.
                 </Text>
-                
+
                 <LoginButton
                     readPermissions={["public_profile", "email"]}
                     onLoginFinished={this.handleLogin.bind(this)}
                     onLogoutFinished={() => this.handleLogout()}/>
-                    <GoogleSigninButton 
+                    <GoogleSigninButton
                 style={{width: 312, height: 48}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
@@ -74,14 +74,14 @@ export default class LoginScene extends Component {
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        //backgroundColor: '#e6ffff',
-        backgroundColor: 'white',
+        backgroundColor: '#e6ffff',
+        //backgroundColor: 'white',
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:550,
-        backgroundColor: '#3399ff',
+        backgroundColor: '#48C9B0',
     },
     bottomContainer: {
         justifyContent:'center',
@@ -91,4 +91,3 @@ export default class LoginScene extends Component {
     },
 
 });
- 

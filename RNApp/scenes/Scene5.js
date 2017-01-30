@@ -24,7 +24,7 @@ export default class Scene5 extends Component {
                 <View style = {styles.topContainer}>
                 <Text></Text>
                     <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>                         
+                    <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:500,
-        backgroundColor: '#008080',
+        backgroundColor: '#48C9B0',
     },
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#008080',
+        backgroundColor:'#e6ffff',
     },
     fillerContainer: {
         backgroundColor:'#008080',

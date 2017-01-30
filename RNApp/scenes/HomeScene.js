@@ -154,21 +154,21 @@ constructor(props){
         this.props.navigator.push( {screen : 'Scene3', user: this.props.user, db: this.props.db} );
     }
 
-    
+
 }
     const styles = StyleSheet.create({
          topContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        //backgroundColor: '#e6ffff',
-        backgroundColor: 'white',
+        backgroundColor: '#e6ffff',
+        //backgroundColor: 'white',
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
         height:550,
-        backgroundColor: '#3399ff',
+        backgroundColor: '#48C9B0',
     },
     bottomContainer: {
         justifyContent:'center',
