@@ -65,8 +65,10 @@ constructor(props){
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
             return(<View style={styles.container}>
-                <Text style={{fontFamily:'Rock Salt', fontSize: 40}}> FINISH </Text>
+                <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> LOSERS HAVE GOALS </Text>
+                <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+                <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
             </View>);
 
         } else {
