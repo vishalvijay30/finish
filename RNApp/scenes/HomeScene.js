@@ -75,7 +75,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
+                        <Text style = {{ fontSize:30, color:"#3399ff", fontFamily:"RockSalt" }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>

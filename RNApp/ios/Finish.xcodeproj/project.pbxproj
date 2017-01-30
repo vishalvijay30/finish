@@ -36,6 +36,7 @@
 		48B4A3E61E21EEB0004AF5D5 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B4A3DF1E21EEB0004AF5D5 /* GoogleUtilities.framework */; };
 		815612BA8AF24AD0A19CDEBB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37ABA14A83445688FEE786C /* AddressBook.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		C951864A1E3EF69200F25C09 /* RockSalt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C95186491E3EF69200F25C09 /* RockSalt.ttf */; };
 		C9817D8F1E1EFFAE009A2121 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9817D851E1EFFAE009A2121 /* Entypo.ttf */; };
 		C9817D901E1EFFAE009A2121 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9817D861E1EFFAE009A2121 /* EvilIcons.ttf */; };
 		C9817D911E1EFFAE009A2121 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */; };
@@ -234,6 +235,7 @@
 		A281CCD8E7474E52ABCCB181 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		A37ABA14A83445688FEE786C /* AddressBook.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		C89E1501F357413097C3E492 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
+		C95186491E3EF69200F25C09 /* RockSalt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = RockSalt.ttf; path = ../../../../../../Downloads/Rock_Salt/RockSalt.ttf; sourceTree = "<group>"; };
 		C9817D851E1EFFAE009A2121 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		C9817D861E1EFFAE009A2121 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 		C9817D841E1EFFAE009A2121 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C95186491E3EF69200F25C09 /* RockSalt.ttf */,
 				C9817D851E1EFFAE009A2121 /* Entypo.ttf */,
 				C9817D861E1EFFAE009A2121 /* EvilIcons.ttf */,
 				C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */,
@@ -796,6 +799,7 @@
 				C9817D931E1EFFAE009A2121 /* Ionicons.ttf in Resources */,
 				C9817D921E1EFFAE009A2121 /* Foundation.ttf in Resources */,
 				48B4A3E31E21EEB0004AF5D5 /* GoogleSignIn.bundle in Resources */,
+				C951864A1E3EF69200F25C09 /* RockSalt.ttf in Resources */,
 				C9817D951E1EFFAE009A2121 /* MaterialIcons.ttf in Resources */,
 				C9817D8F1E1EFFAE009A2121 /* Entypo.ttf in Resources */,
 				C9817D941E1EFFAE009A2121 /* MaterialCommunityIcons.ttf in Resources */,
