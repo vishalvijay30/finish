@@ -57,7 +57,7 @@ export default class LoginScene extends Component {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#3399ff',
+        backgroundColor: '#48C9B0',
     },
     welcome: {
         fontSize: 20,

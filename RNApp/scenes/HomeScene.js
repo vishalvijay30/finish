@@ -65,6 +65,7 @@ constructor(props){
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
             return(<View style={styles.container}>
+                <Text style={{fontFamily:'Rock Salt', fontSize: 40}}> FINISH </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
             </View>);
 
@@ -75,7 +76,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize:30, color:"#3399ff", fontFamily:"RockSalt" }}> FINISH </Text>
+                        <Text style = {{ fontSize:30, color:"#3399ff", fontFamily:"Rock Salt" }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
@@ -180,7 +181,7 @@ constructor(props){
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#3399ff',
+        backgroundColor: '#48C9B0',
     },
     welcome: {
         fontSize: 20,
