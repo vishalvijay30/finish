@@ -114,11 +114,11 @@ constructor(props){
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
-                        <Text style ={{fontSize:30}}> Habits List </Text>
+
                         <ScrollView>
                             {arr.map((habit_pair) => {
                                 console.log(habit_pair);
-                                return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair} />
+                                return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair}/>
                             })}
                         </ScrollView>
                     </View>
@@ -171,7 +171,7 @@ constructor(props){
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        backgroundColor: '#e6ffff',
+        backgroundColor: '#48C9B0',
         //backgroundColor: 'white',
     },
     middleContainer: {
@@ -184,7 +184,7 @@ constructor(props){
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#48C9B0',
     },
     container: {
         flex: 1,

@@ -9,7 +9,7 @@ export default class Scene5 extends Component {
         super(props);
         var date = new Date();
         var now = date.getTime();
-        
+
         var millisInDay = 60*60*24;
 
         var end = ((Math.floor(now/millisInDay) + 1) * millisInDay) - now;
@@ -18,6 +18,7 @@ export default class Scene5 extends Component {
         console.log(this.props.habit);
         this.state = {emojiState: this.props.habit.completed, end: end};
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
     render() {
         let emoji = null;
@@ -35,7 +36,7 @@ export default class Scene5 extends Component {
                     <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
                     <Text></Text>
                 </View>
-              
+
                 <View style = {styles.middleContainer}>
                     <Text style={{fontSize:30}}> {this.props.habit.title} </Text>
 
@@ -54,7 +55,7 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <Icon.Button name = "plus-square-o" size = {40} onPress = {this.removeHabit.bind()}>
+                    <Icon.Button name = "plus-square-o" size = {40} onPress = {this.removeHabit.bind(this)}>
                             <Text style = {{fontSize:20, color:"white"}}> Delete Habit </Text>
                     </Icon.Button>
                 </View>
@@ -68,7 +69,7 @@ export default class Scene5 extends Component {
 
     removeHabit(){
         Meteor.call('removeHabit', {habit: this.props.habit});
-        goBack();
+        this.goBack();
     }
 
     toggleEmojiState() {
