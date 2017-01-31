@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
+import CountDown from 'react-native-countdown';
 
 export default class Scene5 extends Component {
     constructor(props){
         super(props);
+        var date = new Date();
+        var now = date.getTime();
+        
+        var millisInDay = 60*60*24;
+
+        var end = ((Math.floor(now/millisInDay) + 1) * millisInDay) - now;
+
         //this.state = {emojiState: this.props.habit.completed};
         console.log(this.props.habit);
-        this.state = {emojiState: this.props.habit.completed};
+        this.state = {emojiState: this.props.habit.completed, end: end};
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
     }
     render() {
@@ -25,14 +33,19 @@ export default class Scene5 extends Component {
                 <Text></Text>
                     <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
                     <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
+                    <Text></Text>
                 </View>
-                <View style = {styles.fillerContainer}>
-                </View>
+              
                 <View style = {styles.middleContainer}>
                     <Text style={{fontSize:30}}> {this.props.habit.title} </Text>
 
                     <Text></Text>
-                    <Text style = {{fontSize:20}}> Timer will appear here </Text>
+                    <CountDown
+                        time={this.state.end} //default 60
+                        buttonStyle={{backgroundColor: '48C9B0'}}
+                        textStyle={{color:'black', fontSize: 20}} //default black
+                        disabledTextStyle={{color:'black', fontSize: 20}} //default gray
+                    />
                     <Text></Text>
                     <Text style = {{fontSize:20}}>Max streak: {this.props.habit.max}</Text>
                     <TouchableOpacity onPress={this.toggleEmojiState}>
@@ -73,7 +86,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        backgroundColor: '#e6ffff',
+        backgroundColor: '#48C9B0',
     },
     middleContainer: {
         justifyContent:'center',
@@ -85,7 +98,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#48C9B0',
     },
     fillerContainer: {
         backgroundColor:'#008080',

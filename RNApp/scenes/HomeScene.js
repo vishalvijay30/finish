@@ -31,6 +31,7 @@ constructor(props){
             goneToLogin: false,
             loggedIn: false,
         }
+
     }
 
 
@@ -49,6 +50,7 @@ constructor(props){
         });
         GoogleSignin.currentUserAsync()
             .then((user) => {if (user){
+                console.log("google user" + user.id);
                 this.setState({loggedIn : true, goneToLogin: true});
                 meteorGoogleLogin(user);
             }}).done();
@@ -56,19 +58,21 @@ constructor(props){
    }
 
     componentDidUpdate() {
-        setTimeout(() => this.checkAndGoToLoginScene(), 2000);
+        setTimeout(() => this.checkAndGoToLoginScene(), 5000);
    }
 
       render() {
-        //console.log("User " + this.props.user);
-       // console.log(this.props.db);
+        console.log("User " + this.props.user);
+        console.log(this.props.db);
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
+
             return(<View style={styles.container}>
                 <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
+                <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
             </View>);
 
         } else {
@@ -137,7 +141,10 @@ constructor(props){
         }
     }
     checkAndGoToLoginScene(){
+        console.log("User2 " + this.props.user===null);
+        console.log(this.state);
         if(this.props.user===null && !this.state.goneToLogin){
+            console.log("in if");
             console.log("in gotologin method");
             this.props.navigator.push({screen:'LoginScene'});
             this.setState({goneToLogin: true, loggedIn: true});
