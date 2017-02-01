@@ -2,24 +2,32 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Meteor from 'react-native-meteor';
-import CountDown from 'react-native-countdown';
+import CountdownTimer from 'react-native-countdown-timer';
+var moment = require('moment');
+import TimeLabel from '../app/components/timeLabel';
 
 export default class Scene5 extends Component {
     constructor(props){
         super(props);
-        var date = new Date();
-        var now = date.getTime();
+        var mom = moment().add('1', 'day').format('MM/DD/YYYY');;
 
-        var millisInDay = 60*60*24;
-
-        var end = ((Math.floor(now/millisInDay) + 1) * millisInDay) - now;
+        var date = new Date(mom + " " + "00:00:00")
 
         //this.state = {emojiState: this.props.habit.completed};
         console.log(this.props.habit);
-        this.state = {emojiState: this.props.habit.completed, end: end};
+        this.state = {emojiState: this.props.habit.completed, date: date};
         this.toggleEmojiState = this.toggleEmojiState.bind(this);
         this.goBack = this.goBack.bind(this);
     }
+
+     _onTick() {
+        console.log(`_onTick`)
+    }
+
+    _onFinish() {
+        console.log(`_onFinish`)
+    }
+    
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
@@ -40,11 +48,11 @@ export default class Scene5 extends Component {
                 <View style = {styles.middleContainer}>
                     <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", align:"center"}}> {this.props.habit.title} </Text>
                     <Text></Text>
-                    <CountDown
-                        time={this.state.end} //default 60
-                        buttonStyle={{backgroundColor: '48C9B0'}}
-                        textStyle={{color:'black', fontSize: 20}} //default black
-                        disabledTextStyle={{color:'black', fontSize: 20}} //default gray
+                     <CountdownTimer
+                        till={this.state.date}
+                        renderTick={(data) => <TimeLabel {...data} />}
+                        onTick={this._onTick.bind(this)}
+                        onFinish={this._onFinish.bind(this)}
                     />
                     <Text></Text>
                     <View><Icon name ="fire" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
