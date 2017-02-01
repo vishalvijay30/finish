@@ -38,7 +38,8 @@ export default class Scene3 extends Component {
                         placeholder = {this.state.text}
                         multiLine = {true}
                         numberOfLines = {2}
-                        borderColor = 'green'
+                        borderBottomColor = 'black'
+                        borderTopColor = 'red'
                         borderWidth = {2}
                         onChangeText = {(text) => this.setState({text})}
 

@@ -14,6 +14,8 @@ import Meteor, { createContainer } from 'react-native-meteor';
 import config from '../config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Icon2 from 'react-native-vector-icons/EvilIcons';
+
 import RowComponent from '../app/components/rowComponent';
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
@@ -72,6 +74,7 @@ constructor(props){
                 <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
+                <Icon2 name = "spinner-3" size={100} />
                 <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
             </View>);
 
@@ -86,8 +89,8 @@ constructor(props){
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
-                        <Text style = {{fontSize:35, color:"white"}}> Losers Have Goals. </Text>
-                        <Text style = {{fontSize:35, color:"white"}}> Winners Have Habits. </Text>
+                        <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Losers Have Goals. </Text>
+                        <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Winners Have Habits. </Text>
                         <TouchableOpacity onPress={() => this.handleLogout()}>
                             <Text>Logout</Text>
                         </TouchableOpacity>

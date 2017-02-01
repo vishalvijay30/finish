@@ -23,9 +23,9 @@ export default class Scene5 extends Component {
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
-            emoji = <Icon name="frown-o" size={50} color="#D71F3E" />
+            emoji = <Icon name="frown-o" size={80} color="#D71F3E" />
         } else {
-            emoji = <Icon name="smile-o" size={50} color="#12DD49" />
+            emoji = <Icon name="smile-o" size={80} color="#1BA541" />
         }
 
         return (
@@ -38,8 +38,7 @@ export default class Scene5 extends Component {
                 </View>
 
                 <View style = {styles.middleContainer}>
-                    <Text style={{fontSize:30}}> {this.props.habit.title} </Text>
-
+                    <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", align:"center"}}> {this.props.habit.title} </Text>
                     <Text></Text>
                     <CountDown
                         time={this.state.end} //default 60
@@ -48,16 +47,19 @@ export default class Scene5 extends Component {
                         disabledTextStyle={{color:'black', fontSize: 20}} //default gray
                     />
                     <Text></Text>
-                    <Text style = {{fontSize:20}}>Max streak: {this.props.habit.max}</Text>
+                    <View><Icon name ="fire" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
+                    <Text></Text>
+                    <View><Icon name ="star" size={30} color="yellow"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.max}</Text></Icon></View>
+                    <Text></Text>
                     <TouchableOpacity onPress={this.toggleEmojiState}>
                         {emoji}
                     </TouchableOpacity>
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <Icon.Button name = "plus-square-o" size = {40} onPress = {this.removeHabit.bind(this)}>
-                            <Text style = {{fontSize:20, color:"white"}}> Delete Habit </Text>
-                    </Icon.Button>
+                    <TouchableOpacity onPress = {this.removeHabit.bind(this)}>
+                        <Icon name = "minus-circle" size={100} color="red" />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -98,12 +100,8 @@ const styles = StyleSheet.create({
     bottomContainer: {
         justifyContent:'center',
         alignItems:'center',
-        height:75,
+        height:125,
         backgroundColor:'#48C9B0',
     },
-    fillerContainer: {
-        backgroundColor:'#008080',
-        height:50,
-    }
 
 });

@@ -39,6 +39,9 @@
 		C951867E1E3FC7A400F25C09 /* RockSalt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C951867D1E3FC7A400F25C09 /* RockSalt.ttf */; };
 		C95186E21E4060A800F25C09 /* PermanentMarker.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C95186E11E4060A800F25C09 /* PermanentMarker.ttf */; };
 		C9817D911E1EFFAE009A2121 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */; };
+		C9872B3A1E426C6B00696464 /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B391E426C6B00696464 /* Impact.ttf */; };
+		C9872B511E42703900696464 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B501E42703900696464 /* EvilIcons.ttf */; };
+		C9872B531E4273DB00696464 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B521E4273DB00696464 /* Ionicons.ttf */; };
 		CC05D79A1A2146758FEEEB28 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A26F4994B8B44A9FBCD9B115 /* libRNGoogleSignin.a */; };
 		D68AB06D18CE42348F202014 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B54DBF1D3244B2DB1174DB0 /* SystemConfiguration.framework */; };
 		D91B892835C94D2ABA8C103F /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C89E1501F357413097C3E492 /* libRCTFBSDK.a */; };
@@ -230,6 +233,9 @@
 		C951867D1E3FC7A400F25C09 /* RockSalt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RockSalt.ttf; sourceTree = "<group>"; };
 		C95186E11E4060A800F25C09 /* PermanentMarker.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PermanentMarker.ttf; sourceTree = "<group>"; };
 		C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		C9872B391E426C6B00696464 /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
+		C9872B501E42703900696464 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		C9872B521E4273DB00696464 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		D50D665E7C7D4758A56DA922 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F3C98E634BEC465A8D3341EA /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -477,6 +483,9 @@
 		C9817D841E1EFFAE009A2121 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C9872B521E4273DB00696464 /* Ionicons.ttf */,
+				C9872B501E42703900696464 /* EvilIcons.ttf */,
+				C9872B391E426C6B00696464 /* Impact.ttf */,
 				C95186E11E4060A800F25C09 /* PermanentMarker.ttf */,
 				C951867D1E3FC7A400F25C09 /* RockSalt.ttf */,
 				C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */,
@@ -771,10 +780,13 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C9817D911E1EFFAE009A2121 /* FontAwesome.ttf in Resources */,
+				C9872B531E4273DB00696464 /* Ionicons.ttf in Resources */,
 				48B4A3E31E21EEB0004AF5D5 /* GoogleSignIn.bundle in Resources */,
 				C951867E1E3FC7A400F25C09 /* RockSalt.ttf in Resources */,
 				C95186E21E4060A800F25C09 /* PermanentMarker.ttf in Resources */,
+				C9872B511E42703900696464 /* EvilIcons.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				C9872B3A1E426C6B00696464 /* Impact.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
