@@ -27,7 +27,7 @@ export default class Scene5 extends Component {
     _onFinish() {
         console.log(`_onFinish`)
     }
-    
+
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
@@ -50,10 +50,10 @@ export default class Scene5 extends Component {
                     <Text></Text>
                      <CountdownTimer
                         till={this.state.date}
-                        renderTick={(data) => <TimeLabel {...data} />}
+                        renderTick={(data) => <TimeLabel {...data} color = {this.decideColorOfTimer()} habit= {this.props.habit}/>}
                         onTick={this._onTick.bind(this)}
                         onFinish={this._onFinish.bind(this)}
-                    />
+                        />
                     <Text></Text>
                     <View><Icon name ="fire" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
                     <Text></Text>
@@ -72,6 +72,14 @@ export default class Scene5 extends Component {
             </View>
         );
     }
+
+    decideColorOfTimer() {
+    if(this.props.habit.completed) {
+        return "#1BA541";
+    } else {
+        return "#D71F3E";
+    }
+  }
 
     goBack() {
         this.props.navigator.pop();

@@ -7,8 +7,10 @@ export default class Scene3 extends Component {
 
     constructor (props) {
         super(props);
-        this.state = {text: "Enter Name of Habit"};
+        this.state = {text: "Enter Habit", inputHeight: 70};
         this.handleAddItem = this.handleAddItem.bind(this);
+        this.decideTextToDisplay = this.decideTextToDisplay.bind(this);
+        this.onTextContentSizeChange = this.onTextContentSizeChange.bind(this);
     }
 
     handleAddItem() {
@@ -24,7 +26,7 @@ export default class Scene3 extends Component {
             <View>
                 <View style = {styles.topContainer}>
 
-                         <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
+                         <TouchableOpacity style={{height:20,width:725}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
                         <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt" }}> FINISH </Text>
 
                 </View>
@@ -33,14 +35,12 @@ export default class Scene3 extends Component {
                 <View style = {styles.middleContainer}>
 
                     <TextInput
-                        style = {{height:40}}
+                        style = {{height:this.state.inputHeight, fontFamily:"Impact", fontSize:50, color:"white", textAlign:"center"}}
                         placeholder = {this.state.text}
                         multiLine = {true}
-                        numberOfLines = {2}
-                        borderColor = 'white'
-                        borderWidth = {0}
-                        onChangeText = {(text) => this.setState({text})}
-
+                        numberOfLines = {4}
+                        onChangeText = {(text) => this.decideTextToDisplay(text)}
+                        onContentSizeChange = {this.onTextContentSizeChange.bind(this)}
                     />
 
                 </View>
@@ -57,6 +57,19 @@ export default class Scene3 extends Component {
 
     goBack() {
         this.props.navigator.pop();
+    }
+
+    decideTextToDisplay(newText) {
+        if (newText.length == 0) {
+            this.setState({text: "Enter Habit"});
+        } else {
+            this.setState({text: newText});
+        }
+    }
+    onTextContentSizeChange = (event) => {
+        this.setState({
+            inputHeight: Math.min(event.nativeEvent.contentSize.height, 100)
+        });
     }
 }
 

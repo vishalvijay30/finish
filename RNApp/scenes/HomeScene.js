@@ -173,20 +173,23 @@ constructor(props){
          topContainer: {
         justifyContent:'center',
         alignItems:'center',
-        height:50,
+        height:75,
         backgroundColor: '#48C9B0',
-        //backgroundColor: 'white',
+        //backgroundColor: '#e6ffff',
+        //borderWidth:1,
+        //borderColor:"black"
     },
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
-        height:550,
+        height:525,
         backgroundColor: '#48C9B0',
     },
     bottomContainer: {
         justifyContent:'center',
         height:75,
         backgroundColor:'#48C9B0',
+        //backgroundColor: '#e6ffff',
         flexDirection:'row',
         flex: 1,
         alignItems:'stretch',
