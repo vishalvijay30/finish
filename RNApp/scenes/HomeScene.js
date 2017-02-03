@@ -74,7 +74,7 @@ constructor(props){
                 <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
-                <Icon2 name = "spinner-3" size={100} />
+                <Icon2 name = "spinner-3" size={80} color="grey" />
                 <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
             </View>);
 
@@ -85,7 +85,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize:30, color:"#3399ff", fontFamily:"Rock Salt" }}> FINISH </Text>
+                        <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt" }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
@@ -185,9 +185,12 @@ constructor(props){
     },
     bottomContainer: {
         justifyContent:'center',
-        alignItems:'center',
         height:75,
         backgroundColor:'#48C9B0',
+        flexDirection:'row',
+        flex: 1,
+        alignItems:'stretch',
+        alignSelf: 'stretch'
     },
     container: {
         flex: 1,

@@ -17,16 +17,15 @@ export default class Scene3 extends Component {
             console.log('addHabit', err, res);
             this.goBack();
         });
-
-
     }
+
     render() {
         return (
             <View>
                 <View style = {styles.topContainer}>
 
                          <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                        <Text style = {{ color:"#3399ff",fontSize:30 }}> FINISH </Text>
+                        <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt" }}> FINISH </Text>
 
                 </View>
                 <View style = {styles.fillerContainer}>
@@ -38,9 +37,8 @@ export default class Scene3 extends Component {
                         placeholder = {this.state.text}
                         multiLine = {true}
                         numberOfLines = {2}
-                        borderBottomColor = 'black'
-                        borderTopColor = 'red'
-                        borderWidth = {2}
+                        borderColor = 'white'
+                        borderWidth = {0}
                         onChangeText = {(text) => this.setState({text})}
 
                     />
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:50,
-        backgroundColor: '#e6ffff',
+        backgroundColor: '#48C9B0',
         //backgroundColor:'white',
     },
     middleContainer: {
@@ -82,10 +80,10 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         height:75,
-        backgroundColor:'#e6ffff',
+        backgroundColor:'#48C9B0',
     },
     fillerContainer: {
-        backgroundColor:'#008080',
+        backgroundColor:'#48C9B0',
         height:50,
     }
 
