@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
+
 import FBSDK from 'react-native-fbsdk';
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
 
@@ -98,7 +99,9 @@ constructor(props){
                 bottomContainer =
                     <View style = {styles.bottomContainer}>
                         <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
-                             <Text style = {{fontSize:35, color:"white"}}> CREATE A HABIT </Text>
+
+                            <Text style = {{fontSize:35, color:"white"}}> CREATE A HABIT </Text>
+
                         </Icon.Button>
                     </View>
             } else {
@@ -167,6 +170,7 @@ constructor(props){
 
 }
      const styles = StyleSheet.create({
+
     // topContainer: {
     //     justifyContent:'center',
     //     alignItems:'center',
