@@ -37,12 +37,11 @@ export default class Scene5 extends Component {
         }
 
         return (
-            <View>
+            <View style={{flex:1}}>
                 <View style = {styles.topContainer}>
                 <Text></Text>
-                    <TouchableOpacity style={{height:20,width:25}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
-                    <Text></Text>
+                    <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
+                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt",}}> FINISH </Text>
                 </View>
 
                 <View style = {styles.middleContainer}>
@@ -101,23 +100,45 @@ export default class Scene5 extends Component {
 }
 
 const styles = StyleSheet.create({
-    topContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:50,
-        backgroundColor: '#48C9B0',
+    // topContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:50,
+    //     backgroundColor: '#48C9B0',
+    // },
+    // middleContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:500,
+    //     backgroundColor: '#48C9B0',
+    // },
+    // bottomContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:125,
+    //     backgroundColor:'#48C9B0',
+    // },
+    topContainer : {
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'green',
+        paddingBottom: 10,
+        paddingTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     middleContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:500,
-        backgroundColor: '#48C9B0',
+        backgroundColor: "#48C9B0",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bottomContainer: {
-        justifyContent:'center',
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'red',
+        flexDirection: 'row',
         alignItems:'center',
-        height:125,
-        backgroundColor:'#48C9B0',
+        justifyContent:'center',
     },
 
 });

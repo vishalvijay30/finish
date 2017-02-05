@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Meteor from 'react-native-meteor';
@@ -23,11 +23,11 @@ export default class Scene3 extends Component {
 
     render() {
         return (
-            <View>
+            <View style = {{flex:1}}>
                 <View style = {styles.topContainer}>
 
-                         <TouchableOpacity style={{height:20,width:725}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {20} color="#3399ff" /></TouchableOpacity>
-                        <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt" }}> FINISH </Text>
+                        <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
+                        <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center' }}> FINISH </Text>
 
                 </View>
                 <View style = {styles.fillerContainer}>
@@ -46,9 +46,9 @@ export default class Scene3 extends Component {
                 </View>
                 <View style = {styles.bottomContainer}>
 
-                    <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {40} onPress = {this.handleAddItem}>
+                    <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {60} onPress = {this.handleAddItem}>
 
-                        <Text style = {{fontSize:30, color:'white'}}> SET HABIT </Text>
+                        <Text style = {{fontSize:35, color:'white'}}> SET HABIT </Text>
                     </Icon.Button>
                 </View>
             </View>
@@ -74,26 +74,49 @@ export default class Scene3 extends Component {
 }
 
 const styles = StyleSheet.create({
-    topContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:50,
-        backgroundColor: '#48C9B0',
-        //backgroundColor:'white',
+    // topContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:50,
+    //     backgroundColor: '#48C9B0',
+    //     //backgroundColor:'white',
+    // },
+    // middleContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:500,
+    //     backgroundColor: '#48C9B0',
+    //     paddingLeft:10,
+    //     paddingRight:10,
+    // },
+    // bottomContainer: {
+    //     justifyContent:'center',
+    //     //alignItems:'center',
+    //     height:75,
+    //     backgroundColor:'#48C9B0',
+    //     width:Dimensions.get('window').width,
+    // },
+    topContainer : {
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'green',
+        paddingBottom: 10,
+        paddingTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     middleContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:500,
-        backgroundColor: '#48C9B0',
-        paddingLeft:10,
-        paddingRight:10,
+        backgroundColor: "#48C9B0",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bottomContainer: {
-        justifyContent:'center',
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'red',
+        flexDirection: 'row',
         alignItems:'center',
-        height:75,
-        backgroundColor:'#48C9B0',
+        justifyContent:'center',
     },
     fillerContainer: {
         backgroundColor:'#48C9B0',
