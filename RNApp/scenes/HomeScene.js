@@ -1,8 +1,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import {ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
-
+import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
 import FBSDK from 'react-native-fbsdk';
 import { loginWithTokens, onLoginFinished } from '../app/fb-login';
 
@@ -60,7 +59,7 @@ constructor(props){
    }
 
     componentDidUpdate() {
-        setTimeout(() => this.checkAndGoToLoginScene(), 5000);
+         setTimeout(() => this.checkAndGoToLoginScene(), 4000);
    }
 
       render() {
@@ -85,7 +84,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt" }}> FINISH </Text>
+                        <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
@@ -98,8 +97,8 @@ constructor(props){
 
                 bottomContainer =
                     <View style = {styles.bottomContainer}>
-                        <Icon.Button name = "plus-square-o" size = {40} onPress = {this.goToNextScene.bind(this)}>
-                            <Text style = {{fontSize:20, color:"white"}}> Create a Habit </Text>
+                        <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
+                             <Text style = {{fontSize:35, color:"white"}}> CREATE A HABIT </Text>
                         </Icon.Button>
                     </View>
             } else {
@@ -116,8 +115,11 @@ constructor(props){
                             <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                     </View>
                 middleContainer =
+                       
                     <View style = {styles.middleContainer}>
-
+                        <TouchableOpacity onPress={() => this.handleLogout()}>
+                            <Text>Logout</Text>
+                        </TouchableOpacity>
                         <ScrollView>
                             {arr.map((habit_pair) => {
                                 console.log(habit_pair);
@@ -126,15 +128,10 @@ constructor(props){
                         </ScrollView>
                     </View>
 
-                bottomContainer =
-                <View style = {styles.bottomContainer}>
-                    <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                    </TouchableOpacity>
-                </View>
+                
             }
             return(
-                <View>
+                <View style = {{flex: 1}}>
                     {topContainer}
                     {middleContainer}
                     {bottomContainer}
@@ -169,31 +166,52 @@ constructor(props){
 
 
 }
-    const styles = StyleSheet.create({
-         topContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:75,
-        backgroundColor: '#48C9B0',
-        //backgroundColor: '#e6ffff',
-        //borderWidth:1,
-        //borderColor:"black"
+     const styles = StyleSheet.create({
+    // topContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     //height:75,
+    //     backgroundColor: '#48C9B0',
+    //     paddingTop:10,
+    //     //paddingBottom:10,
+    //     flexDirection:'row',
+    // },
+    // middleContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     height:525,
+    //     backgroundColor: '#48C9B0',
+    // },
+    // bottomContainer: {
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     //height:75,
+    //     width:Dimensions.get('window').width,
+    //     backgroundColor:'#48C9B0',
+    //     //flexDirection:'row',
+    //     //flex: 1,
+    // },
+    topContainer : {
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'green',
+        paddingBottom: 10,
+        paddingTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     middleContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        height:525,
-        backgroundColor: '#48C9B0',
+        backgroundColor: "#48C9B0",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bottomContainer: {
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'red',
+        flexDirection: 'row',
+        alignItems:'center',
         justifyContent:'center',
-        height:75,
-        backgroundColor:'#48C9B0',
-        //backgroundColor: '#e6ffff',
-        flexDirection:'row',
-        flex: 1,
-        alignItems:'stretch',
-        alignSelf: 'stretch'
     },
     container: {
         flex: 1,
