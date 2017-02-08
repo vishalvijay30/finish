@@ -31,9 +31,9 @@ export default class Scene5 extends Component {
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
-            emoji = <Icon name="frown-o" size={80} color="#D71F3E" />
+            emoji = <Icon name="frown-o" size={200} color="#D71F3E" />
         } else {
-            emoji = <Icon name="smile-o" size={80} color="#1BA541" />
+            emoji = <Icon name="smile-o" size={200} color="#1BA541" />
         }
 
         return (

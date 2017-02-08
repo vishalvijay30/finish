@@ -5,9 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class CircleComponent extends Component{
     render() {
-        if (!this.props.habit) {
-            return (<View />);
-        } else {
             console.log(this.props.habit);
             return(<View style={{margin:20, alignItems:"center", justifyContent:"center", height:147, width:147, borderRadius:100, borderWidth:2, borderColor:"black", backgroundColor:"#008080"}}>
                         <TouchableOpacity key={this.props.habit._id} onPress={() => this.goToSceneFive(this.props.habit)}>
@@ -16,7 +13,7 @@ export default class CircleComponent extends Component{
                         <View><Icon name ="ios-flame" size={20} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
                     </View>
             );
-        }
+        
     }
 
     goToSceneFive(habit){
