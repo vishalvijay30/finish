@@ -60,7 +60,7 @@ constructor(props){
    }
 
     componentDidUpdate() {
-        setTimeout(() => this.checkAndGoToLoginScene(), 5000);
+         setTimeout(() => this.checkAndGoToLoginScene(), 4000);
    }
 
       render() {
@@ -99,7 +99,9 @@ constructor(props){
                 bottomContainer =
                     <View style = {styles.bottomContainer}>
                         <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
+
                             <Text style = {{fontSize:35, color:"white"}}> CREATE A HABIT </Text>
+
                         </Icon.Button>
                     </View>
             } else {
@@ -116,8 +118,11 @@ constructor(props){
                             <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                     </View>
                 middleContainer =
+                       
                     <View style = {styles.middleContainer}>
-
+                        <TouchableOpacity onPress={() => this.handleLogout()}>
+                            <Text>Logout</Text>
+                        </TouchableOpacity>
                         <ScrollView>
                             {arr.map((habit_pair) => {
                                 console.log(habit_pair);
@@ -126,12 +131,7 @@ constructor(props){
                         </ScrollView>
                     </View>
 
-                bottomContainer =
-                <View style = {styles.bottomContainer}>
-                    <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                    </TouchableOpacity>
-                </View>
+                
             }
             return(
                 <View style = {{flex: 1}}>
@@ -169,7 +169,8 @@ constructor(props){
 
 
 }
-    const styles = StyleSheet.create({
+     const styles = StyleSheet.create({
+
     // topContainer: {
     //     justifyContent:'center',
     //     alignItems:'center',
