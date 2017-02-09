@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import Meteor from 'react-native-meteor';
 import CountdownTimer from 'react-native-countdown-timer';
 var moment = require('moment');
@@ -9,9 +10,9 @@ import TimeLabel from '../app/components/timeLabel';
 export default class Scene5 extends Component {
     constructor(props){
         super(props);
-        var mom = moment().add('1', 'day').format('MM/DD/YYYY');;
+        var mom = moment().add('1', 'day').format('MM/DD/YYYY');
 
-        var date = new Date(mom + " " + "00:00:00")
+        var date = new Date(mom + " " + "00:00:00");
 
         //this.state = {emojiState: this.props.habit.completed};
         console.log(this.props.habit);
@@ -41,7 +42,7 @@ export default class Scene5 extends Component {
                 <View style = {styles.topContainer}>
                 <Text></Text>
                     <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt",}}> FINISH </Text>
+                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt", alignText:'center', }}> FINISH </Text>
                 </View>
 
                 <View style = {styles.middleContainer}>
@@ -54,7 +55,7 @@ export default class Scene5 extends Component {
                         onFinish={this._onFinish.bind(this)}
                         />
                     <Text></Text>
-                    <View><Icon name ="fire" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
+                    <View><Icon2 name ="ios-flame" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon2></View>
                     <Text></Text>
                     <View><Icon name ="star" size={30} color="yellow"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.max}</Text></Icon></View>
                     <Text></Text>
@@ -65,7 +66,7 @@ export default class Scene5 extends Component {
                 </View>
                 <View style = {styles.bottomContainer}>
                     <TouchableOpacity onPress = {this.removeHabit.bind(this)}>
-                        <Icon name = "minus-circle" size={100} color="red" />
+                        <Icon name = "minus-circle" size={50} color = "white" /><Text style={{flex:1, fontSize:15, color:"white"}}>DELETE HABIT</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -134,11 +135,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     bottomContainer: {
-        backgroundColor: "#48C9B0",
-        //backgroundColor:'red',
+        //backgroundColor: "#48C9B0",
+        backgroundColor:'red',
         flexDirection: 'row',
-        alignItems:'center',
-        justifyContent:'center',
+        //alignItems:'center',
+        //justifyContent:'center',
+        //width:Dimensions.get('window').width,
     },
 
 });

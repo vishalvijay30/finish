@@ -112,7 +112,7 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
-                            <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
+                            <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt" }}> FINISH </Text>
                             <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                     </View>
                 middleContainer =
@@ -196,9 +196,9 @@ constructor(props){
     // },
     topContainer : {
         backgroundColor: "#48C9B0",
-        //backgroundColor:'green',
-        paddingBottom: 10,
-        paddingTop: 20,
+        //backgroundColor:'#008080',
+        //paddingBottom: 10,
+        paddingTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -211,7 +211,7 @@ constructor(props){
     },
     bottomContainer: {
         backgroundColor: "#48C9B0",
-        //backgroundColor:'red',
+        //backgroundColor:'#008080',
         flexDirection: 'row',
         alignItems:'center',
         justifyContent:'center',

@@ -4,9 +4,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Navigator
+  Navigator,
+  AppState
 } from 'react-native';
-
 
 import {loginWithTokens, onLoginFinished} from './fb-login';
 
@@ -16,20 +16,38 @@ import Scene3 from '../scenes/Scene3';
 import Scene5 from '../scenes/Scene5';
 
 import Meteor from 'react-native-meteor';
-//import CombinedScene from '../scenes/CombinedScene';
+import PushNotification from 'react-native-push-notification';
 
 
 export default class App extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {count: 0};
-  //   this.handleAddItem = this.handleAddItem.bind(this);
+  constructor(props) {
+    super(props);
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+   }
 
-  //  }
+  componentDidMount() {
+    PushNotification.configure({
+            onNotification: function(notification) {
+                console.log('NOTIFICATION:', notification);
+            },
+        });
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
 
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
 
-
+  handleAppStateChange(appState) {
+    console.log("App state is: " + AppState.currentState);
+    if (appState === 'background' || appState === 'inactive') {
+      PushNotification.localNotificationSchedule({
+        message:'My Notification Message',
+        date: new Date(Date.now() + (60 * 1000)),
+      });
+    }
+  }
 
   render() {
 
