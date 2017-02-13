@@ -85,7 +85,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
+                        <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", alignSelf:'center', fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
@@ -114,8 +114,9 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
-                            <Text style = {{ fontSize:30, color:"#3399ff" }}> FINISH </Text>
-                            <TouchableOpacity style={{height:20,width:25}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+                            <TouchableOpacity />
+                            <Text style = {{ fontSize:30, color:"#3399ff", paddingLeft:30}}> FINISH </Text>
+                            <TouchableOpacity style={{height:20,width:25, paddingTop:7}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
                     </View>
                 middleContainer =
                        
@@ -129,6 +130,14 @@ constructor(props){
                                 return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair}/>
                             })}
                         </ScrollView>
+                    </View>
+
+                    bottomContainer =  <View style = {styles.bottomContainer} >
+                        <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
+
+                            <Text style = {{fontSize:35, color:"white"}}> CREATE </Text>
+
+                        </Icon.Button>
                     </View>
 
                 
@@ -199,10 +208,11 @@ constructor(props){
         backgroundColor: "#48C9B0",
         //backgroundColor:'green',
         paddingBottom: 10,
-        paddingTop: 20,
+        paddingTop: 30,
+        paddingRight: 10,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+        justifyContent: 'space-between',
     },
     middleContainer: {
         backgroundColor: "#48C9B0",

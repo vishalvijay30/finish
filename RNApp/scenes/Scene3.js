@@ -27,7 +27,7 @@ export default class Scene3 extends Component {
                 <View style = {styles.topContainer}>
 
                         <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
-                        <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center' }}> FINISH </Text>
+                        <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center', paddingRight:35 }}> FINISH </Text>
 
                 </View>
                 <View style = {styles.fillerContainer}>
@@ -48,7 +48,7 @@ export default class Scene3 extends Component {
 
                     <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {60} onPress = {this.handleAddItem}>
 
-                        <Text style = {{fontSize:35, color:'white'}}> SET HABIT </Text>
+                        <Text style = {{fontSize:35, color:'white'}}> SET HABIT</Text>
                     </Icon.Button>
                 </View>
             </View>

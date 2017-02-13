@@ -39,9 +39,10 @@ export default class Scene5 extends Component {
         return (
             <View style={{flex:1}}>
                 <View style = {styles.topContainer}>
-                <Text></Text>
                     <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt",}}> FINISH </Text>
+                    <Text style = {{ fontSize:30, color:"white", fontFamily: "Rock Salt", paddingRight: 30}}> FINISH </Text>
+                    <TouchableOpacity />
+
                 </View>
 
                 <View style = {styles.middleContainer}>
@@ -64,9 +65,9 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <TouchableOpacity onPress = {this.removeHabit.bind(this)}>
-                        <Icon name = "minus-circle" size={100} color="red" />
-                    </TouchableOpacity>
+                        <Icon.Button name = "minus-circle" size={60} color="white" style={{backgroundColor:'red'}} onPress = {this.removeHabit.bind(this)}>
+                            <Text style = {{fontSize:35, color:"white"}}> DELETE </Text>
+                        </Icon.Button>
                 </View>
             </View>
         );
@@ -124,8 +125,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingTop: 20,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+       // alignItems: 'center',
+        justifyContent: 'space-between',
     },
     middleContainer: {
         backgroundColor: "#48C9B0",
