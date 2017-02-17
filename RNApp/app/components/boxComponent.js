@@ -17,6 +17,7 @@ export default class BoxComponent extends Component{
     }
 
     decideColorOfTimer() {
+        console.log(this.props.habit);
         if(this.props.habit.completed) {
             return "#1BA541";
         } else {
@@ -24,27 +25,21 @@ export default class BoxComponent extends Component{
         }
     }
 
-    componentWillMount(){
-        console.log("will mount method");
-        console.log(this.props.habit);
-    }
-
     render() {
         if (!this.props.habit){
             return (<View/>)
         } else {
             var mom = moment().add('1', 'day').format('MM/DD/YYYY');;
-        var dateObj = new Date(mom + " " + "00:00:00");
-        console.log(dateObj); //date obj exists
-        return(<View style={{alignItems:'center'}}>
-                        <CircleComponent navigator = {this.props.navigator} habit={this.props.habit} />
-                         <CountdownTimer
-                        till={dateObj}
-                        renderTick={(data) => <TimeLabel {...data} color = {this.decideColorOfTimer()} />}
-                        onTick={this._onTick.bind(this)}
-                        onFinish={this._onFinish.bind(this)}
-                        />
-                </View>
+            var dateObj = new Date(mom + " " + "00:00:00");
+        //console.log(dateObj); //date obj exists
+            return(<View style={{alignItems:'center'}}>
+                            <CircleComponent navigator = {this.props.navigator} habit={this.props.habit} />
+                            <CountdownTimer
+                            till={dateObj}
+                            renderTick={(data) => <TimeLabel {...data} color = {this.decideColorOfTimer()} />  }
+                            onTick={this._onTick.bind(this)}
+                            onFinish={this._onFinish.bind(this)} />
+                    </View>
             );
         }
     }

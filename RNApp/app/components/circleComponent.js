@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class CircleComponent extends Component{
     render() {
-            console.log(this.props.habit);
+            //console.log(this.props.habit);
             return(<View style={{margin:20, alignItems:"center", justifyContent:"center", height:147, width:147, borderRadius:100, borderWidth:2, borderColor:"black", backgroundColor:"#008080"}}>
                         <TouchableOpacity key={this.props.habit._id} onPress={() => this.goToSceneFive(this.props.habit)}>
                             <Text style={{color:"white", fontFamily:"Permanent Marker", fontSize:20, textAlign:"center", backgroundColor:'transparent'}}>{this.props.habit.title}</Text>
@@ -17,7 +17,7 @@ export default class CircleComponent extends Component{
     }
 
     goToSceneFive(habit){
-        console.log(habit);
+        //console.log(habit);
         this.props.navigator.push({screen: 'Scene5', user: this.props.user, document: habit});
     }
 }

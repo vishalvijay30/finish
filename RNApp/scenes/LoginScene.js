@@ -28,14 +28,8 @@ export default class LoginScene extends Component {
             <View style={styles.middleContainer}>
                 
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
-<Text/>
-                    <Text/>
-                    <Text/><Text/>
-                    <Text/>
-                    <Text/><Text/>
-                    <Text/>
-                    <Text/><Text/>
-                    <Text/>
+
+                  
                     <Text/><Text/>
                     <Text/>
                     <Text/>

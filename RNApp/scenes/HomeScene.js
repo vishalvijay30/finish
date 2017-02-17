@@ -12,15 +12,18 @@ import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
 import Meteor, { createContainer } from 'react-native-meteor';
 
 import config from '../config';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 
 import RowComponent from '../app/components/rowComponent';
+import Menu from '../app/components/sideMenu';
+
+const SideMenu = require('react-native-side-menu');
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
-const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
+const SERVER_URL = 'ws://localhost:3000/websocket';
 
 //import HomeStyles from
  //'../styles/HomeStyles';
@@ -32,6 +35,8 @@ constructor(props){
         this.state = {
             goneToLogin: false,
             loggedIn: false,
+            gotPic: false,
+            picURL:''
         }
 
     }
@@ -45,38 +50,49 @@ constructor(props){
    }
 
    componentDidMount(){
+       //console.log(this.props.data);
         loginWithTokens((res) => {
             if (res){
-                this.setState({loggedIn: true});
+                this.setState({loggedIn: true, goneToLogin:true, service:'facebook'});
             }
         });
         GoogleSignin.currentUserAsync()
             .then((user) => {if (user){
-                console.log("google user" + user.id);
-                this.setState({loggedIn : true, goneToLogin: true});
+                this.setState({loggedIn : true, goneToLogin: true, gotPic: true, picURL:user.photo});
                 meteorGoogleLogin(user);
             }}).done();
-
+           
    }
 
     componentDidUpdate() {
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
+   
+            if (this.props.user && !this.state.gotPic){
+               fetch('https://graph.facebook.com/543977359144002/picture?type=large')
+               .then((response) => {
+                   if (!this.state.picURL){
+                        this.setState({gotPic: true, picURL:response.url});
+                   }
+               })
+               .catch((error) => {
+                   console.log(error);
+                });
+            }
    }
 
       render() {
-        console.log("User " + this.props.user);
-        console.log(this.props.db);
+          const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL}/>
+
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
-
             return(<View style={styles.container}>
-                <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> LOSERS HAVE GOALS </Text>
-                <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
-                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
-                <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
-                <Icon2 name = "spinner-3" size={80} color="grey" />
-                <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
-            </View>);
+                        <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> LOSERS HAVE GOALS </Text>
+                        <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
+                        <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+                        <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
+                        <Icon2 name = "spinner-3" size={80} color="grey" />
+                        <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
+                    </View>);
 
         } else {
             topContainer = null;
@@ -91,9 +107,6 @@ constructor(props){
                     <View style = {styles.middleContainer}>
                         <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Losers Have Goals. </Text>
                         <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Winners Have Habits. </Text>
-                        <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
                     </View>
 
                 bottomContainer =
@@ -121,12 +134,9 @@ constructor(props){
                 middleContainer =
                        
                     <View style = {styles.middleContainer}>
-                        <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
+  
                         <ScrollView>
                             {arr.map((habit_pair) => {
-                                console.log(habit_pair);
                                 return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair}/>
                             })}
                         </ScrollView>
@@ -143,21 +153,20 @@ constructor(props){
                 
             }
             return(
-                <View style = {{flex: 1}}>
-                    {topContainer}
-                    {middleContainer}
-                    {bottomContainer}
-                </View>
+                <SideMenu menu = {menu} >
+                    <View style = {{flex: 1}}>
+                        {topContainer}
+                        {middleContainer}
+                        {bottomContainer}
+                    </View>
+                </SideMenu>
 
             );
         }
     }
     checkAndGoToLoginScene(){
-        console.log("User2 " + this.props.user===null);
-        console.log(this.state);
+
         if(this.props.user===null && !this.state.goneToLogin){
-            console.log("in if");
-            console.log("in gotologin method");
             this.props.navigator.push({screen:'LoginScene'});
             this.setState({goneToLogin: true, loggedIn: true});
         }
@@ -165,7 +174,6 @@ constructor(props){
 
 
     handleLogout(){
-        console.log("reached logout method");
         LoginManager.logOut();
         Meteor.logout();
         GoogleSignin.signOut();
@@ -254,6 +262,7 @@ export default createContainer(() => {
     });
     return {
         user: Meteor.userId(),
+        data: Meteor.user(),
         db: Meteor.collection('habits').find(),
     };
 }, HomeScene);
