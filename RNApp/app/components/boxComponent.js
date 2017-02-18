@@ -17,7 +17,7 @@ export default class BoxComponent extends Component{
     }
 
     decideColorOfTimer() {
-        console.log(this.props.habit);
+        //console.log(this.props.habit);
         if(this.props.habit.completed) {
             return "#1BA541";
         } else {
