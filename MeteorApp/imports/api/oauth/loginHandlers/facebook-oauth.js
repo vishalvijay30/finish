@@ -12,7 +12,7 @@ const registerHandler = () => {
     }
 
     const whitelisted = ['id', 'email', 'name', 'first_name',
-     'last_name', 'link', 'gender', 'locale', 'age_range'];
+     'last_name', 'link', 'gender', 'locale', 'age_range', 'picture'];
 
      const identity = getIdentity(data.accessToken, whitelisted);
 

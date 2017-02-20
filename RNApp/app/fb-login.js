@@ -8,13 +8,13 @@ export const loginWithTokens = () => {
   const Data = Meteor.getData();
   AccessToken.getCurrentAccessToken()
     .then((res) => {
+      console.log(res);
       if (res) {
         Meteor.call('login', { facebook: res }, (err, result) => {
           if(!err) {
             AsyncStorage.setItem(USER_TOKEN_KEY, result.token);
             Data._tokenIdSaved = result.token;
             Meteor._userIdSaved = result.id;
-            return true;
           }
         });
       }

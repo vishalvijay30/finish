@@ -17,10 +17,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 
 import RowComponent from '../app/components/rowComponent';
+import Menu from '../app/components/sideMenu';
+
+const SideMenu = require('react-native-side-menu');
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
-const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
+const SERVER_URL = 'ws://localhost:3000/websocket';
 
 //import HomeStyles from
  //'../styles/HomeStyles';
@@ -32,6 +35,8 @@ constructor(props){
         this.state = {
             goneToLogin: false,
             loggedIn: false,
+            gotPic: false,
+            picURL:''
         }
 
     }
@@ -45,31 +50,44 @@ constructor(props){
    }
 
    componentDidMount(){
+       //console.log(this.props.data);
         loginWithTokens((res) => {
             if (res){
-                this.setState({loggedIn: true});
+                this.setState({loggedIn: true, goneToLogin:true, service:'facebook'});
             }
         });
         GoogleSignin.currentUserAsync()
             .then((user) => {if (user){
-                console.log("google user" + user.id);
-                this.setState({loggedIn : true, goneToLogin: true});
+                this.setState({loggedIn : true, goneToLogin: true, gotPic: true, picURL:user.photo});
                 meteorGoogleLogin(user);
             }}).done();
-
+           
    }
 
     componentDidUpdate() {
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
+   
+            if (this.props.user && !this.state.gotPic){
+               fetch('https://graph.facebook.com/543977359144002/picture?type=large')
+               .then((response) => {
+                   if (!this.state.picURL){
+                        this.setState({gotPic: true, picURL:response.url});
+                   }
+               })
+               .catch((error) => {
+                   console.log(error);
+                });
+            }
    }
 
       render() {
-        console.log("User " + this.props.user);
-        console.log(this.props.db);
+          const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL}/>
+
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
-
             return(<View style={styles.container}>
+
+                 
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
@@ -85,7 +103,6 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-
                         <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
                     </View>
                 middleContainer =
@@ -115,41 +132,36 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
+
                         <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt", textAlign: 'center', flex:1 }}> FINISH </Text>
                         <TouchableOpacity style={{paddingRight:10}} onPress={this.goToNextScene.bind(this)}><Icon name = "ios-add" size = {60} color="white" /></TouchableOpacity>
                     </View>
                 middleContainer =
 
                     <View style = {styles.middleContainer}>
-                        <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
+  
                         <ScrollView>
                             {arr.map((habit_pair) => {
-                                console.log(habit_pair);
                                 return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair}/>
                             })}
                         </ScrollView>
                     </View>
-
-
             }
             return(
-                <View style = {{flex: 1}}>
-                    {topContainer}
-                    {middleContainer}
-                    {bottomContainer}
-                </View>
+                <SideMenu menu = {menu} >
+                    <View style = {{flex: 1}}>
+                        {topContainer}
+                        {middleContainer}
+                        {bottomContainer}
+                    </View>
+                </SideMenu>
 
             );
         }
     }
     checkAndGoToLoginScene(){
-        console.log("User2 " + this.props.user===null);
-        console.log(this.state);
+
         if(this.props.user===null && !this.state.goneToLogin){
-            console.log("in if");
-            console.log("in gotologin method");
             this.props.navigator.push({screen:'LoginScene'});
             this.setState({goneToLogin: true, loggedIn: true});
         }
@@ -157,7 +169,6 @@ constructor(props){
 
 
     handleLogout(){
-        console.log("reached logout method");
         LoginManager.logOut();
         Meteor.logout();
         GoogleSignin.signOut();
@@ -198,12 +209,13 @@ constructor(props){
     // },
     topContainer : {
         backgroundColor: "#48C9B0",
+
         //backgroundColor:'#008080',
         //paddingBottom: 10,
         paddingTop: 10,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        //alignItems: 'center',
+        justifyContent: 'space-between',
     },
     middleContainer: {
         backgroundColor: "#48C9B0",
@@ -245,6 +257,7 @@ export default createContainer(() => {
     });
     return {
         user: Meteor.userId(),
+        data: Meteor.user(),
         db: Meteor.collection('habits').find(),
     };
 }, HomeScene);

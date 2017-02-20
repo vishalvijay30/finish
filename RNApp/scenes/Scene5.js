@@ -32,14 +32,15 @@ export default class Scene5 extends Component {
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
-            emoji = <Icon name="frown-o" size={80} color="#D71F3E" />
+            emoji = <Icon name="frown-o" size={200} color="#D71F3E" />
         } else {
-            emoji = <Icon name="smile-o" size={80} color="#1BA541" />
+            emoji = <Icon name="smile-o" size={200} color="#1BA541" />
         }
 
         return (
             <View style={{flex:1}}>
                 <View style = {styles.topContainer}>
+
                 <Text></Text>
                     <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon2 name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
                     <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt", textAlign:'center', }}> FINISH </Text>
@@ -65,6 +66,7 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
+
                     <TouchableOpacity onPress={this.removeHabit.bind(this)}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
                 </View>
             </View>
@@ -124,8 +126,8 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingRight: 10,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+       // alignItems: 'center',
+        justifyContent: 'space-between',
     },
     middleContainer: {
         backgroundColor: "#48C9B0",

@@ -13,6 +13,7 @@
     "react-native-fbsdk": "^0.4.0",
     "react-native-google-signin": "^0.8.1",
     "react-native-meteor": "^1.0.1",
+    "react-native-side-menu": "^0.20.1",
     "react-native-push-notification": "^2.2.1",
     "react-native-vector-icons": "^4.0.0"
   }

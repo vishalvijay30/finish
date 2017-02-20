@@ -25,6 +25,7 @@ export default class Scene3 extends Component {
         return (
             <View style = {{flex:1}}>
                 <View style = {styles.topContainer}>
+
                         <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
                         <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center' }}> FINISH </Text>
                 </View>
@@ -46,7 +47,7 @@ export default class Scene3 extends Component {
 
                     <Icon.Button style={{backgroundColor:'green'}} name = "ios-checkmark-circle-outline" size = {70} onPress = {this.handleAddItem}>
 
-                        <Text style = {{fontSize:35, color:'white'}}> SET HABIT </Text>
+                        <Text style = {{fontSize:35, color:'white'}}> SET HABIT</Text>
                     </Icon.Button>
                 </View>
             </View>
