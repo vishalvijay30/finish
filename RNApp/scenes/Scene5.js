@@ -41,12 +41,12 @@ export default class Scene5 extends Component {
             <View style={{flex:1}}>
                 <View style = {styles.topContainer}>
                 <Text></Text>
-                    <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt", alignText:'center', }}> FINISH </Text>
+                    <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon2 name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
+                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt", textAlign:'center', }}> FINISH </Text>
                 </View>
 
                 <View style = {styles.middleContainer}>
-                    <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", align:"center"}}> {this.props.habit.title} </Text>
+                    <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", }}> {this.props.habit.title} </Text>
                     <Text></Text>
                      <CountdownTimer
                         till={this.state.date}
@@ -65,9 +65,7 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                    <TouchableOpacity onPress = {this.removeHabit.bind(this)}>
-                        <Icon name = "minus-circle" size={50} color = "white" /><Text style={{flex:1, fontSize:15, color:"white"}}>DELETE HABIT</Text>
-                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.removeHabit.bind(this)}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
                 </View>
             </View>
         );
@@ -124,6 +122,7 @@ const styles = StyleSheet.create({
         //backgroundColor:'green',
         paddingBottom: 10,
         paddingTop: 20,
+        paddingRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -135,11 +134,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     bottomContainer: {
-        //backgroundColor: "#48C9B0",
-        backgroundColor:'red',
+        backgroundColor: "#48C9B0",
+        //backgroundColor:'red',
         flexDirection: 'row',
-        //alignItems:'center',
-        //justifyContent:'center',
+        alignItems:'center',
+        justifyContent:'center',
         //width:Dimensions.get('window').width,
     },
 

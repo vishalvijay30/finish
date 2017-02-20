@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Image, Dimensions, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import Meteor from 'react-native-meteor';
 export default class Scene3 extends Component {
@@ -25,14 +25,12 @@ export default class Scene3 extends Component {
         return (
             <View style = {{flex:1}}>
                 <View style = {styles.topContainer}>
-
-                        <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
+                        <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
                         <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center' }}> FINISH </Text>
-
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
-                <View style = {styles.middleContainer}>
+                <Image source={require('../images/road.jpg')} style = {styles.middleContainer}>
 
                     <TextInput
                         style = {{height:this.state.inputHeight, fontFamily:"Impact", fontSize:50, color:"white", textAlign:"center"}}
@@ -43,10 +41,10 @@ export default class Scene3 extends Component {
                         onContentSizeChange = {this.onTextContentSizeChange.bind(this)}
                     />
 
-                </View>
+                </Image>
                 <View style = {styles.bottomContainer}>
 
-                    <Icon.Button style={{backgroundColor:'green'}} name = "check" size = {60} onPress = {this.handleAddItem}>
+                    <Icon.Button style={{backgroundColor:'green'}} name = "ios-checkmark-circle-outline" size = {70} onPress = {this.handleAddItem}>
 
                         <Text style = {{fontSize:35, color:'white'}}> SET HABIT </Text>
                     </Icon.Button>
@@ -97,7 +95,8 @@ const styles = StyleSheet.create({
     //     width:Dimensions.get('window').width,
     // },
     topContainer : {
-        backgroundColor: "#48C9B0",
+        backgroundColor:'black',
+        //backgroundColor: "#48C9B0",
         //backgroundColor:'green',
         paddingBottom: 10,
         paddingTop: 20,
@@ -106,20 +105,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     middleContainer: {
-        backgroundColor: "#48C9B0",
+        //backgroundColor: "#48C9B0",
+        backgroundColor: 'rgba(0,0,0,0)',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        height: null,
+        width:null
     },
     bottomContainer: {
-        backgroundColor: "#48C9B0",
+        backgroundColor:'black',
+        //backgroundColor: "#48C9B0",
         //backgroundColor:'red',
         flexDirection: 'row',
         alignItems:'center',
         justifyContent:'center',
     },
     fillerContainer: {
-        backgroundColor:'#48C9B0',
+        //backgroundColor:'#48C9B0',
+        backgroundColor:'black',
         height:50,
     }
 
