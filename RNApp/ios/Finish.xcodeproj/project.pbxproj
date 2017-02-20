@@ -42,6 +42,7 @@
 		C9872B3A1E426C6B00696464 /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B391E426C6B00696464 /* Impact.ttf */; };
 		C9872B511E42703900696464 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B501E42703900696464 /* EvilIcons.ttf */; };
 		C9872B531E4273DB00696464 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9872B521E4273DB00696464 /* Ionicons.ttf */; };
+		C9CDC48D1E4BA646003A07A3 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CDC4801E4BA61A003A07A3 /* libRCTPushNotification.a */; };
 		CC05D79A1A2146758FEEEB28 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A26F4994B8B44A9FBCD9B115 /* libRNGoogleSignin.a */; };
 		D68AB06D18CE42348F202014 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B54DBF1D3244B2DB1174DB0 /* SystemConfiguration.framework */; };
 		D91B892835C94D2ABA8C103F /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C89E1501F357413097C3E492 /* libRCTFBSDK.a */; };
@@ -189,6 +190,20 @@
 			remoteGlobalIDString = 2D2A28131D9B038B00D4039D;
 			remoteInfo = "React-tvOS";
 		};
+		C9CDC47F1E4BA61A003A07A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9CDC4711E4BA61A003A07A3 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		C9CDC4811E4BA61A003A07A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9CDC4711E4BA61A003A07A3 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2DD0EFE61DA8533A00B0C975;
+			remoteInfo = "RCTPushNotification-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -236,6 +251,7 @@
 		C9872B391E426C6B00696464 /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		C9872B501E42703900696464 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C9872B521E4273DB00696464 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		C9CDC4711E4BA61A003A07A3 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		D50D665E7C7D4758A56DA922 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F3C98E634BEC465A8D3341EA /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -253,6 +269,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9CDC48D1E4BA646003A07A3 /* libRCTPushNotification.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				4800CA041E1612A8006DE1C5 /* FBSDKCoreKit.framework in Frameworks */,
 				48B4A3E51E21EEB0004AF5D5 /* GoogleSymbolUtilities.framework in Frameworks */,
@@ -427,6 +444,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C9CDC4711E4BA61A003A07A3 /* RCTPushNotification.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -491,6 +509,15 @@
 				C9817D871E1EFFAE009A2121 /* FontAwesome.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C9CDC4721E4BA61A003A07A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9CDC4801E4BA61A003A07A3 /* libRCTPushNotification.a */,
+				C9CDC4821E4BA61A003A07A3 /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		DD6275C08F814F20B046DA35 /* Frameworks */ = {
@@ -596,6 +623,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = C9CDC4721E4BA61A003A07A3 /* Products */;
+					ProjectRef = C9CDC4711E4BA61A003A07A3 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -764,6 +795,20 @@
 			remoteRef = C996669D1E1E0C0E00548A4E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C9CDC4801E4BA61A003A07A3 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = C9CDC47F1E4BA61A003A07A3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9CDC4821E4BA61A003A07A3 /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = C9CDC4811E4BA61A003A07A3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -908,6 +953,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = Finish/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -950,6 +996,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = Finish/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

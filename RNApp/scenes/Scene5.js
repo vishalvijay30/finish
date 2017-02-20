@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import Meteor from 'react-native-meteor';
 import CountdownTimer from 'react-native-countdown-timer';
 var moment = require('moment');
@@ -9,9 +10,9 @@ import TimeLabel from '../app/components/timeLabel';
 export default class Scene5 extends Component {
     constructor(props){
         super(props);
-        var mom = moment().add('1', 'day').format('MM/DD/YYYY');;
+        var mom = moment().add('1', 'day').format('MM/DD/YYYY');
 
-        var date = new Date(mom + " " + "00:00:00")
+        var date = new Date(mom + " " + "00:00:00");
 
         //this.state = {emojiState: this.props.habit.completed};
         console.log(this.props.habit);
@@ -39,14 +40,14 @@ export default class Scene5 extends Component {
         return (
             <View style={{flex:1}}>
                 <View style = {styles.topContainer}>
-                    <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon name = "arrow-left" size = {40} color="white" /></TouchableOpacity>
-                    <Text style = {{ fontSize:30, color:"white", fontFamily: "Rock Salt", paddingRight: 30}}> FINISH </Text>
-                    <TouchableOpacity />
 
+                <Text></Text>
+                    <TouchableOpacity style={{paddingLeft:10}} onPress={this.goBack.bind(this)}><Icon2 name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
+                    <Text style = {{ fontSize:30, color:"white", flex: 1, fontFamily: "Rock Salt", textAlign:'center', }}> FINISH </Text>
                 </View>
 
                 <View style = {styles.middleContainer}>
-                    <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", align:"center"}}> {this.props.habit.title} </Text>
+                    <Text style={{fontSize:30, fontFamily:"Permanent Marker", color:"white", }}> {this.props.habit.title} </Text>
                     <Text></Text>
                      <CountdownTimer
                         till={this.state.date}
@@ -55,7 +56,7 @@ export default class Scene5 extends Component {
                         onFinish={this._onFinish.bind(this)}
                         />
                     <Text></Text>
-                    <View><Icon name ="fire" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon></View>
+                    <View><Icon2 name ="ios-flame" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon2></View>
                     <Text></Text>
                     <View><Icon name ="star" size={30} color="yellow"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.max}</Text></Icon></View>
                     <Text></Text>
@@ -65,9 +66,8 @@ export default class Scene5 extends Component {
 
                 </View>
                 <View style = {styles.bottomContainer}>
-                        <Icon.Button name = "minus-circle" size={60} color="white" style={{backgroundColor:'red'}} onPress = {this.removeHabit.bind(this)}>
-                            <Text style = {{fontSize:35, color:"white"}}> DELETE </Text>
-                        </Icon.Button>
+
+                    <TouchableOpacity onPress={this.removeHabit.bind(this)}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
                 </View>
             </View>
         );
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
         //backgroundColor:'green',
         paddingBottom: 10,
         paddingTop: 20,
+        paddingRight: 10,
         flexDirection: 'row',
        // alignItems: 'center',
         justifyContent: 'space-between',
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems:'center',
         justifyContent:'center',
+        //width:Dimensions.get('window').width,
     },
 
 });

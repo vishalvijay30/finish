@@ -13,7 +13,7 @@ import Meteor, { createContainer } from 'react-native-meteor';
 
 import config from '../config';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 
 import RowComponent from '../app/components/rowComponent';
@@ -86,13 +86,15 @@ constructor(props){
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
             return(<View style={styles.container}>
-                        <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> LOSERS HAVE GOALS </Text>
-                        <Text style={{fontFamily:'Rock Salt', fontSize: 23, color:"white"}}> WINNERS HAVE HABITS </Text>
-                        <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
-                        <Text style={{fontFamily:'Rock Salt', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
-                        <Icon2 name = "spinner-3" size={80} color="grey" />
-                        <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
-                    </View>);
+
+                 
+                <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
+                <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
+                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+                <Text style={{fontFamily:'Permanent Marker', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
+                <Icon2 name = "spinner-3" size={80} color="grey" />
+                <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
+            </View>);
 
         } else {
             topContainer = null;
@@ -101,19 +103,22 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
-                        <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", alignSelf:'center', fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
+                        <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
                     </View>
                 middleContainer =
                     <View style = {styles.middleContainer}>
-                        <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Losers Have Goals. </Text>
-                        <Text style = {{fontSize:25, color:"white", fontFamily:"Rock Salt"}}> Winners Have Habits. </Text>
+                        <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Losers Have Goals. </Text>
+                        <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Winners Have Habits. </Text>
+                        <TouchableOpacity onPress={() => this.handleLogout()}>
+                            <Text>Logout</Text>
+                        </TouchableOpacity>
                     </View>
 
                 bottomContainer =
                     <View style = {styles.bottomContainer}>
-                        <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
+                        <Icon.Button style = {{width: Dimensions.get('window').width}} name = "ios-add-circle-outline" size = {60} onPress = {this.goToNextScene.bind(this)}>
 
-                            <Text style = {{fontSize:35, color:"white"}}> CREATE A HABIT </Text>
+                            <Text style = {{fontSize:40, color:"white"}}> CREATE A HABIT </Text>
 
                         </Icon.Button>
                     </View>
@@ -127,12 +132,12 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
-                            <TouchableOpacity />
-                            <Text style = {{ fontSize:30, color:"#3399ff", paddingLeft:30}}> FINISH </Text>
-                            <TouchableOpacity style={{height:20,width:25, paddingTop:7}} onPress={this.goToNextScene.bind(this)}><Icon name = "plus" size = {20} color = "#3399ff"/></TouchableOpacity>
+
+                        <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt", textAlign: 'center', flex:1 }}> FINISH </Text>
+                        <TouchableOpacity style={{paddingRight:10}} onPress={this.goToNextScene.bind(this)}><Icon name = "ios-add" size = {60} color="white" /></TouchableOpacity>
                     </View>
                 middleContainer =
-                       
+
                     <View style = {styles.middleContainer}>
   
                         <ScrollView>
@@ -141,16 +146,6 @@ constructor(props){
                             })}
                         </ScrollView>
                     </View>
-
-                    bottomContainer =  <View style = {styles.bottomContainer} >
-                        <Icon.Button name = "plus-square-o" size = {60} onPress = {this.goToNextScene.bind(this)}>
-
-                            <Text style = {{fontSize:35, color:"white"}}> CREATE </Text>
-
-                        </Icon.Button>
-                    </View>
-
-                
             }
             return(
                 <SideMenu menu = {menu} >
@@ -214,10 +209,10 @@ constructor(props){
     // },
     topContainer : {
         backgroundColor: "#48C9B0",
-        //backgroundColor:'green',
-        paddingBottom: 10,
-        paddingTop: 30,
-        paddingRight: 10,
+
+        //backgroundColor:'#008080',
+        //paddingBottom: 10,
+        paddingTop: 10,
         flexDirection: 'row',
         //alignItems: 'center',
         justifyContent: 'space-between',
@@ -230,7 +225,7 @@ constructor(props){
     },
     bottomContainer: {
         backgroundColor: "#48C9B0",
-        //backgroundColor:'red',
+        //backgroundColor:'#008080',
         flexDirection: 'row',
         alignItems:'center',
         justifyContent:'center',
