@@ -23,7 +23,7 @@ const SideMenu = require('react-native-side-menu');
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
-const SERVER_URL = 'ws://localhost:3000/websocket';
+const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
 
 //import HomeStyles from
  //'../styles/HomeStyles';
@@ -61,12 +61,12 @@ constructor(props){
                 this.setState({loggedIn : true, goneToLogin: true, gotPic: true, picURL:user.photo});
                 meteorGoogleLogin(user);
             }}).done();
-           
+
    }
 
     componentDidUpdate() {
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
-   
+
             if (this.props.user && !this.state.gotPic){
                fetch('https://graph.facebook.com/543977359144002/picture?type=large')
                .then((response) => {
@@ -87,7 +87,7 @@ constructor(props){
         if (!this.props.user){
             return(<View style={styles.container}>
 
-                 
+
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
@@ -139,7 +139,7 @@ constructor(props){
                 middleContainer =
 
                     <View style = {styles.middleContainer}>
-  
+
                         <ScrollView>
                             {arr.map((habit_pair) => {
                                 return <RowComponent  navigator = {this.props.navigator} habit_pair={habit_pair}/>
