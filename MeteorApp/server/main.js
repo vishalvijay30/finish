@@ -5,5 +5,6 @@ import OAuthInit from '../imports/api/oauth/oauth-init'
 
 Meteor.startup(() => {
   OAuthInit();
-});
+  SyncedCron.start();
 
+});

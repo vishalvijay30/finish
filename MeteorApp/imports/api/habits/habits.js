@@ -26,22 +26,27 @@ Meteor.methods({
 			Habits.update({_id: habit._id}, {$set: {max: habit.streak}});
 			console.log(Habits.find({_id: habit._id}).fetch());
 		}
-	}	
+	}
 });
 
-function refreshList() {
-		console.log("refresh list called");
-		habit_list = Habits.find().fetch();
-		for (i=0; i < habit_list.length; i++) {
-			if (habit_list[i].completed == false) {
-				Habits.update({_id: habit_list[i]._id}, {$set: {streak: 0}});
-			} else {
-				Habits.update({_id: habit_list[i]._id}, {$set: {completed: false}});
+SyncedCron.add({
+  name: 'Crunch some important numbers for the marketing department',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.recur().on('00:00:00').time();
+  },
+  job: function refreshList() {
+			console.log("refresh list called");
+			habit_list = Habits.find().fetch();
+			for (i=0; i < habit_list.length; i++) {
+				if (habit_list[i].completed == false) {
+					Habits.update({_id: habit_list[i]._id}, {$set: {streak: 0}});
+				} else {
+					Habits.update({_id: habit_list[i]._id}, {$set: {completed: false}});
+				}
 			}
 		}
-	}
-
-var onceEveryMidnight = new Cron(refreshList, {minute:0, hour:1});
+});
 
 if (Meteor.isServer){
 	Habits.remove({userId: null});
