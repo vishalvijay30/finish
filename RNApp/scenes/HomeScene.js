@@ -81,6 +81,7 @@ constructor(props){
    }
 
       render() {
+        console.log(this.props.db);
           const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL} data={this.props.data}/>
 
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);

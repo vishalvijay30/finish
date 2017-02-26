@@ -12,10 +12,10 @@ const registerHandler = () => {
     }
 
     const whitelisted = ['id', 'email', 'name', 'first_name',
-     'last_name', 'link', 'gender', 'locale', 'age_range', 'picture'];
+     'last_name', 'link', 'gender', 'locale', 'age_range', 'picture', 'timezone'];
 
      const identity = getIdentity(data.accessToken, whitelisted);
-
+     console.log(identity);
      const serviceData = {
       accessToken: data.accessToken,
       expiresAt: (+new Date) + (1000 * data.expirationTime)
