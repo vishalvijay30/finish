@@ -18,18 +18,18 @@ export default class LoginScene extends Component {
             return (
             <View style={styles.container}>
                 <View style={styles.topContainer}>
-                    <Text style={{fontSize:30, color:"white", fontFamily:"Rock Salt"}}>
+                    <Text style={{fontSize:30, color:"white", fontFamily:"Permanent Marker", }}>
                         Welcome to Finish!
                     </Text>
-                    <Text style={{fontSize:30, color:"white", fontFamily:"Rock Salt"}}>
+                    <Text style={{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}>
                         Register to get started.
                     </Text>
                 </View>
             <View style={styles.middleContainer}>
-                
+
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
 
-                  
+
                     <Text/><Text/>
                     <Text/>
                     <Text/>
@@ -73,7 +73,7 @@ export default class LoginScene extends Component {
    topContainer: {
         justifyContent:'center',
         alignItems:'center',
-        height:75,
+        height:175,
         backgroundColor: '#48C9B0',
         //backgroundColor: '#e6ffff',
         //borderWidth:1,
@@ -82,7 +82,7 @@ export default class LoginScene extends Component {
     middleContainer: {
         justifyContent:'center',
         alignItems:'center',
-        height:525,
+        height:425,
         backgroundColor: '#48C9B0',
     },
     bottomContainer: {

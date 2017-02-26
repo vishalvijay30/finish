@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Alert, Dimensions, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Meteor from 'react-native-meteor';
@@ -67,7 +67,15 @@ export default class Scene5 extends Component {
                 </View>
                 <View style = {styles.bottomContainer}>
 
-                    <TouchableOpacity onPress={this.removeHabit.bind(this)}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => Alert.alert(
+            'Remove Habit',
+            'Are you sure you want to remove this habit?',
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+              {text: 'OK', onPress:() => {Meteor.call('removeHabit', {habit: this.props.habit});
+                                            this.goBack();}},
+            ]
+          )}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
                 </View>
             </View>
         );

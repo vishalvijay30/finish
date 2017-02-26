@@ -132,7 +132,7 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
-
+                        <TouchableOpacity style={{paddingLeft:10}}><Icon name = "ios-list" size = {60} color="white" /></TouchableOpacity>
                         <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt", textAlign: 'center', flex:1 }}> FINISH </Text>
                         <TouchableOpacity style={{paddingRight:10}} onPress={this.goToNextScene.bind(this)}><Icon name = "ios-add" size = {60} color="white" /></TouchableOpacity>
                     </View>
