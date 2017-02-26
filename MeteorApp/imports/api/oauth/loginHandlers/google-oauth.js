@@ -40,7 +40,7 @@ const registerHandler = () => {
         scope: scopes,
     }
 
-    const whitelistedFields = ['id', 'name', 'email', 'picture'];
+    const whitelistedFields = ['id', 'name', 'email', 'picture', 'timezone'];
 
     const fields = _.pick(identity, whitelistedFields);
     _.extend(serviceData, fields);

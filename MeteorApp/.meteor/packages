@@ -21,4 +21,4 @@ accounts-facebook
 service-configuration
 shell-server
 accounts-google
-chfritz:easycron
+percolate:synced-cron
