@@ -33,7 +33,7 @@ SyncedCron.add({
   name: 'Crunch some important numbers for the marketing department',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.recur().on('00:00:00').time();
+    return parser.recur().on('00:15:00').time();
   },
   job: function refreshList() {
 			console.log("refresh list called");
