@@ -81,13 +81,11 @@ constructor(props){
    }
 
       render() {
-          const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL}/>
+          const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL} data={this.props.data}/>
 
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
         if (!this.props.user){
             return(<View style={styles.container}>
-
-
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
                 <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
