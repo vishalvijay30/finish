@@ -4,17 +4,18 @@ import Meteor from 'react-native-meteor';
 
 const USER_TOKEN_KEY = 'reactnativemeteor_usertoken';
 
-export const loginWithTokens = () => {
+export const loginWithTokens = (callback) => {
   const Data = Meteor.getData();
   AccessToken.getCurrentAccessToken()
     .then((res) => {
-      console.log(res);
       if (res) {
+        AsyncStorage.setItem('FACEBOOK_ID', res.userID);
         Meteor.call('login', { facebook: res }, (err, result) => {
           if(!err) {
             AsyncStorage.setItem(USER_TOKEN_KEY, result.token);
             Data._tokenIdSaved = result.token;
             Meteor._userIdSaved = result.id;
+            callback(true);
           }
         });
       }
@@ -27,6 +28,6 @@ export const onLoginFinished = (error, result) => {
   } else if (result.isCancelled) {
     console.log('login cancelled');
   } else {
-    loginWithTokens();
+    loginWithTokens((res) => {console.log(res);});
   }
 };

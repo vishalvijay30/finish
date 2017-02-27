@@ -1,13 +1,13 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
+import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
-import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+import { loginWithTokens, onLoginFinished } from '../oauth/fb-login';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
+import {meteorGoogleLogin, loginWithGoogle} from '../oauth/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
@@ -16,8 +16,8 @@ import config from '../config';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 
-import RowComponent from '../app/components/rowComponent';
-import Menu from '../app/components/sideMenu';
+import RowComponent from '../components/rowComponent';
+import Menu from '../components/sideMenu';
 
 const SideMenu = require('react-native-side-menu');
 
@@ -36,6 +36,7 @@ constructor(props){
             goneToLogin: false,
             loggedIn: false,
             gotPic: false,
+            fbUserId: '',
             picURL:''
         }
 
@@ -54,6 +55,11 @@ constructor(props){
         loginWithTokens((res) => {
             if (res){
                 this.setState({loggedIn: true, goneToLogin:true, service:'facebook'});
+                AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+                  console.log(value);
+                  this.setState({fbUserId: value});
+                  console.log(this.state);
+                });
             }
         });
         GoogleSignin.currentUserAsync()
@@ -68,7 +74,7 @@ constructor(props){
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
 
             if (this.props.user && !this.state.gotPic){
-               fetch('https://graph.facebook.com/543977359144002/picture?type=large')
+               fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
                .then((response) => {
                    if (!this.state.picURL){
                         this.setState({gotPic: true, picURL:response.url});
@@ -81,7 +87,8 @@ constructor(props){
    }
 
       render() {
-        console.log(this.props.db);
+        //console.log(this.props.db);
+        //console.log(this.props.data);
           const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL} data={this.props.data}/>
 
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
@@ -89,7 +96,7 @@ constructor(props){
             return(<View style={styles.container}>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
-                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+                <Image source={require('../images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
                 <Icon2 name = "spinner-3" size={80} color="grey" />
                 <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>

@@ -5,7 +5,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import Meteor from 'react-native-meteor';
 import CountdownTimer from 'react-native-countdown-timer';
 var moment = require('moment');
-import TimeLabel from '../app/components/timeLabel';
+import TimeLabel from '../components/timeLabel';
 
 export default class Scene5 extends Component {
     constructor(props){
