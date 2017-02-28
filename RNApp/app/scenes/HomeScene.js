@@ -23,6 +23,8 @@ const SideMenu = require('react-native-side-menu');
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
+var moment = require('moment');
+
 const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
 
 //import HomeStyles from
@@ -91,13 +93,13 @@ constructor(props){
                 });
             }
             var i;
-            var date = new Date();
 
-            const millisInDay = 24*60*60*1000;
-            var midnight = date.getTime() - (date.getTime()%millisInDay);
+            const millisInDay = 86400000;
             var toBeReset = [];
             var toBeToggled = [];
+            var midnight = moment().startOf('day').valueOf();
             for (i = 0; i < this.props.db.length; i++){
+              //console.log(this.props.db[i].title + " " + midnight + " " + this.props.db[i].lastCompleted + " " + millisInDay);
               if (midnight - this.props.db[i].lastCompleted > millisInDay){
                 toBeReset.push(this.props.db[i]._id);
               } else if(midnight > this.props.db[i].lastCompleted){
