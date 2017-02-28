@@ -86,13 +86,13 @@ export default class Scene5 extends Component {
     }
 
     removeHabit(){
-        Meteor.call('removeHabit', {habit: this.props.habit});
+        Meteor.call('removeHabit', this.props.habit);
         this.goBack();
     }
 
     toggleEmojiState() {
         if (!this.state.emojiState){
-            Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
+            Meteor.call('updateStreak', {habit: this.props.habit, lastCompleted: Date.now()}, (err, res) => {
                 this.setState({emojiState:true});
                 this.props.navigator.pop();
             });

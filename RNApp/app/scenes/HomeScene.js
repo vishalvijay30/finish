@@ -72,7 +72,12 @@ constructor(props){
 
     componentDidUpdate() {
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
-
+         AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+           if (value){
+             this.setState({fbUserId: value});
+             console.log(this.state);
+           }
+         });
             if (this.props.user && !this.state.gotPic){
                fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
                .then((response) => {
@@ -83,6 +88,22 @@ constructor(props){
                .catch((error) => {
                    console.log(error);
                 });
+            }
+            var i;
+            var date = new Date();
+
+            const millisInDay = 24*60*60*1000;
+            var midnight = date.getTime() - (date.getTime()%millisInDay);
+            var toBeReset = [];
+            var toBeToggled = [];
+            for (i = 0; i < this.props.db.length; i++){
+              if (midnight - lastCompleted > millisInDay){
+                toBeReset.push(this.props.db[i]._id);
+              } else if(midnight > lastCompleted){
+                toBeToggled.push(this.props.db[i]._id);
+              }
+              Meteor.call("modifyHabits", {toggled: toBeToggled, reset: toBeReset});
+
             }
    }
 
@@ -131,9 +152,11 @@ constructor(props){
             } else {
                 var i;
                 var arr = [];
+
                 for (i = 0; i < this.props.db.length; i++){
-                    if (i%2==1)continue;
-                    arr.push([this.props.db[i], this.props.db[i+1]]);
+
+                  if (i%2==1)continue;
+                  arr.push([this.props.db[i], this.props.db[i+1]]);
                 }
 
                topContainer =
@@ -258,9 +281,6 @@ constructor(props){
 
 
 export default createContainer(() => {
-    Meteor.call('refreshList', null, (err, res) => {
-            Meteor.subscribe('habits');
-    });
     return {
         user: Meteor.userId(),
         data: Meteor.user(),

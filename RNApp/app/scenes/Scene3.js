@@ -15,7 +15,7 @@ export default class Scene3 extends Component {
 
     handleAddItem() {
         console.log("reached add");
-        Meteor.call('addHabit', { userId: this.props.user,  title: this.state.text, streak: 0 }, (err, res) => {
+        Meteor.call('addHabit', { userId: this.props.user,  title: this.state.text, streak: 0, lastCompleted: -1 }, (err, res) => {
             console.log('addHabit', err, res);
             this.goBack();
         });
