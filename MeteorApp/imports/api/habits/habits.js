@@ -40,7 +40,7 @@ Meteor.methods({
 		for (var i = 0; i < toBeToggled.length; i++){
 			Habits.update({_id:toBeToggled[i]}, {$set: {completed: false}});
 		}
-		for (var j = 0; j < toBeReset.length, j++){
+		for (var j = 0; j < toBeReset.length; j++){
 			Habits.update({_id: toBeReset[j]}, {$set: {streak: 0, completed: false}});
 		}
 	},
