@@ -37,7 +37,7 @@ Meteor.methods({
 	'modifyHabits': function(data){
 		var toBeToggled = data.toggled;
 		var toBeReset = data.reset;
-		for (var i = 0; i < toBeToggled.length, i++){
+		for (var i = 0; i < toBeToggled.length; i++){
 			Habits.update({_id:toBeToggled[i]}, {$set: {completed: false}});
 		}
 		for (var j = 0; j < toBeReset.length, j++){
