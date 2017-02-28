@@ -48,6 +48,12 @@ constructor(props){
         GoogleSignin.configure({
             iosClientId: config.google.iosClientId,
         });
+        AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+          if (value){
+            this.setState({fbUserId: value});
+            console.log(this.state);
+          }
+        });
    }
 
    componentDidMount(){
@@ -72,12 +78,7 @@ constructor(props){
 
     componentDidUpdate() {
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
-         AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
-           if (value){
-             this.setState({fbUserId: value});
-             console.log(this.state);
-           }
-         });
+
             if (this.props.user && !this.state.gotPic){
                fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
                .then((response) => {
@@ -97,9 +98,9 @@ constructor(props){
             var toBeReset = [];
             var toBeToggled = [];
             for (i = 0; i < this.props.db.length; i++){
-              if (midnight - lastCompleted > millisInDay){
+              if (midnight - this.props.db[i].lastCompleted > millisInDay){
                 toBeReset.push(this.props.db[i]._id);
-              } else if(midnight > lastCompleted){
+              } else if(midnight > this.props.db[i].lastCompleted){
                 toBeToggled.push(this.props.db[i]._id);
               }
               Meteor.call("modifyHabits", {toggled: toBeToggled, reset: toBeReset});
@@ -281,6 +282,7 @@ constructor(props){
 
 
 export default createContainer(() => {
+  Meteor.subscribe('habits');
     return {
         user: Meteor.userId(),
         data: Meteor.user(),
