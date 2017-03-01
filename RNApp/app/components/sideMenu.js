@@ -12,12 +12,24 @@ export default class Menu extends Component {
             return(
 
                 <View style={{flexDirection:'column', flex:1, alignItems:'center', justifyContent:'center', backgroundColor:"#008080"}}>
-                  <Image source={{uri: this.props.picURL}} style={{height:100, width:100, borderRadius: 25}}/>
+                  <Image source={{uri: this.props.picURL}} style={{height:200, width:200, borderRadius: 100}}/>
                   <Text style={{color:"white", fontFamily:"Permanent Marker", fontSize:20, textAlign:"center", backgroundColor:'transparent'}}>{this.props.data.profile.name}</Text>
-                  <Text style={{color:"white", fontFamily:"Permanent Marker", fontSize:40, textAlign:"center", backgroundColor:'transparent'}}>GET UP{"\n"} AND DO!</Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text style={{color:"white", fontFamily:"Rock Salt", fontSize:30, textAlign:"center", backgroundColor:'transparent'}}>FINISH</Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
+                  <Text></Text>
                   <View style={{flexWrap: 'wrap', alignItems: 'flex-start', flexDirection:'row'}}>
-                    <Icon name="md-log-out" size={30} color="white" style={{paddingTop:10}}></Icon>
-                    <TouchableOpacity onPress={() => this.props.logout()}><Text style={{color:"white", fontFamily:"Permanent Marker", paddingLeft:10, fontSize:30, textAlign:"center", backgroundColor:'transparent'}}>Logout</Text></TouchableOpacity>
+                    <Icon name="md-log-out" size={20} color="white" style={{paddingTop:10}}></Icon>
+                    <TouchableOpacity onPress={() => this.props.logout()}><Text style={{color:"white", fontFamily:"Impact", paddingLeft:10, fontSize:25, textAlign:"center", backgroundColor:'transparent'}}>Logout</Text></TouchableOpacity>
                   </View>
                 </View>
             );

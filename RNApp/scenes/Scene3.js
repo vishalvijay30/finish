@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         //backgroundColor: "#48C9B0",
         //backgroundColor:'green',
         paddingBottom: 10,
-        paddingTop: 20,
+        paddingTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

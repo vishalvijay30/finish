@@ -45,14 +45,14 @@ export default class App extends Component {
     if (appState === 'inactive') {
       PushNotification.localNotificationSchedule({
         message:'My Notification Message',
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 0, 0),
+        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 36, 0),
       });
     }
 
     if (appState === 'background') {
       PushNotification.localNotificationSchedule({
         message:'My Notification Message',
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 0, 0),
+        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 36, 0),
       });
     }
   }
@@ -60,9 +60,11 @@ export default class App extends Component {
   getHour() {
     var today = new Date();
     if (today.getHours() < 9) {
-      return 9;
+      return 8;
+    } else if (today.getHours() > 9 && today.getHours() < 19){
+      return 19;
     } else {
-      return 18;
+      return 8;
     }
   }
 
