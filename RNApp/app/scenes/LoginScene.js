@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView, Image, AsyncStorage } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
 
-import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+import { loginWithTokens, onLoginFinished } from '../oauth/fb-login';
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
+import {meteorGoogleLogin, loginWithGoogle} from '../oauth/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
@@ -27,7 +27,8 @@ export default class LoginScene extends Component {
                 </View>
             <View style={styles.middleContainer}>
 
-                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+
+                <Image source={require('../images/logo.png')} style={{width:200, height:200}} />
 
 
                     <Text/><Text/>
@@ -57,6 +58,7 @@ export default class LoginScene extends Component {
         Meteor.logout();
         GoogleSignin.signOut();
         this.setState({loggedIn: false, goneToLogin: false});
+        AsyncStorage.removeItem('FACEBOOK_ID');
     }
 
     handleLogin(error, result){

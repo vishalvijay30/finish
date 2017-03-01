@@ -7,45 +7,43 @@ Meteor.methods({
 	'addHabit': function(habit){
 		//expect habit to have {habitId: integer, title: String, streak: 0}
 		d = new Date()
-		Habits.insert({userId: habit.userId, title: habit.title, streak: 0, max: 0, completed: false});
+		Habits.insert({
+			userId: habit.userId,
+			title: habit.title,
+			streak: 0,
+			max: 0,
+			completed: false,
+			lastCompleted: habit.lastCompleted,
+		});
 		//return "success";
 		return Habits.find().fetch();
 	},
 	'removeHabit': function(habit) {
-		habit = habit.habit;
 		Habits.remove({_id: habit._id});
 	},
 	'updateStreak': function(habit) {
 		console.log("update streak");
+		var now = habit.lastCompleted;
 		habit = habit.habit;
 		//expect habit to have {habitId, integer, title: String, streak: int}
-		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true}});
+		Habits.update({_id: habit._id}, {$inc: {streak: 1}, $set: {completed: true, lastCompleted: now}});
 		habit.streak = habit.streak+1;
 
 		if (habit.streak > habit.max) {
 			Habits.update({_id: habit._id}, {$set: {max: habit.streak}});
 			console.log(Habits.find({_id: habit._id}).fetch());
 		}
-	}
-});
-
-SyncedCron.add({
-  name: 'Crunch some important numbers for the marketing department',
-  schedule: function(parser) {
-    // parser is a later.parse object
-    return parser.recur().on('00:00:00').time();
-  },
-  job: function refreshList() {
-			console.log("refresh list called");
-			habit_list = Habits.find().fetch();
-			for (i=0; i < habit_list.length; i++) {
-				if (habit_list[i].completed == false) {
-					Habits.update({_id: habit_list[i]._id}, {$set: {streak: 0}});
-				} else {
-					Habits.update({_id: habit_list[i]._id}, {$set: {completed: false}});
-				}
-			}
+	},
+	'modifyHabits': function(data){
+		var toBeToggled = data.toggled;
+		var toBeReset = data.reset;
+		for (var i = 0; i < toBeToggled.length; i++){
+			Habits.update({_id:toBeToggled[i]}, {$set: {completed: false}});
 		}
+		for (var j = 0; j < toBeReset.length; j++){
+			Habits.update({_id: toBeReset[j]}, {$set: {streak: 0, completed: false}});
+		}
+	},
 });
 
 if (Meteor.isServer){

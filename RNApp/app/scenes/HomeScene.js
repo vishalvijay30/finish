@@ -1,13 +1,13 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image } from 'react-native';
+import {Dimensions, ScrollView, View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
 
 import FBSDK from 'react-native-fbsdk';
-import { loginWithTokens, onLoginFinished } from '../app/fb-login';
+import { loginWithTokens, onLoginFinished } from '../oauth/fb-login';
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
-import {meteorGoogleLogin, loginWithGoogle} from '../app/google-login';
+import {meteorGoogleLogin, loginWithGoogle} from '../oauth/google-login';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
@@ -16,12 +16,14 @@ import config from '../config';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 
-import RowComponent from '../app/components/rowComponent';
-import Menu from '../app/components/sideMenu';
+import RowComponent from '../components/rowComponent';
+import Menu from '../components/sideMenu';
 
 const SideMenu = require('react-native-side-menu');
 
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
+
+var moment = require('moment');
 
 const SERVER_URL = 'ws://finishgetupanddo.herokuapp.com/websocket';
 
@@ -36,6 +38,7 @@ constructor(props){
             goneToLogin: false,
             loggedIn: false,
             gotPic: false,
+            fbUserId: '',
             picURL:''
         }
 
@@ -47,6 +50,12 @@ constructor(props){
         GoogleSignin.configure({
             iosClientId: config.google.iosClientId,
         });
+        AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+          if (value){
+            this.setState({fbUserId: value});
+            console.log(this.state);
+          }
+        });
    }
 
    componentDidMount(){
@@ -54,6 +63,11 @@ constructor(props){
         loginWithTokens((res) => {
             if (res){
                 this.setState({loggedIn: true, goneToLogin:true, service:'facebook'});
+                AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+                  console.log(value);
+                  this.setState({fbUserId: value});
+                  console.log(this.state);
+                });
             }
         });
         GoogleSignin.currentUserAsync()
@@ -68,7 +82,7 @@ constructor(props){
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
 
             if (this.props.user && !this.state.gotPic){
-               fetch('https://graph.facebook.com/543977359144002/picture?type=large')
+               fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
                .then((response) => {
                    if (!this.state.picURL){
                         this.setState({gotPic: true, picURL:response.url});
@@ -78,10 +92,27 @@ constructor(props){
                    console.log(error);
                 });
             }
+            var i;
+
+            const millisInDay = 86400000;
+            var toBeReset = [];
+            var toBeToggled = [];
+            var midnight = moment().startOf('day').valueOf();
+            for (i = 0; i < this.props.db.length; i++){
+              //console.log(this.props.db[i].title + " " + midnight + " " + this.props.db[i].lastCompleted + " " + millisInDay);
+              if (midnight - this.props.db[i].lastCompleted > millisInDay){
+                toBeReset.push(this.props.db[i]._id);
+              } else if(midnight > this.props.db[i].lastCompleted){
+                toBeToggled.push(this.props.db[i]._id);
+              }
+              Meteor.call("modifyHabits", {toggled: toBeToggled, reset: toBeReset});
+
+            }
    }
 
       render() {
-        console.log(this.props.db);
+        //console.log(this.props.db);
+        //console.log(this.props.data);
           const menu = <Menu logout={this.handleLogout.bind(this)} picURL={this.state.picURL} data={this.props.data}/>
 
         //console.log(this.state.loggedIn + "" + this.state.goneToLogin);
@@ -89,7 +120,7 @@ constructor(props){
             return(<View style={styles.container}>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> LOSERS HAVE GOALS </Text>
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 25, color:"white"}}> WINNERS HAVE HABITS </Text>
-                <Image source={require('../app/images/logo.png')} style={{width:200, height:200}} />
+                <Image source={require('../images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
                 <Icon2 name = "spinner-3" size={80} color="grey" />
                 <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
@@ -124,9 +155,11 @@ constructor(props){
             } else {
                 var i;
                 var arr = [];
+
                 for (i = 0; i < this.props.db.length; i++){
-                    if (i%2==1)continue;
-                    arr.push([this.props.db[i], this.props.db[i+1]]);
+
+                  if (i%2==1)continue;
+                  arr.push([this.props.db[i], this.props.db[i+1]]);
                 }
 
                topContainer =
@@ -251,9 +284,7 @@ constructor(props){
 
 
 export default createContainer(() => {
-    Meteor.call('refreshList', null, (err, res) => {
-            Meteor.subscribe('habits');
-    });
+  Meteor.subscribe('habits');
     return {
         user: Meteor.userId(),
         data: Meteor.user(),

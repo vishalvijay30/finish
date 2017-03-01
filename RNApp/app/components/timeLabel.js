@@ -4,8 +4,7 @@ import {View, StyleSheet, TouchableHighlight, Text, TouchableOpacity, ScrollView
 export default class TimeLabel extends Component {
   render() {
     //this.decideColorOfTimer();
-    console.log("Time label component");
-    console.log(this.props);
+    
     return (
       <View>
         <Text style={{fontSize:20, fontFamily:"Impact", color:this.props.color}}>

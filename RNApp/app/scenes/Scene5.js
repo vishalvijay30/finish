@@ -5,7 +5,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import Meteor from 'react-native-meteor';
 import CountdownTimer from 'react-native-countdown-timer';
 var moment = require('moment');
-import TimeLabel from '../app/components/timeLabel';
+import TimeLabel from '../components/timeLabel';
 
 export default class Scene5 extends Component {
     constructor(props){
@@ -94,13 +94,13 @@ export default class Scene5 extends Component {
     }
 
     removeHabit(){
-        Meteor.call('removeHabit', {habit: this.props.habit});
+        Meteor.call('removeHabit', this.props.habit);
         this.goBack();
     }
 
     toggleEmojiState() {
         if (!this.state.emojiState){
-            Meteor.call('updateStreak', {habit: this.props.habit}, (err, res) => {
+            Meteor.call('updateStreak', {habit: this.props.habit, lastCompleted: moment().valueOf()}, (err, res) => {
                 this.setState({emojiState:true});
                 this.props.navigator.pop();
             });

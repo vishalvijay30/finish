@@ -8,12 +8,10 @@ import {
   AppState
 } from 'react-native';
 
-import {loginWithTokens, onLoginFinished} from './fb-login';
-
-import HomeScene from '../scenes/HomeScene';
-import LoginScene from '../scenes/LoginScene';
-import Scene3 from '../scenes/Scene3';
-import Scene5 from '../scenes/Scene5';
+import HomeScene from './scenes/HomeScene';
+import LoginScene from './scenes/LoginScene';
+import Scene3 from './scenes/Scene3';
+import Scene5 from './scenes/Scene5';
 
 import Meteor from 'react-native-meteor';
 import PushNotification from 'react-native-push-notification';
