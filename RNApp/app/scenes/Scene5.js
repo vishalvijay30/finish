@@ -72,7 +72,7 @@ export default class Scene5 extends Component {
             'Are you sure you want to remove this habit?',
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-              {text: 'OK', onPress:() => {Meteor.call('removeHabit', {habit: this.props.habit});
+              {text: 'OK', onPress:() => {Meteor.call('removeHabit', this.props.habit);
                                             this.goBack();}},
             ]
           )}><Icon2 name="ios-trash" size = {70} color = "red" /></TouchableOpacity>
