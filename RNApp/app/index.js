@@ -40,27 +40,29 @@ export default class App extends Component {
   handleAppStateChange(appState) {
     var today = new Date();
     console.log("App State: " + appState);
+    if (today.getMinutes() <= 52) {
     if (appState === 'inactive') {
       PushNotification.localNotificationSchedule({
         message:'My Notification Message',
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 0, 0),
+        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 52, 0),
       });
     }
 
     if (appState === 'background') {
       PushNotification.localNotificationSchedule({
         message:'My Notification Message',
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 0, 0),
+        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 52, 0),
       });
     }
   }
+}
 
   getHour() {
     var today = new Date();
     if (today.getHours() < 9) {
       return 8;
     } else {
-      return 22;
+      return 13;
     }
   }
 
