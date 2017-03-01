@@ -34,11 +34,7 @@ export default class BoxComponent extends Component{
         //console.log(dateObj); //date obj exists
             return(<View style={{alignItems:'center'}}>
                             <CircleComponent navigator = {this.props.navigator} habit={this.props.habit} />
-                            <CountdownTimer
-                            till={dateObj}
-                            renderTick={(data) => <TimeLabel {...data} color = {this.decideColorOfTimer()} />  }
-                            onTick={this._onTick.bind(this)}
-                            onFinish={this._onFinish.bind(this)} />
+
                     </View>
             );
         }
