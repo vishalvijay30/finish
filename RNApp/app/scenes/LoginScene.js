@@ -64,11 +64,12 @@ export default class LoginScene extends Component {
     handleLogin(error, result){
         console.log("handle login");
         onLoginFinished(error, result);
-        this.props.navigator.pop();
+        this.props.navigator.immediatelyResetRouteStack([{screen:'HomeScene'}]);
     }
      googleSignIn(){
         loginWithGoogle();
-        this.props.navigator.pop();
+        console.log("google login");
+        this.props.navigator.immediatelyResetRouteStack([{screen:'HomeScene'}]);
     }
 }
     const styles = StyleSheet.create({

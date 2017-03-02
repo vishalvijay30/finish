@@ -50,12 +50,14 @@ constructor(props){
         GoogleSignin.configure({
             iosClientId: config.google.iosClientId,
         });
-        AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
-          if (value){
-            this.setState({fbUserId: value});
-            console.log(this.state);
-          }
-        });
+        if (!this.state.picURL){
+          AsyncStorage.getItem('GOOGLE_PHOTO').then((value) => {
+            if (value){
+              this.setState({loggedIn : true, goneToLogin: true, gotPic: true, picURL:user.photo});
+            }
+          });
+        }
+
    }
 
    componentDidMount(){
@@ -82,15 +84,22 @@ constructor(props){
          setTimeout(() => this.checkAndGoToLoginScene(), 4000);
 
             if (this.props.user && !this.state.gotPic){
-               fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
-               .then((response) => {
-                   if (!this.state.picURL){
-                        this.setState({gotPic: true, picURL:response.url});
-                   }
-               })
-               .catch((error) => {
-                   console.log(error);
-                });
+              AsyncStorage.getItem('FACEBOOK_ID').then((value) => {
+                if (value){
+                  this.setState({fbUserId: value});
+                  console.log(this.state);
+                  fetch('https://graph.facebook.com/'+this.state.fbUserId+'/picture?type=large')
+                  .then((response) => {
+                      if (!this.state.picURL){
+                           this.setState({gotPic: true, picURL:response.url});
+                      }
+                  })
+                  .catch((error) => {
+                      console.log(error);
+                   });
+                }
+              });
+
             }
             var i;
 
@@ -98,17 +107,28 @@ constructor(props){
             var toBeReset = [];
             var toBeToggled = [];
             var midnight = moment().startOf('day').valueOf();
-            for (i = 0; i < this.props.db.length; i++){
-              //console.log(this.props.db[i].title + " " + midnight + " " + this.props.db[i].lastCompleted + " " + millisInDay);
-              if (midnight - this.props.db[i].lastCompleted > millisInDay){
-                toBeReset.push(this.props.db[i]._id);
-              } else if(midnight > this.props.db[i].lastCompleted){
-                toBeToggled.push(this.props.db[i]._id);
-              }
-              Meteor.call("modifyHabits", {toggled: toBeToggled, reset: toBeReset});
+            if (this.props.db){
+              for (i = 0; i < this.props.db.length; i++){
+                //console.log(this.props.db[i].title + " " + midnight + " " + this.props.db[i].lastCompleted + " " + millisInDay);
+                if (midnight - this.props.db[i].lastCompleted > millisInDay){
+                  toBeReset.push(this.props.db[i]._id);
+                } else if(midnight > this.props.db[i].lastCompleted){
+                  toBeToggled.push(this.props.db[i]._id);
+                }
+                Meteor.call("modifyHabits", {toggled: toBeToggled, reset: toBeReset});
 
+              }
             }
    }
+   toggleSideMenu() {
+      this.setState({
+        isOpen: !this.state.isOpen,
+      });
+    }
+
+    updateMenuState(isOpen) {
+      this.setState({ isOpen, });
+    }
 
       render() {
         //console.log(this.props.db);
@@ -133,6 +153,7 @@ constructor(props){
             if (this.props.db.length == 0){
                 topContainer =
                     <View style = {styles.topContainer}>
+                        <TouchableOpacity style={{paddingLeft:10}} onPress={this.toggleSideMenu.bind(this)}><Icon name = "ios-list" size = {60} color="white" /></TouchableOpacity>
                         <Text style = {{ fontSize: (0.04 * Dimensions.get('window').height), color:"white", fontFamily:"Rock Salt", flex: 1, textAlign:'center', fontWeight:'bold' }}> FINISH </Text>
                     </View>
                 middleContainer =
@@ -164,7 +185,7 @@ constructor(props){
 
                topContainer =
                     <View style = {styles.topContainer}>
-                        <TouchableOpacity style={{paddingLeft:10}}><Icon name = "ios-list" size = {60} color="white" /></TouchableOpacity>
+                        <TouchableOpacity style={{paddingLeft:10}} onPress={this.toggleSideMenu.bind(this)}><Icon name = "ios-list" size = {60} color="white" /></TouchableOpacity>
                         <Text style = {{ fontSize:30, color:"white", fontFamily:"Rock Salt", textAlign: 'center', flex:1 }}> FINISH </Text>
                         <TouchableOpacity style={{paddingRight:10}} onPress={this.goToNextScene.bind(this)}><Icon name = "ios-add" size = {60} color="white" /></TouchableOpacity>
                     </View>
@@ -180,7 +201,7 @@ constructor(props){
                     </View>
             }
             return(
-                <SideMenu menu = {menu} >
+                <SideMenu menu = {menu} isOpen={this.state.isOpen} onChange={(isOpen) => this.updateMenuState(isOpen)}>
                     <View style = {{flex: 1}}>
                         {topContainer}
                         {middleContainer}
@@ -194,17 +215,20 @@ constructor(props){
     checkAndGoToLoginScene(){
 
         if(this.props.user===null && !this.state.goneToLogin){
-            this.props.navigator.push({screen:'LoginScene'});
-            this.setState({goneToLogin: true, loggedIn: true});
+          this.setState({goneToLogin: true, loggedIn: true});
+
+            this.props.navigator.immediatelyResetRouteStack([{screen:'LoginScene'}]);
         }
     }
 
 
     handleLogout(){
-        LoginManager.logOut();
-        Meteor.logout();
-        GoogleSignin.signOut();
-        this.setState({loggedIn: false, goneToLogin: false});
+      LoginManager.logOut();
+      Meteor.logout();
+      GoogleSignin.signOut();
+      this.setState({loggedIn: false, goneToLogin: false, gotPic: false, picURL: null, fbUserId: null});
+      AsyncStorage.removeItem('FACEBOOK_ID');
+      AsyncStorage.removeItem('GOOGLE_PHOTO');
     }
 
     goToNextScene() {
