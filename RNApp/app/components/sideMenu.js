@@ -11,7 +11,7 @@ export default class Menu extends Component {
         } else {
             return(
 
-                <View style={{flexDirection:'column', flex:1, alignItems:'center', justifyContent:'center', backgroundColor:"#008080"}}>
+                <View style={{flexDirection:'column', flex:1, alignItems:'center', justifyContent:'center', backgroundColor:"#666865"}}>
                   <Image source={{uri: this.props.picURL}} style={{height:200, width:200, borderRadius: 100}}/>
                   <Text style={{color:"white", fontFamily:"Permanent Marker", fontSize:20, textAlign:"center", backgroundColor:'transparent'}}>{this.props.data.profile.name}</Text>
                   <Text></Text>
