@@ -55,6 +55,8 @@ constructor(props){
             if (value){
               this.setState({loggedIn : true, goneToLogin: true, gotPic: true, picURL:user.photo});
             }
+          }).catch((err) => {
+            console.log(err);
           });
         }
 
@@ -69,6 +71,8 @@ constructor(props){
                   console.log(value);
                   this.setState({fbUserId: value});
                   console.log(this.state);
+                }).catch((err) => {
+                  console.log(err);
                 });
             }
         });
@@ -98,6 +102,8 @@ constructor(props){
                       console.log(error);
                    });
                 }
+              }).catch((err) => {
+                console.log(err);
               });
 
             }
