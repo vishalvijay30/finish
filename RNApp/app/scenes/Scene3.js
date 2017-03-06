@@ -7,7 +7,7 @@ export default class Scene3 extends Component {
 
     constructor (props) {
         super(props);
-        this.state = {text: "Enter Habit", inputHeight: 70};
+        this.state = {text: "Enter Habit", inputHeight: 200};
         this.handleAddItem = this.handleAddItem.bind(this);
         this.decideTextToDisplay = this.decideTextToDisplay.bind(this);
         this.onTextContentSizeChange = this.onTextContentSizeChange.bind(this);
@@ -31,7 +31,7 @@ export default class Scene3 extends Component {
                 </View>
                 <View style = {styles.fillerContainer}>
                 </View>
-                <Image source={require('../images/road.jpg')} style = {styles.middleContainer}>
+                <Image source={require('../images/road.jpg')} style = {styles.middleContainer} defaultSource={require('../images/road.jpg')}>
 
                     <TextInput
                         style = {{height:this.state.inputHeight, fontFamily:"Impact", fontSize:50, color:"white", textAlign:"center"}}
