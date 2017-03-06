@@ -5,7 +5,8 @@ import {
   View,
   TouchableOpacity,
   Navigator,
-  AppState
+  AppState,
+  AsyncStorage
 } from 'react-native';
 
 import HomeScene from './scenes/HomeScene';
@@ -21,16 +22,33 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {scheduleStatus:''};
+    AsyncStorage.setItem('IS_SCHEDULED', 'false');
+    // AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
+    //   this.setState({scheduleStatus:value});
+    // });
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
     this.decideNotificationMessage = this.decideNotificationMessage.bind(this);
-   }
+  }
 
   componentDidMount() {
+    AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem('IS_SCHEDULED', 'false');
+        this.setState({scheduleStatus:'false'});
+      } else {
+        this.setState({scheduleStatus:value});
+      }
+    });
+    var that = this;
     PushNotification.configure({
-            onNotification: function(notification) {
-                console.log('NOTIFICATION:', notification);
-            },
-        });
+        onNotification: function(notification) {
+            console.log('NOTIFICATION:', notification);
+            AsyncStorage.removeItem('IS_SCHEDULED');
+            AsyncStorage.setItem('IS_SCHEDULED', 'false');
+            that.setState({scheduleStatus:'false'});
+        },
+    });
     AppState.addEventListener('change', this.handleAppStateChange);
   }
 
@@ -39,34 +57,54 @@ export default class App extends Component {
   }
 
   handleAppStateChange(appState) {
+    console.log('App State: '+appState);
+    console.log('Schedule Status: '+this.state.scheduleStatus);
     var today = new Date();
-    console.log("App State: " + appState);
-    //if (today.getMinutes() <= 59) {
-    if (today.getHours() < 6 || today.getHours() > 6)
-    if (appState === 'inactive') {
-      PushNotification.localNotificationSchedule({
-        message:this.decideNotificationMessage(),
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 7, 0),
-      });
-    }
+    AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
+      console.log('VALUE: '+value);
+      this.setState({scheduleStatus:value});
+    });
+    if (this.state.scheduleStatus === 'false') {
+      console.log('reached');
+      AsyncStorage.setItem('IS_SCHEDULED', 'true');
+      if (appState === 'inactive') {
+        PushNotification.localNotificationSchedule({
+          message:this.decideNotificationMessage(),
+          date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 30, 0),
+        });
+      }
 
-    if (appState === 'background') {
-      PushNotification.localNotificationSchedule({
-        message:this.decideNotificationMessage(),
-        date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 7, 0),
-      });
+      if (appState === 'background') {
+        PushNotification.localNotificationSchedule({
+          message:this.decideNotificationMessage(),
+          date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 30, 0),
+        });
+      }
     }
-  //}
-}
+  }
 
   getHour() {
     var today = new Date();
-    if (today.getHours() < 6) {
-      return 6;
+    if (today.getHours() < 21) {
+      return 8;
     } else {
-      return 20;
+      return 22;
     }
   }
+
+  // getDate() {
+  //   var today = new Date();
+  //   if (today.getHours() < 6) {
+  //     return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 6, 0, 0);
+  //   } else if (today.getHours() > 6 && today.getHours() < 15) {
+  //     return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 20, 0, 0);
+  //   } else {
+  //     //var tomorrow = new Date(today.getDate() + 1);
+  //     today.setDate(today.getDate() + 1);
+  //     return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 6, 0, 0);
+  //     //return new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 6, 0, 0);
+  //   }
+  // }
 
   decideNotificationMessage() {
     var today = new Date();
@@ -108,7 +146,6 @@ export default class App extends Component {
           <Navigator
             initialRoute = {{screen: 'HomeScene'}}
             renderScene = {(route,nav) => {return this.renderScene(route,nav)}}
-            //configureScene = {(route) => {if (route.screen == "Scene3"){return Navigator.SceneConfigs.VerticalUpSwipeJump}else{return Navigator.SceneConfigs.PushFromRight}}}
           />
       );
 

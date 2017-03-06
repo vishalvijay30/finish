@@ -149,7 +149,6 @@ constructor(props){
                 <Image source={require('../images/logo.png')} style={{width:200, height:200}} />
                 <Text style={{fontFamily:'Permanent Marker', fontSize: 19, color:"white"}}> GET UP AND DO! </Text>
                 <Icon2 name = "spinner-3" size={80} color="grey" />
-                <TouchableOpacity onPress={() => this.handleLogout()}><Text>Logout</Text></TouchableOpacity>
             </View>);
 
         } else {
@@ -166,9 +165,7 @@ constructor(props){
                     <View style = {styles.middleContainer}>
                         <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Losers Have Goals. </Text>
                         <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Winners Have Habits. </Text>
-                        <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
+
                     </View>
 
                 bottomContainer =
