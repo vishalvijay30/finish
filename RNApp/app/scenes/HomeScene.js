@@ -165,9 +165,7 @@ constructor(props){
                     <View style = {styles.middleContainer}>
                         <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Losers Have Goals. </Text>
                         <Text style = {{fontSize:30, color:"white", fontFamily:"Permanent Marker"}}> Winners Have Habits. </Text>
-                        <TouchableOpacity onPress={() => this.handleLogout()}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
+
                     </View>
 
                 bottomContainer =
