@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Navigator,
   AppState,
-  AsyncStorage
+  PushNotificationIOS
 } from 'react-native';
 
 import HomeScene from './scenes/HomeScene';
@@ -22,33 +22,34 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {scheduleStatus:''};
-    AsyncStorage.setItem('IS_SCHEDULED', 'false');
-    // AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
-    //   this.setState({scheduleStatus:value});
-    // });
     this.handleAppStateChange = this.handleAppStateChange.bind(this);
     this.decideNotificationMessage = this.decideNotificationMessage.bind(this);
+    this.onLocalNotification = this.onLocalNotification.bind(this);
+  }
+
+  componentWillMount() {
+    PushNotificationIOS.addEventListener('localNotification', this.onLocalNotification);
+    PushNotificationIOS.requestPermissions();
   }
 
   componentDidMount() {
-    AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
-      if (value == null) {
-        AsyncStorage.setItem('IS_SCHEDULED', 'false');
-        this.setState({scheduleStatus:'false'});
-      } else {
-        this.setState({scheduleStatus:value});
-      }
-    });
-    var that = this;
-    PushNotification.configure({
-        onNotification: function(notification) {
-            console.log('NOTIFICATION:', notification);
-            AsyncStorage.removeItem('IS_SCHEDULED');
-            AsyncStorage.setItem('IS_SCHEDULED', 'false');
-            that.setState({scheduleStatus:'false'});
-        },
-    });
+    //PushNotificationIOS.cancelAllLocalNotifications(0);
+    var today = new Date();
+    if (today.getHours() < 19) {
+      PushNotificationIOS.cancelAllLocalNotifications(0);
+      PushNotificationIOS.scheduleLocalNotification({
+        fireDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 19, 0, 0).toISOString(),
+        alertBody: this.decideNotificationMessage(today),
+      });
+    } else {
+      PushNotificationIOS.cancelAllLocalNotifications(0);
+      today.setDate(today.getDate()+1);
+      PushNotificationIOS.scheduleLocalNotification({
+        fireDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 19, 0, 0).toISOString(),
+        alertBody: this.decideNotificationMessage(today),
+      });
+
+    }
     AppState.addEventListener('change', this.handleAppStateChange);
   }
 
@@ -57,41 +58,11 @@ export default class App extends Component {
   }
 
   handleAppStateChange(appState) {
-    console.log('App State: '+appState);
-    console.log('Schedule Status: '+this.state.scheduleStatus);
-    var today = new Date();
-    AsyncStorage.getItem('IS_SCHEDULED').then((value) => {
-      console.log('VALUE: '+value);
-      this.setState({scheduleStatus:value});
+    console.log("App State: "+appState);
+    PushNotificationIOS.getScheduledLocalNotifications((res) => {
+      console.log(res);
     });
-    if (this.state.scheduleStatus === 'false') {
-      console.log('reached');
-      AsyncStorage.setItem('IS_SCHEDULED', 'true');
-      if (appState === 'inactive') {
-        PushNotification.localNotificationSchedule({
-          message:this.decideNotificationMessage(),
-          date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 30, 0),
-        });
-      }
-
-      if (appState === 'background') {
-        PushNotification.localNotificationSchedule({
-          message:this.decideNotificationMessage(),
-          date: new Date(today.getFullYear(), today.getMonth(), today.getDate(), this.getHour(), 30, 0),
-        });
-      }
-    }
   }
-
-  getHour() {
-    var today = new Date();
-    if (today.getHours() < 21) {
-      return 8;
-    } else {
-      return 22;
-    }
-  }
-
   // getDate() {
   //   var today = new Date();
   //   if (today.getHours() < 6) {
@@ -106,38 +77,34 @@ export default class App extends Component {
   //   }
   // }
 
-  decideNotificationMessage() {
-    var today = new Date();
+  decideNotificationMessage(notifDate) {
+    var today = notifDate;
 
-    if (today.getDay() == 1 && today.getHours() < 6) {
-      return "Rise and shine! Your week starts today. Get off to the right start by completing one of your habits right away!";
-    } else if (today.getDay() == 1 && today.getHours() >= 6) {
+    if (today.getDay() == 1) {
       return "Any habits remaining that need to be completed? Would not want to start the week off without a perfect Monday. Let’s finish those remaining habits!";
-    } else if (today.getDay() == 2 && today.getHours() < 6) {
-      return "Good morning! Use yesterday’s momentum to start on the right foot!";
-    } else if (today.getDay() == 2 && today.getHours() >= 6) {
+    } else if (today.getDay() == 2) {
       return "Complete any last habits you have. Keep both your streak and your momentum going!";
-    } else if (today.getDay() == 3 && today.getHours() < 6) {
-      return "Halfway there! Take it one week at a time and you will be surprised how your progress adds up :)";
-    } else if (today.getDay() == 3 && today.getHours() >= 6) {
-      return "This is too easy for you. You got this!";
-    } else if (today.getDay() == 4 && today.getHours() < 6) {
-      return "Almost at the end of the workweek! End the week strong with no regrets :)";
-    } else if (today.getDay() == 4 && today.getHours() >=6) {
-      return "This is where we separate the adults from the children. Push through and get it done!";
-    } else if (today.getDay() == 5 && today.getHours() < 6) {
-      return "Clear eyes, full hearts, Can’t Lose!";
-    } else if (today.getDay() == 5 && today.getHours() >= 6) {
-      return "Spend a couple years of your life doing stuff others won’t, so you can spend the rest of your life doing stuff others can’t.";
-    } else if (today.getDay() == 6 && today.getHours() < 6) {
-      return "Remember. Offense, never defense. Those who are on the offensive win. We know you like to win.";
-    } else if (today.getDay() == 6 && today.getHours() >=6) {
+    } else if (today.getDay() == 3) {
+      return "This is too easy for you. You got this :) Finish up those last couple habits!";
+    } else if (today.getDay() == 4) {
+      return "One more day till the weekend. Any last habits remaining? Get Them Done!";
+    } else if (today.getDay() == 5) {
+      return "Keep your streaks alive!";
+    } else if (today.getDay() == 6) {
       return "Enjoy your day off from work? Good, now complete those habits to keep those streaks alive!";
-    } else if (today.getDay() == 0 && today.getHours() < 6) {
-      return "Relish in the positive, criticize the negative. What habits did you complete? What habits did you struggle to finish?";
-    } else if (today.getDay() == 0 && today.getHours() >= 6) {
-      return "Recharge, and get excited. We got another week ahead and we are all on the same journey with you. Remember one week at a time!";
+    } else if (today.getDay() == 0) {
+      return "Recharge, and get excited. We got another week ahead and we are all on the same journey with you. Remember one week at a time.";
     }
+  }
+
+  onLocalNotification(notification) {
+    console.log(notification);
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+      PushNotificationIOS.scheduleLocalNotification({
+        fireDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 19, 0, 0).toISOString(),
+        alertBody: this.decideNotificationMessage(today),
+      });
   }
 
   render() {
