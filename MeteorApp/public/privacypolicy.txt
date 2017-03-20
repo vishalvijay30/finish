@@ -1,0 +1,19 @@
+Any information you give to the app will remain confidential between the creators of the app and the user. No personal information including names, email addresses and social media profiles will be shared to the general public. General metrics may be shared, such as number of users.
+
+Information We Collect
+When using our app/service we collect certain information using the facebook and google logins. We may collect a facebook username and gmail email. We may also ask and collect other information which will be expressed clearly as personal information. We also may aggregate data to view trends and demographics. You may receive periodic emails or facebook messages when joining our service. Also in the creation of the app we may locally retrieve some information about the user such as time zone and approximate geographic information, however this information will not be publicly shared.
+
+Disclosure of Information to Third Parties
+Finish reserves the right to disclose information provided by the user in three specific instances
+Disclosure by Law. We will disclose any information necessary when asked by the law in any instance. Disclosure is reasonable to comply with the law.
+Disclosure to Third Party Service Providers. This may occur when needing a third party service provider to perform any specific function related to the app.
+Data/Information Transfer As a Result of Sale of Business. If Finish is bankrupt or acquired we reserve the right to sell or transfer user information as part of any such transaction. To the maximum extent by the law the privacy policy will apply to user information. However, after such a transfer or acquisition takes place the new privacy policy not created by us will be in effect.
+
+Third Party Websites/Advertisements
+We are not responsible for any information collected by links to third party websites despite those links being on our app. Also we are not responsible for any information collected by advertisements on our app.
+
+App Security
+Please note that data is transported over an open network. We cannot guarantee the confidentiality of any communication or material transported over the internet or email. So, when disclosing any personal information please be mindful of this. We are not liable for any loss of data or information (including personal information) during transfer of information via the internet. If concerned about these reasons, then please contact us via other means of communication.
+
+Additional Information
+The privacy policy is part of the terms and conditions and any use of the app is governed by those terms and conditions. Questions regarding the privacy policy and/or terms of service should be emailed to finishtheapp@gmail.com
