@@ -29,8 +29,7 @@ export default class Scene3 extends Component {
                         <TouchableOpacity style={{paddingLeft:10}}onPress={this.goBack.bind(this)}><Icon name = "ios-arrow-back" size = {50} color="white" /></TouchableOpacity>
                         <Text style = {{ color:"white",fontSize:30, fontFamily:"Rock Salt", flex: 1, textAlign:'center' }}> FINISH </Text>
                 </View>
-                <View style = {styles.fillerContainer}>
-                </View>
+
                 <Image source={require('../images/road.jpg')} style = {styles.middleContainer} defaultSource={require('../images/road.jpg')}>
 
                     <TextInput

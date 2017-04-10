@@ -172,7 +172,7 @@ constructor(props){
                     <View style = {styles.bottomContainer}>
                         <Icon.Button style = {{width: Dimensions.get('window').width}} name = "ios-add-circle-outline" size = {60} onPress = {this.goToNextScene.bind(this)}>
 
-                            <Text style = {{fontSize:40, color:"white"}}> CREATE A HABIT </Text>
+                            <Text style = {{fontSize:(0.1 * Dimensions.get('window').width), color:"white"}}> CREATE A HABIT </Text>
 
                         </Icon.Button>
                     </View>

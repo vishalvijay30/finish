@@ -32,9 +32,9 @@ export default class Scene5 extends Component {
     render() {
         let emoji = null;
         if (this.state.emojiState==false) {
-            emoji = <Icon name="frown-o" size={200} color="#D71F3E" />
+            emoji = <Icon name="frown-o" size={180} color="#D71F3E" />
         } else {
-            emoji = <Icon name="smile-o" size={200} color="#1BA541" />
+            emoji = <Icon name="smile-o" size={180} color="#1BA541" />
         }
 
         return (
@@ -59,7 +59,7 @@ export default class Scene5 extends Component {
                     <View><Icon2 name ="ios-flame" size={30} color="red"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.streak}</Text></Icon2></View>
                     <Text></Text>
                     <View><Icon name ="star" size={30} color="yellow"><Text style={{color:"white", fontFamily:"Impact"}}> {this.props.habit.max}</Text></Icon></View>
-                    <Text></Text>
+
                     <TouchableOpacity onPress={this.toggleEmojiState}>
                         {emoji}
                     </TouchableOpacity>
