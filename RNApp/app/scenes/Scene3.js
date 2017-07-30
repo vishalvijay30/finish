@@ -35,7 +35,9 @@ export default class Scene3 extends Component {
                     <TextInput
                         style = {{height:this.state.inputHeight, fontFamily:"Impact", fontSize:50, color:"white", textAlign:"center"}}
                         placeholder = {this.state.text}
+                        placeholderTextColor={'white'}
                         multiLine = {true}
+                        autoFocus = {true}
                         numberOfLines = {4}
                         onChangeText = {(text) => this.decideTextToDisplay(text)}
                         onContentSizeChange = {this.onTextContentSizeChange.bind(this)}
