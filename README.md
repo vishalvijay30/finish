@@ -3,6 +3,8 @@ Finish App
 
 A cross-platform app developed using React-Native and Meteor.js that encourages users to set and finish personal goals
 
+Check it out on the app store at https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1219809921&mt=8
+
 To run the current version of the app:
 
 Android:
